@@ -1,0 +1,47 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  background-color: var(--gray-1);
+  color: var(--secondary-color);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0;
+}
+
+.left,
+.right,
+.middle {
+  width: 33%;
+  text-align: center;
+}
+
+.left p,
+.right p {
+  padding-left: 10px;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.middle {
+  border-left: solid 2px #e6c229;
+  border-right: solid 2px #e6c229;
+}
+
+a {
+  color: var(--secondary-color);
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+.icon {
+  margin-right: 1rem;
+  font-size: 3rem;
+}

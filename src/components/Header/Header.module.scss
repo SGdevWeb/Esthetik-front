@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--gray-1);
+  color: var(--secondary-color);
+  padding: 10px;
+}
+
+.logo {
+  color: var(--secondary-color);
+  font-family: "MoonTime", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.navbar {
+  font-size: 24px;
+  ul {
+    display: flex;
+    li {
+      padding: 10px;
+      a {
+        color: var(--secondary-color);
+      }
+    }
+  }
+}
