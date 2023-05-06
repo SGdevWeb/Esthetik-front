@@ -1,3 +1,23 @@
 .container {
-  background-color: var(--gray-2);
+  min-height: calc(100vh - 87px);
+  background-color: white;
+}
+
+.imageContainer {
+  position: relative;
+  .image {
+    background-image: url(../../assets/images/image1.jpg);
+    margin-bottom: -5px;
+    margin-top: 5px;
+  }
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, lightgray 2%, transparent 90%),
+      linear-gradient(90deg, lightgray 2%, transparent 90%);
+    opacity: 0.3;
+  }
 }

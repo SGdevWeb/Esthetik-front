@@ -34,20 +34,33 @@ function Location() {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={compareCity}>
-        <input
-          onChange={handleChange}
-          className={styles.input}
-          type="text"
-          id="ville"
-          placeholder="Ou habitez-vous ?"
-          name="ville"
-          value={inputValue}
-        />
-        {error && <small className={styles.error}>{error}</small>}
-        <button type="submit">Valider</button>
-      </form>
-      <p className={styles.message}>{message}</p>
+      <h2 className={styles.title}>Je me déplace chez vous</h2>
+      <div className={styles.content}>
+        <section>
+          <p>
+            Afin de vérifier si votre domicile fait parti du secteur où Virginie
+            peut se déplacer,
+            <br /> veuillez remplir le champs en renseignant la ville de votre
+            domicile
+          </p>
+        </section>
+        <section>
+          <form className={styles.form} onSubmit={compareCity}>
+            <input
+              onChange={handleChange}
+              className={styles.input}
+              type="text"
+              id="ville"
+              placeholder="Ville"
+              name="ville"
+              value={inputValue}
+            />
+            {error && <small className={styles.error}>{error}</small>}
+            <button type="submit">VALIDER</button>
+          </form>
+          <p className={styles.message}>{message}</p>
+        </section>
+      </div>
     </div>
   );
 }

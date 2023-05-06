@@ -1,0 +1,15 @@
+.container {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 1.4rem;
+  }
+}
+
+.text {
+  text-align: justify;
+  padding: 40px;
+  color: var(--gray-1);
+}

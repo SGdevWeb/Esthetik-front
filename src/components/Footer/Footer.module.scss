@@ -1,12 +1,13 @@
 .container {
-  position: absolute;
-  bottom: 0;
   background-color: var(--gray-1);
   color: var(--secondary-color);
   width: 100%;
   display: flex;
   justify-content: space-around;
   padding: 20px 0;
+  p {
+    font-size: 1.5rem;
+  }
 }
 
 .left,
@@ -35,10 +36,6 @@
 
 a {
   color: var(--secondary-color);
-}
-
-p {
-  font-size: 1.5rem;
 }
 
 .icon {

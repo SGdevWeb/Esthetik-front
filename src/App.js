@@ -7,7 +7,7 @@ import TarifPage from "./pages/TarifPage/TarifPage";
 
 function App() {
   return (
-    <div className={`d-flex flex-column ${styles.appContainer}`}>
+    <div className={styles.appContainer}>
       <Router>
         <Header />
         <Routes>
