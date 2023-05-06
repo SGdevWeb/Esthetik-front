@@ -5,39 +5,39 @@
     "tarifs": [
       {
         "title": "Sourcils ou lèvre ou joues",
-        "price": 20
+        "price": "6€"
       },
       {
         "title": "Aisselles",
-        "price": 8
+        "price": "8€"
       },
       {
         "title": "Avant bras",
-        "price": 8
+        "price": "8€"
       },
       {
         "title": "Bras",
-        "price": 10
+        "price": "10€"
       },
       {
         "title": "Maillot simple",
-        "price": 10
+        "price": "10€"
       },
       {
         "title": "Maillot brésilien",
-        "price": 14
+        "price": "14€"
       },
       {
         "title": "Maillot intégral",
-        "price": 18
+        "price": "18€"
       },
       {
         "title": "1/2 jambes ou cuisses",
-        "price": 12
+        "price": "12€"
       },
       {
         "title": "Jambes complètes",
-        "price": 18
+        "price": "18€"
       }
     ]
   },
@@ -47,23 +47,23 @@
     "tarifs": [
       {
         "title": "Soin Cocooning Cog",
-        "price": 29
+        "price": "29€"
       },
       {
         "title": "Soin Hyaluronique Ha+",
-        "price": 49
+        "price": "49€"
       },
       {
         "title": "Soin Pure Pu",
-        "price": 49
+        "price": "49€"
       },
       {
         "title": "Soin Vitamine C Vic",
-        "price": 49
+        "price": "49€"
       },
       {
         "title": "Soin Global Gi+",
-        "price": 59
+        "price": "59€"
       }
     ]
   },
@@ -73,15 +73,15 @@
     "tarifs": [
       {
         "title": "2 zones épilées",
-        "price": 10
+        "price": "10%"
       },
       {
         "title": "3 zones épilées",
-        "price": 20
+        "price": "20%"
       },
       {
         "title": "A partir de 4 zones épilées",
-        "price": 30
+        "price": "30%"
       }
     ]
   },
@@ -91,19 +91,19 @@
     "tarifs": [
       {
         "title": "Relaxation dos 20'",
-        "price": 20
+        "price": "20€"
       },
       {
         "title": "Modelage Oriental",
-        "price": 40
+        "price": "40€"
       },
       {
         "title": "Modelage Californien",
-        "price": 50
+        "price": "50€"
       },
       {
         "title": "Femme enceinte",
-        "price": 50
+        "price": "50€"
       }
     ]
   },
@@ -113,31 +113,31 @@
     "tarifs": [
       {
         "title": "Extensions cils à cils",
-        "price": 59
+        "price": "59€"
       },
       {
         "title": "Extensions volume Russe",
-        "price": 69
+        "price": "69€"
       },
       {
         "title": "Remplissage 3 semaines",
-        "price": 29
+        "price": "29€"
       },
       {
         "title": "Remplissage 5 semaines",
-        "price": 39
+        "price": "39€"
       },
       {
         "title": "Dépose et soin",
-        "price": 20
+        "price": "20€"
       },
       {
         "title": "Rehaussement de cils",
-        "price": 34
+        "price": "34€"
       },
       {
         "title": "Teinture cils ou sourcils",
-        "price": 10
+        "price": "10€"
       }
     ]
   },
@@ -147,15 +147,15 @@
     "tarifs": [
       {
         "title": "Soins des mains + vernis classique",
-        "price": 34
+        "price": "34€"
       },
       {
         "title": "Pose vernis classique",
-        "price": 10
+        "price": "10€"
       },
       {
         "title": "Pose vernis semis-permanent",
-        "price": 20
+        "price": "20€"
       }
     ]
   },
@@ -165,19 +165,19 @@
     "tarifs": [
       {
         "title": "Maquillage jour",
-        "price": 16
+        "price": "16€"
       },
       {
         "title": "Maquillage soirée",
-        "price": 21
+        "price": "21€"
       },
       {
         "title": "Maquillage mariée + essai",
-        "price": 25
+        "price": "25€"
       },
       {
         "title": "Essai maquillage mariée",
-        "price": 15
+        "price": "15€"
       }
     ]
   }

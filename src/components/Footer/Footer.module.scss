@@ -23,7 +23,8 @@
 }
 
 .left,
-.right {
+.right,
+.middle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,6 +40,6 @@ a {
 }
 
 .icon {
-  margin-right: 1rem;
+  padding: 0 1rem;
   font-size: 3rem;
 }

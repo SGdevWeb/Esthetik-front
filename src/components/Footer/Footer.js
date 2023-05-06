@@ -3,6 +3,11 @@ import styles from "./Footer.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookSquare,
+  faInstagramSquare,
+  faSnapchatSquare,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Mailto = ({ email, subject = "", body = "", children }) => {
   let params = subject || body ? "?" : "";
@@ -20,7 +25,9 @@ function Footer() {
         <p>06 04 19 75 61</p>
       </div>
       <div className={styles.middle}>
-        <p>Valenciennes et alentours</p>
+        <FontAwesomeIcon className={styles.icon} icon={faSnapchatSquare} />
+        <FontAwesomeIcon className={styles.icon} icon={faFacebookSquare} />
+        <FontAwesomeIcon className={styles.icon} icon={faInstagramSquare} />
       </div>
       <div className={styles.right}>
         <FontAwesomeIcon className={styles.icon} icon={faEnvelope} />
