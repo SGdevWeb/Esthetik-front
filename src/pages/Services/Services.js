@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./TarifPage.module.scss";
+import styles from "./Services.module.scss";
 import TarifCard from "../../components/Tarifs/TarifCard/TarifCard";
 import TarifData from "../../data/tarif.json";
 import logo from "../../assets/images/Eclat de beauté.png";
 import PromotionsCard from "../../components/Tarifs/PromotionsCard/PromotionsCard";
 
-function TarifPage() {
+function Services() {
   console.log(TarifData);
   return (
     <div className={styles.container}>
@@ -27,4 +27,4 @@ function TarifPage() {
   );
 }
 
-export default TarifPage;
+export default Services;

@@ -1,20 +1,13 @@
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import styles from "./App.module.scss";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import TarifPage from "./pages/TarifPage/TarifPage";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <div className={styles.appContainer}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tarif" element={<TarifPage />} />
-        </Routes>
-      </Router>
+      <Header />
+      <Outlet />
       <Footer />
     </div>
   );
