@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 function Header() {
@@ -11,10 +11,12 @@ function Header() {
       <nav className={styles.navbar}>
         <ul>
           <li>
-            <Link to="/">Accueil</Link>
+            <NavLink end to="/">
+              Accueil
+            </NavLink>
           </li>
           <li>
-            <Link to="/prestations">Prestations</Link>
+            <NavLink to="/prestations">Prestations</NavLink>
           </li>
         </ul>
       </nav>
