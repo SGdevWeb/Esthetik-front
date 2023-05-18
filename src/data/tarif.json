@@ -68,24 +68,6 @@
     ]
   },
   {
-    "id": 3,
-    "service": "Forfait épilations",
-    "prestations": [
-      {
-        "title": "2 zones épilées",
-        "price": "10%"
-      },
-      {
-        "title": "3 zones épilées",
-        "price": "20%"
-      },
-      {
-        "title": "A partir de 4 zones épilées",
-        "price": "30%"
-      }
-    ]
-  },
-  {
     "id": 4,
     "service": "Modelage Corps",
     "prestations": [
