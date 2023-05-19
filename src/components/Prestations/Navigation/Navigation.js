@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Navigation.module.scss";
 import data from "../../../data/tarif.json";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navigation() {
   return (
@@ -18,9 +18,6 @@ function Navigation() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        <Outlet />
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Home.module.scss";
 import Location from "./components/Location";
 import Presentation from "./components/Presentation";
-import image from "../../assets/images/image1.jpg";
+import image from "../../assets/images/imageHome.jpg";
 
 function Home() {
   return (

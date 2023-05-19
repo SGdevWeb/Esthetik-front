@@ -1,9 +1,13 @@
 .container {
-  padding: 20px;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 .content {
-  background-color: lightblue;
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  font-size: 1.2rem;
+  text-align: center;
 }

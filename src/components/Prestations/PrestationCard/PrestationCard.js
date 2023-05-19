@@ -6,6 +6,7 @@ function PrestationCard({ title, price, description }) {
     <div className={styles.container}>
       <div className={styles.titleAndPrice}>
         <h2 className={styles.title}>{title}</h2>
+        <div className={styles.dotted}></div>
         <div className={styles.price}>{price}</div>
       </div>
       <div className={styles.description}></div>

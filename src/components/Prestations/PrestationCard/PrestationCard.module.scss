@@ -12,12 +12,20 @@
   font-weight: 500;
   font-size: 1.5rem;
   color: var(--gray-1);
+  margin-right: 20px;
 }
 
 .price {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   font-size: 1.5rem;
   color: var(--primary-color);
+  margin-left: 20px;
+}
+
+.dotted {
+  flex-grow: 1;
+  border-bottom: 1px dotted var(--primary-color);
+  margin-bottom: 8px;
 }
