@@ -5,8 +5,30 @@
   flex-wrap: wrap;
   width: 70%;
   margin: auto;
-  img {
-    border-radius: 5px;
-    margin-top: 40px;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+.image {
+  border-radius: 5px;
+  margin-top: 40px;
+  opacity: 0;
+  animation: fade-in 2s ease-in-out forwards;
+}
+
+.imagePlaceholder {
+  height: 500px;
+  width: 200px;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
 }
