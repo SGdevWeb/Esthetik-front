@@ -1,11 +1,15 @@
 .container {
   margin: auto;
+  margin-top: 30px;
   width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   h2 {
-    padding: 30px;
+    color: var(--primary-color);
+    padding: 20px;
+    border-bottom: 1px solid var(--primary-color);
+    border-top: 1px solid var(--primary-color);
   }
 }
 
@@ -23,11 +27,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
+  text-shadow: 1px 1px 2px white;
   text-align: center;
   font-size: 3rem;
 }
 
 .description {
   font-size: 1.2rem;
-  text-align: justify;
+  align-self: flex-start;
 }

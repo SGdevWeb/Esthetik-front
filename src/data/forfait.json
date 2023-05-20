@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "title": "Epilations",
+    "service": "Epilation",
+    "discounts": [
+      {
+        "title": "2 zones épilées",
+        "discount": "- 10%"
+      },
+      {
+        "title": "3 zones épilées",
+        "discount": "- 20%"
+      },
+      {
+        "title": "A partir de 4 zones épilées",
+        "discount": "- 30%"
+      }
+    ]
+  }
+]

@@ -17,6 +17,9 @@ function Navigation() {
               </NavLink>
             </li>
           ))}
+          <li>
+            <NavLink to="/prestations/forfait">Forfait</NavLink>
+          </li>
         </ul>
       </div>
     </>

@@ -23,11 +23,15 @@ function Promotion() {
   return (
     <div className={styles.container}>
       <h2>{activePromotion.title}</h2>
+      <p className={styles.description}>{activePromotion.promotionText}</p>
       <div className={styles.promotionContainer}>
         <img src={promotionImage} alt={activePromotion.service} />
         <p className={styles.promotionText}>{activePromotion.imageText}</p>
       </div>
-      <p className={styles.description}>{activePromotion.promotionText}</p>
+      <p>
+        Offre valable jusqu'au{" "}
+        {activePromotion.endDate.split(" ").reverse().join(" ")}
+      </p>
     </div>
   );
 }
