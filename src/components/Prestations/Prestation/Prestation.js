@@ -6,20 +6,22 @@ import { useParams } from "react-router-dom";
 
 function Prestation() {
   const serviceName = useParams().service.split("_").join(" ");
-  console.log(serviceName);
-  const dataEpilations = data.find(
-    (service) => service.service === serviceName
-  );
-  console.log(dataEpilations);
+  const dataService = data.find((service) => service.service === serviceName);
+
   return (
     <div className={styles.container}>
-      {dataEpilations.prestations.map((prestation, index) => (
+      {dataService.prestations.map((prestation, index) => (
         <PrestationCard
           key={index}
           title={prestation.title}
           price={prestation.price}
         />
       ))}
+      <img
+        src={`/images/prestation/${dataService.picture}.jpg`}
+        alt={dataService.picture}
+        loading="lazy"
+      />
     </div>
   );
 }

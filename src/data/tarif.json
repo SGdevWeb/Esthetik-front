@@ -2,6 +2,7 @@
   {
     "id": 1,
     "service": "Epilations",
+    "picture": "epilation",
     "prestations": [
       {
         "title": "Sourcils ou lèvre ou joues",
@@ -44,6 +45,7 @@
   {
     "id": 2,
     "service": "Soins visage",
+    "picture": "visage",
     "prestations": [
       {
         "title": "Soin Cocooning Cog",
@@ -70,6 +72,7 @@
   {
     "id": 4,
     "service": "Modelage Corps",
+    "picture": "modelage",
     "prestations": [
       {
         "title": "Relaxation dos 20'",
@@ -92,6 +95,7 @@
   {
     "id": 5,
     "service": "Beauté du Regard",
+    "picture": "regard",
     "prestations": [
       {
         "title": "Extensions cils à cils",
@@ -126,6 +130,7 @@
   {
     "id": 6,
     "service": "Beauté des Mains",
+    "picture": "main",
     "prestations": [
       {
         "title": "Soins des mains + vernis classique",
@@ -144,6 +149,7 @@
   {
     "id": 7,
     "service": "Maquillage",
+    "picture": "maquillage",
     "prestations": [
       {
         "title": "Maquillage jour",
