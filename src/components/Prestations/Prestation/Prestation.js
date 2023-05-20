@@ -18,7 +18,8 @@ function Prestation() {
         />
       ))}
       <img
-        src={`/images/prestation/${dataService.picture}.jpg`}
+        key={dataService.id}
+        src={require(`../../../assets/images/prestation/${dataService.picture}.jpg`)}
         alt={dataService.picture}
         loading="lazy"
       />
