@@ -25,7 +25,11 @@ function Promotion() {
       <h2>{activePromotion.title}</h2>
       <p className={styles.description}>{activePromotion.promotionText}</p>
       <div className={styles.promotionContainer}>
-        <img src={promotionImage} alt={activePromotion.service} />
+        <img
+          src={promotionImage}
+          alt={activePromotion.service}
+          className={styles.image}
+        />
         <p className={styles.promotionText}>{activePromotion.imageText}</p>
       </div>
       <p>

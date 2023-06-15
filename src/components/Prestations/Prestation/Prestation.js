@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./Prestation.module.scss";
 import PrestationCard from "../PrestationCard/PrestationCard";
 import data from "../../../data/tarif.json";
 import { useParams } from "react-router-dom";
 
 function Prestation() {
-  console.log("rendu");
-  const [showImage, setShowImage] = useState(false);
-  console.log(showImage);
   const serviceName = useParams().service.split("_").join(" ");
   const dataService = data.find((service) => service.service === serviceName);
-
-  useEffect(() => {
-    setShowImage(false);
-    const timer = setTimeout(() => {
-      setShowImage(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [serviceName]);
 
   return (
     <div className={styles.container}>
@@ -29,19 +17,14 @@ function Prestation() {
           price={prestation.price}
         />
       ))}
-      <div
-        className={`${styles.imagePlaceholder} ${
-          showImage ? styles.hidden : ""
-        }`}
-      ></div>
-      {showImage && (
+      <div className={styles.imageContainer}>
         <img
           key={dataService.id}
           src={require(`../../../assets/images/prestation/${dataService.picture}.jpg`)}
           alt={dataService.picture}
           className={`${styles.image}`}
         />
-      )}
+      </div>
     </div>
   );
 }

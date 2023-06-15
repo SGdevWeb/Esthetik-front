@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "title": "Promotion sur les Soins du Visage",
+    "title": "Offre sur les Soins du Visage",
     "service": "Soin du visage",
     "imageText": "Obtenez 20% de réduction sur nos soins du visage",
     "promotionText": "Profitez de notre promotion exceptionnelle sur les soins du visage pour obtenir une peau éclatante et revitalisée.",
-    "startDate": "2023 05 01",
-    "endDate": "2023 05 31"
+    "startDate": "2023 06 01",
+    "endDate": "2023 06 30"
   }
 ]

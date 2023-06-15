@@ -20,9 +20,9 @@
 
 .content {
   article:first-child {
-    display: flex;
+    width: 50%;
+    margin: auto;
     section {
-      width: 50%;
       padding: 20px 0;
       display: flex;
       align-items: center;
@@ -32,6 +32,10 @@
         margin: 0;
       }
     }
+  }
+  article:last-child {
+    width: 70%;
+    margin: auto;
   }
 }
 
@@ -44,9 +48,7 @@
     height: 30px;
     border-radius: 5px;
     border: solid var(--secondary-color) 1px;
-    &::placeholder {
-      padding-left: 5px;
-    }
+    margin-bottom: 10px;
   }
   button {
     height: 30px;
@@ -55,6 +57,7 @@
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    margin: auto;
   }
   small {
     margin-left: 5px;

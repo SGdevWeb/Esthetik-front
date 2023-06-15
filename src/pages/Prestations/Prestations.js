@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Prestations.module.scss";
 import Navigation from "../../components/Prestations/Navigation/Navigation";
 import Promotion from "../../components/Prestations/Promotion/Promotion";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 
 function Prestations() {
   const params = useParams();
@@ -25,10 +25,15 @@ function Prestations() {
                 soin de vous et sublimer votre beauté.
               </p>
               <p>
-                Que vous ayez besoin d'une épilation professionnelle, d'un
-                maquillage pour une occasion spéciale, d'un soin du visage
-                adapté à votre type de peau ou d'une manucure impeccable, je
-                suis prête à répondre à tous vos besoins.
+                Que vous ayez besoin d'une{" "}
+                <Link to="/prestations/Epilations">épilation</Link>{" "}
+                professionnelle, d'un{" "}
+                <Link to="/prestations/Maquillage">maquillage</Link> pour une
+                occasion spéciale, d'un{" "}
+                <Link to="/prestations/Soins_visage">soin du visage</Link>{" "}
+                adapté à votre type de peau ou d'une{" "}
+                <Link to="/prestations/Beauté_des_Mains">manucure</Link>{" "}
+                impeccable, je suis prête à répondre à tous vos besoins.
               </p>
             </div>
             <Promotion />

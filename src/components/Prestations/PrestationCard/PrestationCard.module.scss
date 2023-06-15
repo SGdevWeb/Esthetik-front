@@ -18,13 +18,14 @@
 .price {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-end;
   font-size: 1.5rem;
   color: var(--primary-color);
   margin-left: 20px;
 }
 
 .dotted {
+  min-width: 10px;
   flex-grow: 1;
   border-bottom: 1px dotted var(--primary-color);
   margin-bottom: 8px;

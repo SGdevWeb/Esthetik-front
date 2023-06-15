@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Location.module.scss";
 
-const Mailto = ({ email, subject = "", body = "", children }) => {
-  let params = subject || body ? "?" : "";
-  if (subject) params += `subject=${encodeURIComponent(subject)}`;
-  if (body) params += `${subject ? "&" : ""}body=${encodeURIComponent(body)}`;
-
-  return <a href={`mailto:${email}${params}`}>{children}</a>;
-};
-
 function Location() {
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState("");
@@ -48,9 +40,8 @@ function Location() {
           <section>
             <p>
               Afin de vérifier si votre domicile fait parti du secteur où je
-              peux se déplacer,
-              <br /> veuillez remplir le champs en renseignant la ville de votre
-              domicile
+              peux me déplacer, veuillez remplir le champs en renseignant la
+              ville de votre domicile
             </p>
           </section>
           <section>
@@ -60,7 +51,7 @@ function Location() {
                 className={styles.input}
                 type="text"
                 id="ville"
-                placeholder="Ville"
+                placeholder="Entrez la ville de votre domicile"
                 name="ville"
                 value={inputValue}
               />
@@ -73,19 +64,8 @@ function Location() {
         <article>
           <p>
             Si vous habitez dans la zone de déplacement, vous pouvez prendre
-            rendez-vous avec moi par <b>téléphone</b> ou par <b>e-mail</b>.
+            rendez-vous par <b>téléphone</b> ou par <b>e-mail</b>.
           </p>
-          <div className="d-flex justify-content-center">
-            <div className={styles.tel}>06 04 15 78 13</div>
-            <div className={styles.mail}>
-              <Mailto
-                className={styles.mailto}
-                email="virginie.ballini@gmail.com"
-              >
-                virginie.ballini@gmail.com
-              </Mailto>
-            </div>
-          </div>
           <p>
             Je serais ravis de vous aider à planifier votre rendez-vous, en
             fonction de vos disponibilités. J'apporterais tout le matériel

@@ -15,9 +15,15 @@
 
 .promotionContainer {
   position: relative;
-  img {
-    border-radius: 10px;
-  }
+  height: 500px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.image {
+  object-fit: cover;
+  opacity: 0.7;
+  border-radius: 10px;
 }
 
 .promotionText {
