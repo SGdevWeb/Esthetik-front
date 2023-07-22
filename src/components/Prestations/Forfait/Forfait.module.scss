@@ -1,10 +1,21 @@
+@use "../../../assets/styles/mixin" as mixin;
+
 .container {
   padding: 40px;
   font-size: 1.2rem;
   width: 80%;
   margin: auto;
+  @include mixin.breakpoint-mobileL {
+    width: 100%;
+    padding: 10px;
+  }
   p {
     margin-bottom: 40px;
+    @include mixin.breakpoint-mobileL {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      text-align: center;
+    }
   }
 }
 
@@ -17,5 +28,8 @@
     color: var(--primary-color);
     border-bottom: 1px solid var(--primary-color);
     margin-bottom: 30px;
+    @include mixin.breakpoint-mobileL {
+      margin-bottom: 10px;
+    }
   }
 }

@@ -1,18 +1,29 @@
+@use "../../../assets/styles/mixin" as mixin;
+
 .container {
   width: 50%;
+  @include mixin.breakpoint-mobileL {
+    width: 100%;
+  }
 }
 
 .titleAndPrice {
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
+  @include mixin.breakpoint-mobileL {
+    padding: 10px;
+  }
 }
 
 .title {
   font-weight: 500;
   font-size: 1.5rem;
   color: var(--gray-1);
-  margin-right: 20px;
+  margin-right: 10px;
+  @include mixin.breakpoint-mobileL {
+    font-size: 1rem;
+  }
 }
 
 .price {
@@ -21,12 +32,17 @@
   align-items: flex-end;
   font-size: 1.5rem;
   color: var(--primary-color);
-  margin-left: 20px;
+  margin-left: 10px;
+  @include mixin.breakpoint-mobileL {
+    font-size: 1rem;
+  }
 }
 
 .dotted {
-  min-width: 10px;
   flex-grow: 1;
   border-bottom: 1px dotted var(--primary-color);
   margin-bottom: 8px;
+  @include mixin.breakpoint-mobileL {
+    margin-bottom: 5px;
+  }
 }

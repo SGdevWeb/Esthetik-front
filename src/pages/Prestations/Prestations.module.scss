@@ -1,7 +1,12 @@
+@use "./../../assets/styles/mixin" as mixin;
+
 .container {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  @include mixin.breakpoint-mobileL {
+    padding: 0;
+  }
 }
 
 .content {
@@ -10,4 +15,16 @@
   padding: 20px;
   font-size: 1.2rem;
   text-align: center;
+  @include mixin.breakpoint-mobileL {
+    display: none;
+  }
+}
+
+.contentMobile {
+  display: none;
+  text-align: center;
+  padding: 0 20px;
+  @include mixin.breakpoint-mobileL {
+    display: flex;
+  }
 }
