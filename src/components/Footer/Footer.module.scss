@@ -1,38 +1,73 @@
+@use "../../assets/styles/mixin" as mixin;
+
 .container {
   background-color: var(--gray-1);
   color: var(--secondary-color);
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   padding: 20px 0;
   p {
     font-size: 1.5rem;
   }
 }
 
-.left,
-.right,
-.middle {
-  width: 33%;
-  text-align: center;
-}
-
-.left p,
-.right p {
-  padding-left: 10px;
-}
-
-.left,
-.right,
-.middle {
+.contact {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  @include mixin.breakpoint-tablette {
+    flex-direction: column;
+  }
+  .left,
+  .right,
+  .middle {
+    width: 33%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include mixin.breakpoint-tablette {
+      width: 70%;
+      margin: auto;
+    }
+  }
+}
+
+.left,
+.right {
+  p {
+    padding-left: 10px;
+    @include mixin.breakpoint-laptop {
+      font-size: 1rem;
+    }
+  }
+}
+
+.left,
+.right {
+  .icon {
+    @include mixin.breakpoint-laptop {
+      font-size: xx-large;
+    }
+    @include mixin.breakpoint-mobileL {
+      display: none;
+    }
+  }
+}
+
+.left {
+  @include mixin.breakpoint-tablette {
+    border-bottom: solid 1px #e6c229;
+  }
 }
 
 .middle {
   border-left: solid 2px #e6c229;
   border-right: solid 2px #e6c229;
+  @include mixin.breakpoint-tablette {
+    border: none;
+    border-bottom: solid 1px #e6c229;
+    padding: 20px;
+  }
 }
 
 a {
@@ -42,4 +77,22 @@ a {
 .icon {
   padding: 0 1rem;
   font-size: 3rem;
+}
+
+.author {
+  margin-top: 30px;
+  color: lightgray;
+  text-align: center;
+  @include mixin.breakpoint-tablette {
+    font-size: 14px;
+  }
+  @include mixin.breakpoint-mobileL {
+    flex-direction: column;
+  }
+  i {
+    padding-right: 2px;
+  }
+  a {
+    margin-left: 5px;
+  }
 }
