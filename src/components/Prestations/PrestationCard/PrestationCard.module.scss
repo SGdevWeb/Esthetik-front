@@ -2,7 +2,7 @@
 
 .container {
   width: 50%;
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-laptop {
     width: 100%;
   }
 }

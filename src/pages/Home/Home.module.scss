@@ -1,3 +1,5 @@
+@use "../../assets/styles/mixin" as mixin;
+
 .container {
   min-height: calc(100vh - 87px);
   background-color: white;
@@ -5,6 +7,9 @@
 
 .imageContainer {
   position: relative;
+  @include mixin.breakpoint-tablette {
+    display: none;
+  }
   .image {
     background-image: url(../../assets/images/imageHome.jpg);
     margin-bottom: -5px;

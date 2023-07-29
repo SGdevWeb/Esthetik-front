@@ -16,6 +16,12 @@
   }
 }
 
+@mixin breakpoint-mobileXL {
+  @media (max-width: 575px) {
+    @content;
+  }
+}
+
 @mixin breakpoint-tablette {
   @media (max-width: 768px) {
     @content;

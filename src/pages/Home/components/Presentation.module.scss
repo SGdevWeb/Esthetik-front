@@ -1,10 +1,21 @@
+@use "../../../assets/styles/mixin" as mixin;
+
 .container {
   background-color: white;
   padding: 20px;
   display: flex;
   align-items: center;
+  @include mixin.breakpoint-tablette {
+    padding: 0;
+  }
+  @include mixin.breakpoint-laptop {
+    flex-direction: column-reverse;
+  }
   p {
     font-size: 1.4rem;
+    @include mixin.breakpoint-tablette {
+      font-size: 1.2rem;
+    }
   }
 }
 
@@ -12,4 +23,10 @@
   text-align: justify;
   padding: 40px;
   color: var(--gray-1);
+  @include mixin.breakpoint-mobileXL {
+    padding: 20px;
+  }
+  @include mixin.breakpoint-tablette {
+    padding-top: 10px;
+  }
 }

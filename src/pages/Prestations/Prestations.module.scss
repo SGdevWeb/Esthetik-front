@@ -18,6 +18,9 @@
   @include mixin.breakpoint-mobileL {
     display: none;
   }
+  @include mixin.breakpoint-laptop {
+    width: 100%;
+  }
 }
 
 .contentMobile {

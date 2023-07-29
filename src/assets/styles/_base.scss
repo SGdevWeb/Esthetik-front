@@ -34,3 +34,11 @@ img {
 .active {
   border-bottom: solid 1px var(--secondary-color);
 }
+
+/* Police */
+
+@font-face {
+  font-family: "MoonTime";
+  src: url("../polices/MoonTime-Regular.ttf") format("truetype"),
+    url("../polices/MoonTime-Regular.otf") format("opentype");
+}
