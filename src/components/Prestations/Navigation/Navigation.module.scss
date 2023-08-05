@@ -17,13 +17,16 @@
     }
     li {
       border-bottom: 1px solid transparent;
-      padding: 5px;
+      margin: 5px;
       &:hover {
         border-bottom: 1px solid var(--secondary-color);
         @include mixin.breakpoint-mobileL {
           border-bottom: 1px solid transparent;
         }
       }
+    }
+    .package {
+      padding: 0;
     }
   }
   .navlink {

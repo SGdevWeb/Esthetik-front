@@ -54,6 +54,11 @@
       width: 100%;
     }
   }
+  p {
+    @include mixin.breakpoint-mobileXL {
+      text-align: justify;
+    }
+  }
 }
 
 .form {
@@ -75,6 +80,7 @@
     padding: 5px 20px;
     border: solid var(--secondary-color) 1px;
     border-radius: 5px;
+    background-color: var(--gray-3);
     cursor: pointer;
     margin-top: 10px;
     margin: auto;

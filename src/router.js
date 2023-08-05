@@ -5,6 +5,7 @@ import Prestations from "./pages/Prestations/Prestations";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Prestation from "./components/Prestations/Prestation/Prestation";
 import Forfait from "./components/Prestations/Forfait/Forfait";
+import SignUp from "./pages/Admin/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
             element: <Forfait />,
           },
         ],
+      },
+      {
+        path: "/admin",
+        element: <SignUp />,
       },
     ],
   },

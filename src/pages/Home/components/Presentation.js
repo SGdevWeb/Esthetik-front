@@ -9,7 +9,7 @@ function Presentation() {
       <article className={styles.text}>
         <p>
           Je suis Virginie, esthéticienne à domicile diplômée depuis 15 ans.
-          Grâce à mon expérience en instituts de beauté et en spas, je suis en
+          Grâce à mon expérience en instituts de beauté et en spa, je suis en
           mesure de vous offrir les meilleurs soins pour vous permettre de vous
           évader et de vous ressourcer en toute tranquillité.
         </p>
@@ -21,8 +21,8 @@ function Presentation() {
         </p>
         <p>
           Offrez-vous un moment de détente et de bien-être en prenant
-          rendez-vous avec moi dès maintenant. Je me ferai un plaisir de vous
-          chouchouter et de vous offrir un total lâcher-prise.
+          rendez-vous dès maintenant. Je me ferai un plaisir de vous chouchouter
+          et de vous offrir un total lâcher-prise.
         </p>
       </article>
     </div>

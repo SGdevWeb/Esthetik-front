@@ -26,7 +26,7 @@ function Navigation() {
               </div>
             </li>
           ))}
-          <li>
+          <li className={styles.package}>
             <NavLink className={styles.navlink} to="/prestations/forfait">
               Forfait
             </NavLink>
