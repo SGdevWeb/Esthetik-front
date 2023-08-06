@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         element: <Prestations />,
         children: [
           {
-            path: ":service",
+            path: ":rate",
             element: <Prestation />,
           },
           {

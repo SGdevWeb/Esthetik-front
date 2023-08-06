@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Location.module.scss";
+import axios from "axios";
 
 function Location() {
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const secteur = ["saint-saulve", "valenciennes", "marly"];
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/locations");
+        console.log(response.data);
+        setLocations(response.data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération du secteur d'activité : ",
+          error
+        );
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   function handleChange(e) {
     console.log("change");
@@ -20,15 +38,20 @@ function Location() {
   function compareCity(e) {
     e.preventDefault();
     console.log(e.target.elements.ville.value.toLowerCase());
+    console.log(locations);
     const city = e.target.elements.ville.value.trim().toLowerCase();
 
     if (city === "") {
       setError("Merci de remplir ce champs");
-    }
-    if (secteur.includes(city)) {
-      setMessage("Virginie peut se déplacer chez vous");
     } else {
-      setMessage("Votre domicile ne fait pas parti du secteur de Virginie");
+      const locationExist = locations.some(
+        (location) => location.name === city
+      );
+      if (locationExist) {
+        setMessage("Virginie peut se déplacer chez vous");
+      } else {
+        setMessage("Votre domicile ne fait pas parti du secteur de Virginie");
+      }
     }
   }
 

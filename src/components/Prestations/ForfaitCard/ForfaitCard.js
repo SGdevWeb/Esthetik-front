@@ -1,17 +1,13 @@
 import React from "react";
 import styles from "./ForfaitCard.module.scss";
 
-function ForfaitCard({ discounts }) {
+function ForfaitCard({ title, discount }) {
   return (
-    <>
-      {discounts.map((element, index) => (
-        <div key={index} className={styles.container}>
-          <h3 className={styles.title}>{element.title}</h3>
-          <div className={styles.dotted}></div>
-          <div className={styles.discount}>{element.discount}</div>
-        </div>
-      ))}
-    </>
+    <div className={styles.container}>
+      <h3 className={styles.title}>{title}</h3>
+      <div className={styles.dotted}></div>
+      <div className={styles.discount}>{discount}</div>
+    </div>
   );
 }
 

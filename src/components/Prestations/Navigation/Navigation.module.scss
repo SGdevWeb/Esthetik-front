@@ -17,7 +17,6 @@
     }
     li {
       border-bottom: 1px solid transparent;
-      margin: 5px;
       &:hover {
         border-bottom: 1px solid var(--secondary-color);
         @include mixin.breakpoint-mobileL {
