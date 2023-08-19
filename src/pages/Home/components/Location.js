@@ -5,6 +5,7 @@ import axios from "axios";
 function Location() {
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState("");
   const [error, setError] = useState("");
   const [locations, setLocations] = useState([]);
 
@@ -12,7 +13,6 @@ function Location() {
     const fetchLocations = async () => {
       try {
         const response = await axios.get("http://localhost:3001/api/locations");
-        console.log(response.data);
         setLocations(response.data);
       } catch (error) {
         console.error(
@@ -26,7 +26,6 @@ function Location() {
   }, []);
 
   function handleChange(e) {
-    console.log("change");
     setInputValue(e.target.value);
     if (e.target.value === "") {
       setError("Merci de remplir ce champs");
@@ -37,8 +36,6 @@ function Location() {
 
   function compareCity(e) {
     e.preventDefault();
-    console.log(e.target.elements.ville.value.toLowerCase());
-    console.log(locations);
     const city = e.target.elements.ville.value.trim().toLowerCase();
 
     if (city === "") {
@@ -47,11 +44,14 @@ function Location() {
       const locationExist = locations.some(
         (location) => location.name === city
       );
-      if (locationExist) {
-        setMessage("Virginie peut se déplacer chez vous");
-      } else {
-        setMessage("Votre domicile ne fait pas parti du secteur de Virginie");
-      }
+
+      setMessage(
+        locationExist
+          ? "Virginie peut se déplacer chez vous"
+          : "Votre domicile ne fait pas parti du secteur de Virginie"
+      );
+      setMessageColor(locationExist ? styles.textGreen : styles.textRed);
+      console.log(messageColor);
     }
   }
 
@@ -81,13 +81,23 @@ function Location() {
               {error && <small className={styles.error}>{error}</small>}
               <button type="submit">VALIDER</button>
             </form>
-            <p className={styles.message}>{message}</p>
+            {message && (
+              <p className={`${styles.message} ${messageColor}`}>{message}</p>
+            )}
           </section>
         </article>
         <article>
           <p>
             Si vous habitez dans la zone de déplacement, vous pouvez prendre
-            rendez-vous par <b>téléphone</b> ou par <b>e-mail</b>.
+            rendez-vous par{" "}
+            <a className={styles.link} href="tel:+33604197561">
+              téléphone
+            </a>{" "}
+            ou par{" "}
+            <a className={styles.link} href="mailto:virginie.ballini@gmail.com">
+              e-mail
+            </a>
+            .
           </p>
           <p>
             Je serais ravis de vous aider à planifier votre rendez-vous, en

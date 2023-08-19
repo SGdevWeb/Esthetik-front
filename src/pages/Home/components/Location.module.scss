@@ -91,7 +91,7 @@
 }
 
 .error {
-  color: red;
+  color: rgb(215, 69, 69);
 }
 
 .message {
@@ -99,15 +99,14 @@
   padding: 10px;
 }
 
-.tel,
-.mail {
-  padding: 5px 20px;
-  margin: 20px 40px;
-  font-size: 2rem;
-  color: white;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  font-weight: 700;
-  a {
-    color: white;
-  }
+.textGreen {
+  color: var(--primary-color) !important;
+}
+
+.textRed {
+  color: rgb(215, 69, 69) !important;
+}
+
+.link {
+  color: var(--primary-color);
 }

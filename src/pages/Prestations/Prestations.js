@@ -8,8 +8,6 @@ function Prestations() {
   const params = useParams();
   const url = useLocation();
 
-  console.log(params);
-
   return (
     <div className={styles.container}>
       <div className={styles.contentMobile}>

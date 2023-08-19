@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Promotion.module.scss";
 import promotionImage from "../../../assets/images/Promotion/yunona-uritsky-ajM1jHa0dlg-unsplash.jpg";
-import promotionsData from "../../../data/promotion.json";
 import axios from "axios";
 
 function Promotion() {
@@ -29,14 +28,6 @@ function Promotion() {
     };
 
     fetchPromotion();
-
-    // const currentDate = new Date();
-    // const filteredPromotion = promotionsData.find(
-    //   (promotion) =>
-    //     currentDate >= new Date(promotion.startDate.split(" ").join(" ,")) &&
-    //     currentDate <= new Date(promotion.endDate.split(" ").join(" ,"))
-    // );
-    // setActivePromotion(filteredPromotion);
   }, []);
 
   if (!activePromotion) {

@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./Forfait.module.scss";
 import ForfaitCard from "../ForfaitCard/ForfaitCard";
 import axios from "axios";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 function Forfait() {
+  const anchorRef = useRef(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const anchor = searchParams.get("ancre");
+
   const [discounts, setDiscounts] = useState([]);
 
   useEffect(() => {
@@ -11,17 +18,22 @@ function Forfait() {
       try {
         const response = await axios.get("http://localhost:3001/api/discounts");
         const discounts = response.data;
+        // console.log("discounts", discounts);
 
         // Remises(discounts) groupées par tarif(rate)
         const groupedDiscounts = discounts.reduce((acc, discount) => {
+          // On vérifie que le tarif n'existe pas encore comme clé dans l'acc
           if (!acc[discount.rate]) {
+            // On ajoute le tarif comme clé avec un tableau vide comme valeur
             acc[discount.rate] = [];
           }
+          // On ajoute la remise actuelle au tableau coreespondant au tarif
           acc[discount.rate].push(discount);
           return acc;
         }, {});
 
         setDiscounts(groupedDiscounts);
+        // console.log("groupedDiscounts", groupedDiscounts);
       } catch (error) {
         console.error(
           "Erreur lors de la récupération du secteur d'activité : ",
@@ -33,6 +45,12 @@ function Forfait() {
     fetchDiscount();
   }, []);
 
+  useEffect(() => {
+    if (anchor && anchorRef.current) {
+      anchorRef.current.scrollIntoView({ bahavior: "smooth" });
+    }
+  });
+
   return (
     <div className={styles.container}>
       <p>
@@ -41,7 +59,9 @@ function Forfait() {
       </p>
       {Object.keys(discounts).map((rate) => (
         <div key={rate} className={styles.discountContainer}>
-          <h2>{rate}</h2>
+          <h2 ref={anchorRef} id={rate}>
+            {rate}
+          </h2>
           {discounts[rate].map((discount, index) => (
             <ForfaitCard
               key={index}
