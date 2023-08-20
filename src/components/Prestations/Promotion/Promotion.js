@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Promotion.module.scss";
-import promotionImage from "../../../assets/images/Promotion/yunona-uritsky-ajM1jHa0dlg-unsplash.jpg";
 import axios from "axios";
 
 function Promotion() {

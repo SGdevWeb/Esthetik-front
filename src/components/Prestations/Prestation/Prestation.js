@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Prestation.module.scss";
 import PrestationCard from "../PrestationCard/PrestationCard";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
+import { fetchRateById, fetchRateIdByName } from "../../../api/rates";
+import { fetchServicesByRateId } from "../../../api/services";
+import { fetchPackage } from "../../../api/packages";
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
+console.log(apiUrl);
 
 function Prestation() {
   const { rate } = useParams();
@@ -12,54 +18,34 @@ function Prestation() {
   const [packageData, setPackageData] = useState([]);
 
   useEffect(() => {
-    const fetchRateByName = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/api/rates/name/${rateName}`
-        );
-        const rateId = response.data[0].id;
-        fetchRateById(rateId);
-        fetchServicesByRateId(rateId);
-        fetchPackage(rateId);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données de tarifs");
-      }
+    const getRate = async () => {
+      const rateId = await getRateIdByName(rateName);
+      getRateById(rateId);
+      getServicesByRateId(rateId);
+      getPackage(rateId);
     };
 
-    const fetchRateById = async (rateId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/api/rates/id/${rateId}`
-        );
-        setRateData(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données de tarifs");
-      }
+    const getRateIdByName = async (rateName) => {
+      const rateId = await fetchRateIdByName(rateName);
+      return rateId;
     };
 
-    const fetchServicesByRateId = async (rateId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/api/services/${rateId}`
-        );
-        setServices(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données de services");
-      }
+    const getRateById = async (rateId) => {
+      const rateData = await fetchRateById(rateId);
+      setRateData(rateData);
     };
 
-    const fetchPackage = async (rateId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/api/packages/rate/${rateId}`
-        );
-        setPackageData(response.data);
-      } catch {
-        console.error("Erreur lors de la récupération des données de forfaits");
-      }
+    const getServicesByRateId = async (rateId) => {
+      const servicesData = await fetchServicesByRateId(rateId);
+      setServices(servicesData);
     };
 
-    fetchRateByName();
+    const getPackage = async (rateId) => {
+      const packageData = await fetchPackage(rateId);
+      setPackageData(packageData);
+    };
+
+    getRate();
   }, [rateName]);
 
   return (
