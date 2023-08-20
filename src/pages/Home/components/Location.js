@@ -47,8 +47,8 @@ function Location() {
 
       setMessage(
         locationExist
-          ? "Virginie peut se déplacer chez vous"
-          : "Votre domicile ne fait pas parti du secteur de Virginie"
+          ? "Je peux me déplacer chez vous"
+          : "Votre domicile ne fait pas parti de mon secteur"
       );
       setMessageColor(locationExist ? styles.textGreen : styles.textRed);
       console.log(messageColor);

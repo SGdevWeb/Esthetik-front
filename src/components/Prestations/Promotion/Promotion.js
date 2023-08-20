@@ -40,7 +40,7 @@ function Promotion() {
       <p className={styles.description}>{activePromotion.description}</p>
       <div className={styles.promotionContainer}>
         <img
-          src={promotionImage}
+          src={require(`../../../assets/images/Promotion/${activePromotion.picture}`)}
           alt={activePromotion.service}
           className={styles.image}
         />

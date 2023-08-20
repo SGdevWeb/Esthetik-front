@@ -40,6 +40,11 @@ function Prestations() {
               <Link to="/prestations/Beauté_des_Mains">manucure</Link>{" "}
               impeccable, je suis prête à répondre à tous vos besoins.
             </p>
+            <p>
+              Une occasion à célébrer, l’envie de faire plaisir ou tout
+              simplement se faire plaisir ! N’hésitez pas à demander votre bon
+              cadeaux.
+            </p>
           </div>
           <Promotion />
         </div>
