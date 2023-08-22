@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Promotion.module.scss";
-import axios from "axios";
+import { fetchPromotions } from "../../../api/promotions";
 
 function Promotion() {
   const [activePromotion, setActivePromotion] = useState(null);
@@ -8,25 +8,17 @@ function Promotion() {
   useEffect(() => {
     const currentDate = new Date();
 
-    const fetchPromotion = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/api/promotions"
-        );
-        const promotions = response.data;
-        console.log(promotions);
-        const filteredPromotion = promotions.find(
-          (promotion) =>
-            currentDate >= new Date(promotion.start.split(" ").join(" ,")) &&
-            currentDate <= new Date(promotion.end.split(" ").join(" ,"))
-        );
-        setActivePromotion(filteredPromotion);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des promotions :", error);
-      }
+    const getPromotions = async () => {
+      const promotions = await fetchPromotions();
+      const filteredPromotion = promotions.find(
+        (promotion) =>
+          currentDate >= new Date(promotion.start.split(" ").join(" ,")) &&
+          currentDate <= new Date(promotion.end.split(" ").join(" ,"))
+      );
+      setActivePromotion(filteredPromotion);
     };
 
-    fetchPromotion();
+    getPromotions();
   }, []);
 
   if (!activePromotion) {
