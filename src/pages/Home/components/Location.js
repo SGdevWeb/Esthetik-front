@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Location.module.scss";
-import axios from "axios";
+import { fetchLocations } from "../../../api/locations";
 
 function Location() {
   const [inputValue, setInputValue] = useState("");
@@ -10,19 +10,12 @@ function Location() {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/locations");
-        setLocations(response.data);
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération du secteur d'activité : ",
-          error
-        );
-      }
+    const getLocations = async () => {
+      const locations = await fetchLocations();
+      setLocations(locations);
     };
 
-    fetchLocations();
+    getLocations();
   }, []);
 
   function handleChange(e) {

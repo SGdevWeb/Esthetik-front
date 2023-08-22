@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Forfait.module.scss";
 import ForfaitCard from "../ForfaitCard/ForfaitCard";
-import axios from "axios";
+import { fetchDiscounts } from "../../../api/discounts";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -14,35 +14,25 @@ function Forfait() {
   const [discounts, setDiscounts] = useState([]);
 
   useEffect(() => {
-    const fetchDiscount = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/discounts");
-        const discounts = response.data;
-        // console.log("discounts", discounts);
+    const getDiscount = async () => {
+      const discounts = await fetchDiscounts();
 
-        // Remises(discounts) groupées par tarif(rate)
-        const groupedDiscounts = discounts.reduce((acc, discount) => {
-          // On vérifie que le tarif n'existe pas encore comme clé dans l'acc
-          if (!acc[discount.rate]) {
-            // On ajoute le tarif comme clé avec un tableau vide comme valeur
-            acc[discount.rate] = [];
-          }
-          // On ajoute la remise actuelle au tableau coreespondant au tarif
-          acc[discount.rate].push(discount);
-          return acc;
-        }, {});
+      // Remises(discounts) groupées par tarif(rate)
+      const groupedDiscounts = discounts.reduce((acc, discount) => {
+        // On vérifie que le tarif n'existe pas encore comme clé dans l'acc
+        if (!acc[discount.rate]) {
+          // On ajoute le tarif comme clé avec un tableau vide comme valeur
+          acc[discount.rate] = [];
+        }
+        // On ajoute la remise actuelle au tableau coreespondant au tarif
+        acc[discount.rate].push(discount);
+        return acc;
+      }, {});
 
-        setDiscounts(groupedDiscounts);
-        // console.log("groupedDiscounts", groupedDiscounts);
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération du secteur d'activité : ",
-          error
-        );
-      }
+      setDiscounts(groupedDiscounts);
     };
 
-    fetchDiscount();
+    getDiscount();
   }, []);
 
   useEffect(() => {

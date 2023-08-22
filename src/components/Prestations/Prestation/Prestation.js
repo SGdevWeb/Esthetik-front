@@ -6,10 +6,6 @@ import { fetchRateById, fetchRateIdByName } from "../../../api/rates";
 import { fetchServicesByRateId } from "../../../api/services";
 import { fetchPackage } from "../../../api/packages";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
-console.log(apiUrl);
-
 function Prestation() {
   const { rate } = useParams();
   const rateName = rate.split("_").join(" ");

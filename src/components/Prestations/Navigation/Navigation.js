@@ -3,22 +3,18 @@ import styles from "./Navigation.module.scss";
 import { NavLink } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import Forfait from "../Forfait/Forfait";
-import axios from "axios";
+import { fetchRates } from "../../../api/rates";
 
 function Navigation() {
   const [rates, setRates] = useState([]);
 
   useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/rates");
-        setRates(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des tarifs :", error);
-      }
+    const getRates = async () => {
+      const rates = await fetchRates();
+      setRates(rates);
     };
 
-    fetchRates();
+    getRates();
   }, []);
 
   return (

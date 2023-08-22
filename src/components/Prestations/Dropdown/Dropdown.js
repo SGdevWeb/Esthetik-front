@@ -1,29 +1,23 @@
 import React, { useState } from "react";
 import styles from "./Dropdown.module.scss";
 import PrestationCard from "../PrestationCard/PrestationCard";
-import axios from "axios";
+import { fetchServicesByRateId } from "../../../api/services";
 
 function Dropdown({ title, rateId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [services, setServices] = useState([]);
   const [hasFetchedServices, setHasFetchedServices] = useState(false);
 
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/api/services/${rateId}`
-      );
-      setServices(response.data);
-      setHasFetchedServices(true);
-      setIsOpen(true);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des tarifs :", error);
-    }
+  const getServices = async () => {
+    const services = await fetchServicesByRateId(rateId);
+    setServices(services);
+    setHasFetchedServices(true);
+    setIsOpen(true);
   };
 
   const toogleDropdown = async () => {
     if (!isOpen && !hasFetchedServices) {
-      fetchServices();
+      getServices();
     } else {
       setIsOpen(!isOpen);
     }
