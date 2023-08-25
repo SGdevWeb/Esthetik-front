@@ -1,3 +1,5 @@
+@use "../../../assets/styles/mixin" as mixin;
+
 .container {
   margin: auto;
   margin-top: 30px;
@@ -5,11 +7,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  @include mixin.breakpoint-laptop {
+    width: 80%;
+  }
+  @include mixin.breakpoint-tablette {
+    width: 90%;
+  }
+  @include mixin.breakpoint-mobileXL {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+  }
+
   h2 {
     color: var(--primary-color);
     padding: 20px;
     border-bottom: 1px solid var(--primary-color);
     border-top: 1px solid var(--primary-color);
+    @include mixin.breakpoint-mobileXL {
+      border: none;
+      color: var(--secondary-color);
+      text-align: center;
+    }
+  }
+  p {
+    @include mixin.breakpoint-mobileXL {
+      margin-block-start: 0;
+    }
   }
 }
 
@@ -17,6 +41,9 @@
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+  @include mixin.breakpoint-mobileXL {
+    border-radius: 5px;
+  }
 }
 
 .image {
@@ -25,6 +52,9 @@
   border-radius: 10px;
   width: 100%;
   height: 600px;
+  @include mixin.breakpoint-mobileXL {
+    border-radius: 5px;
+  }
 }
 
 .promotionText {
@@ -39,9 +69,16 @@
   font-size: 3rem;
   margin-block-start: 0;
   margin-inline-end: 0;
+  @include mixin.breakpoint-tablette {
+    font-size: 2.5rem;
+  }
+  @include mixin.breakpoint-mobileXL {
+    font-size: 2rem;
+  }
 }
 
 .description {
   font-size: 1.2rem;
   align-self: flex-start;
+  text-align: center;
 }

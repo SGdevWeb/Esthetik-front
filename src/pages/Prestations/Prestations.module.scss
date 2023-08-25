@@ -1,6 +1,8 @@
 @use "./../../assets/styles/mixin" as mixin;
 
 .container {
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   padding: 20px;
