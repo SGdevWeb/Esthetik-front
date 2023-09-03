@@ -1,0 +1,60 @@
+@use "../../assets/styles/mixin" as mixin;
+
+.container {
+  display: flex;
+  padding: 20px;
+  height: 410px;
+  margin-top: 40px;
+  @include mixin.breakpoint-mobileL {
+    padding: 0;
+    height: 155px;
+  }
+}
+
+.picture {
+  width: 35%;
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 65%;
+  padding-left: 40px;
+  @include mixin.breakpoint-mobileL {
+    padding-left: 10px;
+  }
+  .link {
+    cursor: pointer;
+    @include mixin.breakpoint-mobileL {
+      display: none;
+    }
+  }
+}
+
+.title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  @include mixin.breakpoint-mobileL {
+    font-size: 1.2rem;
+  }
+}
+
+.text {
+  font-size: 1.2rem;
+  height: 67%;
+  text-align: justify;
+  overflow: hidden;
+  color: var(--gray-1);
+  @include mixin.breakpoint-mobileL {
+    font-size: 1rem;
+  }
+  p {
+    margin: 0;
+    min-height: 29px;
+  }
+}

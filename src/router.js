@@ -6,6 +6,8 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Prestation from "./components/Prestations/Prestation/Prestation";
 import Forfait from "./components/Prestations/Forfait/Forfait";
 import SignUp from "./pages/Admin/SignUp";
+import Actu from "./pages/Actu/Actu";
+import Article from "./components/Actu/Article";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
             element: <Forfait />,
           },
         ],
+      },
+      {
+        path: "/actu",
+        element: <Actu />,
+      },
+      {
+        path: "/actu/articles/:id",
+        element: <Article />,
       },
       {
         path: "/admin",

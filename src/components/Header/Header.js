@@ -31,6 +31,9 @@ function Header() {
           <li>
             <NavLink to="/prestations">Prestations</NavLink>
           </li>
+          <li>
+            <NavLink to="/actu">Actu</NavLink>
+          </li>
         </ul>
       </nav>
     </header>

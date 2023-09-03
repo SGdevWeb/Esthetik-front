@@ -1,0 +1,17 @@
+@use "../../assets/styles/mixin" as mixin;
+
+.container {
+  padding: 10px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--secondary-color);
+  margin: 20px 0;
+  @include mixin.breakpoint-mobileL {
+    font-size: 2rem;
+  }
+}

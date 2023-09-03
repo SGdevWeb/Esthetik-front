@@ -20,6 +20,13 @@ function HeaderMenuMobile({ setShowMenu }) {
         >
           Prestations
         </NavLink>
+        <NavLink
+          onClick={() => setShowMenu(false)}
+          className={`d-flex justify-content-center ${styles.link}`}
+          to="/actu"
+        >
+          Actu
+        </NavLink>
       </ul>
     </div>
   );

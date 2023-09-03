@@ -1,0 +1,29 @@
+@use "../../assets/styles/mixin" as mixin;
+
+.container {
+  padding: 20px;
+  @include mixin.breakpoint-mobileL {
+    padding: 0;
+  }
+}
+
+.paragraph {
+  font-size: 1.4rem;
+  color: var(--gray-1);
+  padding: 20px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  text-align: center;
+  @include mixin.breakpoint-mobileL {
+    font-size: 1.1rem;
+    padding: 10px;
+    border: none;
+  }
+  p {
+    margin: 10px 0;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
