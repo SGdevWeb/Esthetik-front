@@ -17,11 +17,11 @@
   padding: 20px;
   font-size: 1.2rem;
   text-align: center;
+  @include mixin.breakpoint-laptopS {
+    width: 100%;
+  }
   @include mixin.breakpoint-mobileL {
     display: none;
-  }
-  @include mixin.breakpoint-laptop {
-    width: 100%;
   }
 }
 

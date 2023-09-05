@@ -5,15 +5,16 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  @include mixin.breakpoint-tablette {
-    padding: 0;
-  }
-  @include mixin.breakpoint-laptop {
+  @include mixin.breakpoint-laptopS {
     flex-direction: column-reverse;
   }
+  @include mixin.breakpoint-tabletteS {
+    padding: 0;
+  }
+
   p {
     font-size: 1.4rem;
-    @include mixin.breakpoint-tablette {
+    @include mixin.breakpoint-tabletteS {
       font-size: 1.2rem;
     }
   }
@@ -23,10 +24,10 @@
   text-align: justify;
   padding: 40px;
   color: var(--gray-1);
+  @include mixin.breakpoint-tabletteS {
+    padding-top: 10px;
+  }
   @include mixin.breakpoint-mobileXL {
     padding: 20px;
-  }
-  @include mixin.breakpoint-tablette {
-    padding-top: 10px;
   }
 }

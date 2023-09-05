@@ -5,9 +5,16 @@
   padding: 20px;
   height: 410px;
   margin-top: 40px;
+  margin-bottom: 20px;
+  @include mixin.breakpoint-laptopM {
+    height: 320px;
+  }
+  @include mixin.breakpoint-tabletteS {
+    height: 240px;
+  }
   @include mixin.breakpoint-mobileL {
     padding: 0;
-    height: 155px;
+    height: 165px;
   }
 }
 
@@ -22,14 +29,14 @@
 .description {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 65%;
   padding-left: 40px;
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-mobileXL {
     padding-left: 10px;
   }
   .link {
     cursor: pointer;
+    padding-top: 10px;
     @include mixin.breakpoint-mobileL {
       display: none;
     }
@@ -39,6 +46,13 @@
 .title {
   font-size: 2rem;
   color: var(--primary-color);
+  @include mixin.breakpoint-tabletteS {
+    font-size: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 10px;
+  }
   @include mixin.breakpoint-mobileL {
     font-size: 1.2rem;
   }
@@ -50,8 +64,9 @@
   text-align: justify;
   overflow: hidden;
   color: var(--gray-1);
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-mobileXL {
     font-size: 1rem;
+    height: 80%;
   }
   p {
     margin: 0;

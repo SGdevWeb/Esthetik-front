@@ -30,10 +30,10 @@
   article:first-child {
     width: 50%;
     margin: auto;
-    @include mixin.breakpoint-laptop {
+    @include mixin.breakpoint-laptopS {
       width: 70%;
     }
-    @include mixin.breakpoint-tablette {
+    @include mixin.breakpoint-tabletteS {
       width: 100%;
     }
     section {
@@ -50,7 +50,7 @@
   article:last-child {
     width: 70%;
     margin: auto;
-    @include mixin.breakpoint-tablette {
+    @include mixin.breakpoint-tabletteS {
       width: 100%;
     }
   }

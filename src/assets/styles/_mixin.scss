@@ -22,14 +22,32 @@
   }
 }
 
-@mixin breakpoint-tablette {
+@mixin breakpoint-tabletteS {
   @media (max-width: 768px) {
     @content;
   }
 }
 
-@mixin breakpoint-laptop {
+@mixin breakpoint-tabletteM {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-laptopS {
   @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-laptopM {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-laptopL {
+  @media (max-width: 1440px) {
     @content;
   }
 }

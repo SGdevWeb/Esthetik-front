@@ -7,10 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  @include mixin.breakpoint-laptop {
+  @include mixin.breakpoint-laptopS {
     width: 80%;
   }
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     width: 90%;
   }
   @include mixin.breakpoint-mobileXL {
@@ -18,7 +18,6 @@
     padding: 5px;
     margin-top: 10px;
   }
-
   h2 {
     color: var(--primary-color);
     padding: 20px;
@@ -54,6 +53,7 @@
   height: 600px;
   @include mixin.breakpoint-mobileXL {
     border-radius: 5px;
+    height: 300px;
   }
 }
 
@@ -69,11 +69,14 @@
   font-size: 3rem;
   margin-block-start: 0;
   margin-inline-end: 0;
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     font-size: 2.5rem;
   }
   @include mixin.breakpoint-mobileXL {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+  @include mixin.breakpoint-mobileL {
+    font-size: 1.6rem;
   }
 }
 

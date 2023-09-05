@@ -7,7 +7,7 @@
 
 .imageContainer {
   position: relative;
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     display: none;
   }
   .image {

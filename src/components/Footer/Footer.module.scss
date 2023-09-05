@@ -14,7 +14,7 @@
 
 .contact {
   display: flex;
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     flex-direction: column;
   }
   .left,
@@ -25,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include mixin.breakpoint-tablette {
+    @include mixin.breakpoint-tabletteS {
       width: 70%;
       margin: auto;
     }
@@ -36,7 +36,7 @@
 .right {
   p {
     padding-left: 10px;
-    @include mixin.breakpoint-laptop {
+    @include mixin.breakpoint-laptopS {
       font-size: 1rem;
     }
   }
@@ -45,7 +45,7 @@
 .left,
 .right {
   .icon {
-    @include mixin.breakpoint-laptop {
+    @include mixin.breakpoint-laptopS {
       font-size: xx-large;
     }
     @include mixin.breakpoint-mobileL {
@@ -55,7 +55,7 @@
 }
 
 .left {
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     border-bottom: solid 1px #e6c229;
   }
 }
@@ -63,7 +63,7 @@
 .middle {
   border-left: solid 2px #e6c229;
   border-right: solid 2px #e6c229;
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     border: none;
     border-bottom: solid 1px #e6c229;
     padding: 20px;
@@ -83,7 +83,7 @@ a {
   margin-top: 30px;
   color: lightgray;
   text-align: center;
-  @include mixin.breakpoint-tablette {
+  @include mixin.breakpoint-tabletteS {
     font-size: 14px;
   }
   @include mixin.breakpoint-mobileL {
