@@ -7,14 +7,14 @@
   margin-top: 40px;
   margin-bottom: 20px;
   @include mixin.breakpoint-laptopM {
-    height: 320px;
+    height: 330px;
   }
   @include mixin.breakpoint-tabletteS {
-    height: 240px;
+    padding: 0;
+    height: 210px;
   }
   @include mixin.breakpoint-mobileL {
-    padding: 0;
-    height: 165px;
+    height: 145px;
   }
 }
 
@@ -29,17 +29,14 @@
 .description {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 65%;
-  padding-left: 40px;
+  padding-left: 30px;
   @include mixin.breakpoint-mobileXL {
     padding-left: 10px;
   }
   .link {
     cursor: pointer;
-    padding-top: 10px;
-    @include mixin.breakpoint-mobileL {
-      display: none;
-    }
   }
 }
 
