@@ -51,20 +51,21 @@ function Prestation() {
           services.map((service, index) => (
             <PrestationCard
               key={index}
+              index={index}
               title={service.title}
               price={service.price}
             />
           ))}
       </div>
-      <div className={styles.package}>
-        {packageData.length > 0 && (
+      {packageData.length > 0 && (
+        <div className={styles.package}>
           <Link to={`/prestations/forfait?ancre=${rateData[0].name}`}>
             <button>
               Forfait <span>{rateData[0].name}</span>
             </button>
           </Link>
-        )}
-      </div>
+        </div>
+      )}
       <div className={styles.imageContainer}>
         {rateData.length > 0 && (
           <img

@@ -21,7 +21,13 @@ function Footer() {
         </div>
         <div className={styles.middle}>
           <FontAwesomeIcon className={styles.icon} icon={faSnapchatSquare} />
-          <FontAwesomeIcon className={styles.icon} icon={faFacebookSquare} />
+          <a
+            href="https://m.facebook.com/profile.php/?id=61550820907631&name=xhp_nt__fb__action__open_user"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FontAwesomeIcon className={styles.icon} icon={faFacebookSquare} />
+          </a>
           <FontAwesomeIcon className={styles.icon} icon={faInstagramSquare} />
         </div>
         <div className={styles.right}>

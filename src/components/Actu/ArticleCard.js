@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ArticleCard({ id, title, content, image, author, date }) {
   return (
-    <Link to={`/actu/articles/${id}`} className={styles.container}>
+    <div to={`/actu/articles/${id}`} className={styles.container}>
       <div className={styles.picture}>
         <img
           src={require(`../../assets/images/prestation/${image}.jpg`)}
@@ -22,7 +22,7 @@ function ArticleCard({ id, title, content, image, author, date }) {
           Lire la suite
         </Link>
       </div>
-    </Link>
+    </div>
   );
 }
 

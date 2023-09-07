@@ -10,7 +10,7 @@
 .titleAndPrice {
   display: flex;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px 0;
   @include mixin.breakpoint-mobileL {
     padding: 10px;
   }
@@ -42,6 +42,7 @@
   flex-grow: 1;
   border-bottom: 1px dotted var(--primary-color);
   margin-bottom: 8px;
+  min-width: 20px;
   @include mixin.breakpoint-mobileL {
     margin-bottom: 5px;
   }
