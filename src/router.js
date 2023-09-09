@@ -5,9 +5,11 @@ import Prestations from "./pages/Prestations/Prestations";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Prestation from "./components/Prestations/Prestation/Prestation";
 import Forfait from "./components/Prestations/Forfait/Forfait";
-import SignUp from "./pages/Admin/SignUp";
 import Actu from "./pages/Actu/Actu";
 import Article from "./components/Actu/Article";
+import PrivateRoute from "./utils/PrivateRoute";
+import SignIn from "./pages/Admin/SignIn";
+import AdminHome from "./pages/Admin/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +45,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin",
-        element: <SignUp />,
+        element: (
+          <PrivateRoute>
+            <AdminHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/admin/signin",
+        element: <SignIn />,
       },
     ],
   },

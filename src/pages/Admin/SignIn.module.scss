@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 82px - 182px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  min-width: 400px;
+  h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--primary-color);
+  }
+}
+
+.field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  label {
+    color: var(--secondary-color);
+  }
+  input {
+    height: 30px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  button {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: white;
+    background-color: var(--secondary-color);
+    font-family: var(--font-family);
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: red;
+}
