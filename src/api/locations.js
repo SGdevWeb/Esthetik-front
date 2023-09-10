@@ -12,5 +12,29 @@ export const fetchLocations = async () => {
       "Erreur lors de la récupération du secteur d'activité : ",
       error
     );
+    return error;
   }
 };
+
+export const newLocation = async (values, axiosConfig) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/locations/new`,
+      values,
+      axiosConfig
+    );
+    return response;
+  } catch (error) {
+    const { message } = error.response.data;
+    console.error("Erreur lors de la création de la ville : ", message);
+    return error.response;
+  }
+};
+
+export function axiosConfig(token) {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+}

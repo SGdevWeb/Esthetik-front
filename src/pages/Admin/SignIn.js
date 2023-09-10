@@ -4,9 +4,10 @@ import styles from "./SignIn.module.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { authenticate } from "../../api/admin";
-
+import { useAuth } from "../../contexts/AuthContext";
 function SignIn() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Le nom d'utilisateur est requis"),
@@ -23,6 +24,7 @@ function SignIn() {
       try {
         const data = await authenticate(values);
         if (data.adminId && data.token) {
+          login(data.token);
           navigate("/admin");
         }
       } catch (error) {
