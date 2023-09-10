@@ -8,7 +8,7 @@ import Forfait from "./components/Prestations/Forfait/Forfait";
 import Actu from "./pages/Actu/Actu";
 import Article from "./components/Actu/Article";
 import PrivateRoute from "./utils/PrivateRoute";
-import SignIn from "./pages/Admin/SignIn";
+import SignIn from "./pages/Admin/pages/SignIn";
 import AdminHome from "./pages/Admin/AdminHome";
 
 export const router = createBrowserRouter([
