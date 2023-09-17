@@ -19,9 +19,11 @@ function Prestations() {
       <nav className={styles.navigation}>
         <Navigation />
       </nav>
-      <div>
-        <Outlet />
-      </div>
+      {url.pathname === "/prestations" && (
+        <div>
+          <Outlet />
+        </div>
+      )}
       {params.rate === undefined && url.pathname !== "/prestations/forfait" && (
         <div>
           <div className={styles.content}>

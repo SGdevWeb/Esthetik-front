@@ -35,7 +35,7 @@
   ul {
     display: flex;
     li {
-      padding: 10px;
+      padding: 10px 15px;
       @include mixin.breakpoint-mobileL {
         font-size: 1rem;
       }
