@@ -3,8 +3,6 @@ import styles from "./Articles.module.scss";
 import ArticleCard from "./ArticleCard";
 
 function Articles({ articles }) {
-  console.log(articles);
-
   return (
     <div className={styles.container}>
       <div className={styles.paragraph}>

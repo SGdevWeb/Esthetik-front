@@ -13,6 +13,7 @@
   font-size: 3rem;
   color: var(--primary-color);
   margin-bottom: 20px;
+  font-weight: 500;
   @include mixin.breakpoint-mobileL {
     font-size: 1.3rem;
   }
