@@ -7,6 +7,7 @@
   background-color: var(--gray-1);
   color: var(--secondary-color);
   padding: 10px;
+  border-bottom: 1px solid var(--secondary-color);
   @include mixin.breakpoint-mobileL {
     justify-content: center;
   }

@@ -18,7 +18,7 @@ function PrestationCard({ title, price, index }) {
   });
 
   const cardStyles =
-    windowWith >= 425
+    windowWith >= 1025
       ? {
           paddingRight: isEven ? "30px" : 0,
           paddingLeft: !isEven ? "30px" : 0,

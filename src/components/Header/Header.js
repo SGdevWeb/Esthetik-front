@@ -32,7 +32,7 @@ function Header() {
             <NavLink to="/prestations">Prestations</NavLink>
           </li>
           <li>
-            <NavLink to="/actu">Actu</NavLink>
+            <NavLink to="/actu">Actualité</NavLink>
           </li>
         </ul>
       </nav>

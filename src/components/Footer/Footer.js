@@ -22,7 +22,7 @@ function Footer() {
         <div className={styles.middle}>
           <FontAwesomeIcon className={styles.icon} icon={faSnapchatSquare} />
           <a
-            href="https://m.facebook.com/profile.php/?id=61550820907631&name=xhp_nt__fb__action__open_user"
+            href="https://www.facebook.com/profile.php?id=61550820907631"
             target="_blank"
             rel="noreferrer"
           >
@@ -33,8 +33,8 @@ function Footer() {
         <div className={styles.right}>
           <FontAwesomeIcon className={styles.icon} icon={faEnvelope} />
           <p>
-            <a href="mailto:eclatdebeautebyvirginie@gmail.com">
-              contact@eclatdebeaute.fr
+            <a href="mailto:contact@éclatdebeauté.fr">
+              contact@éclatdebeauté.fr
             </a>
           </p>
         </div>

@@ -1,0 +1,26 @@
+@use "../../assets//styles/mixin" as mixin;
+
+.container {
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+  @include mixin.breakpoint-tabletteM {
+    height: 400px;
+  }
+  p {
+    margin: 0;
+    font-size: 4.5rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.9);
+    @include mixin.breakpoint-laptopS {
+      font-size: 3.5rem;
+    }
+  }
+}

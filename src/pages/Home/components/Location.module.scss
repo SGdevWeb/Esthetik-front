@@ -30,6 +30,9 @@
   article:first-child {
     width: 50%;
     margin: auto;
+    padding: 0px 15px;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
     @include mixin.breakpoint-laptopS {
       width: 70%;
     }
@@ -44,6 +47,7 @@
       justify-content: flex-start;
       p {
         margin: 0;
+        text-align: center;
       }
     }
   }
@@ -72,18 +76,19 @@
   input {
     height: 30px;
     border-radius: 5px;
-    border: solid var(--secondary-color) 1px;
+    border: solid var(--primary-color) 1px;
   }
   button {
-    height: 30px;
     padding: 5px 20px;
-    border: solid var(--secondary-color) 1px;
-    border-radius: 5px;
+    border: solid var(--primary-color) 1px;
+    border-radius: 10px;
+    color: var(--primary-color);
     background-color: var(--gray-3);
     cursor: pointer;
     margin-top: 10px;
     margin: auto;
     margin-top: 10px;
+    font-size: 16px;
   }
   small {
     margin-left: 5px;

@@ -2,17 +2,19 @@ import React from "react";
 import styles from "./Home.module.scss";
 import Location from "./components/Location";
 import Presentation from "./components/Presentation";
-import image from "../../assets/images/imageHome.jpg";
+import Banner from "../../components/Banner/Banner";
+import img from "../../assets/images/prestation/regard.jpg";
+import Links from "../../components/Links/Links";
 
 function Home() {
   return (
     <div className={styles.container}>
+      <div className={styles.banner}>
+        <Banner text="Esthéticienne à Valenciennes" backgroundImage={img} />
+      </div>
       <Presentation />
       <Location />
-      <div className={styles.imageContainer}>
-        <img className={styles.image} src={image} alt="arrière plan" />
-        <div className={styles.mask}></div>
-      </div>
+      <Links />
     </div>
   );
 }

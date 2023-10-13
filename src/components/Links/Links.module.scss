@@ -1,0 +1,28 @@
+@use "../../assets/styles/mixin" as mixin;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 10px;
+  top: 100px;
+  @include mixin.breakpoint-tabletteS {
+    display: none;
+  }
+}
+
+.iconContainer {
+  background-color: var(--gray-1);
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+}
+
+.icon {
+  color: var(--secondary-color);
+  font-size: 25px;
+}

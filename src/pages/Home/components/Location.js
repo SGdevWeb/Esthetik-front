@@ -55,9 +55,9 @@ function Location() {
         <article>
           <section>
             <p>
-              Afin de vérifier si votre domicile fait parti du secteur où je
-              peux me déplacer, veuillez remplir le champs en renseignant la
-              ville de votre domicile
+              Afin de vérifier si votre domicile fait parti de mon secteur de
+              déplacement, veuillez remplir le champs en renseignant la ville de
+              votre domicile :
             </p>
           </section>
           <section>
@@ -87,7 +87,7 @@ function Location() {
               téléphone
             </a>{" "}
             ou par{" "}
-            <a className={styles.link} href="mailto:virginie.ballini@gmail.com">
+            <a className={styles.link} href="mailto:contact@éclatdebeauté.fr">
               e-mail
             </a>
             .

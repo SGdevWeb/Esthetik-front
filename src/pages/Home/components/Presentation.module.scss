@@ -13,7 +13,8 @@
   }
 
   p {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
     @include mixin.breakpoint-tabletteS {
       font-size: 1.2rem;
     }
