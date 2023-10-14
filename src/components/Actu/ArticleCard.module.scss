@@ -13,6 +13,10 @@
     padding: 0;
     height: 210px;
   }
+  @include mixin.breakpoint-mobileXL {
+    height: 155px;
+  }
+
   @include mixin.breakpoint-mobileL {
     height: 145px;
   }

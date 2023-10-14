@@ -2,20 +2,24 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { useState } from "react";
 import HeaderMenuMobile from "./HeaderMenuMobile";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
+  const toggleMenu = () => {
+    setShowMenu((prevState) => !prevState);
+  };
+
   return (
     <header className={styles.container}>
-      <i
-        onClick={() => setShowMenu(!showMenu)}
-        className={
-          showMenu
-            ? `fa-solid fa-xmark fa-xl ${styles.headerMenuMobile}`
-            : `fa-solid fa-bars fa-xl ${styles.headerMenuMobile}`
-        }
-      ></i>
+      <button onClick={toggleMenu} className={styles.headerMenuMobile}>
+        <FontAwesomeIcon
+          icon={showMenu ? faTimes : faBars}
+          className={styles.burgerMenu}
+        />
+      </button>
       {showMenu && <HeaderMenuMobile setShowMenu={setShowMenu} />}
       <Link className={styles.logo} to="/">
         <div>Eclat de beaute</div>

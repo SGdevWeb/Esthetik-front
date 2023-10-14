@@ -8,7 +8,7 @@
   color: var(--secondary-color);
   padding: 10px;
   border-bottom: 1px solid var(--secondary-color);
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-mobileXL {
     justify-content: center;
   }
 }
@@ -30,7 +30,7 @@
   @include mixin.breakpoint-tabletteS {
     font-size: 20px;
   }
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-mobileXL {
     display: none;
   }
   ul {
@@ -49,10 +49,16 @@
 
 .headerMenuMobile {
   display: none;
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-mobileXL {
     display: block;
     position: absolute;
     left: 20px;
-    top: 38px;
+    top: 18px;
+    background-color: var(--gray-1);
+    border: none;
+    font-size: 30px;
+  }
+  .burgerMenu {
+    color: var(--secondary-color);
   }
 }

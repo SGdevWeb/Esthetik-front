@@ -5,6 +5,12 @@
   right: 0;
   width: 100%;
   background-color: var(--gray-1);
+  ul {
+    width: 80%;
+    .link {
+      padding-bottom: 5px;
+    }
+  }
 }
 
 .menu {

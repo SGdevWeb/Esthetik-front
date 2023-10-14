@@ -6,8 +6,21 @@
   position: fixed;
   right: 10px;
   top: 100px;
+  // @include mixin.breakpoint-tabletteS {
+  //   display: none;
+  // }
   @include mixin.breakpoint-tabletteS {
-    display: none;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    top: auto;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -20,6 +33,9 @@
   align-items: center;
   justify-content: center;
   margin: 5px;
+  @include mixin.breakpoint-tabletteS {
+    flex-grow: 1;
+  }
 }
 
 .icon {

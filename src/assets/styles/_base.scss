@@ -36,8 +36,9 @@ img {
 
 .active {
   border-bottom: solid 1px var(--secondary-color);
-  @include mixin.breakpoint-mobileL {
-    border: none;
+  @include mixin.breakpoint-mobileXL {
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
     color: white;
   }
 }

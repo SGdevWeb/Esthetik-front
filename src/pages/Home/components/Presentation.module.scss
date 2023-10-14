@@ -6,17 +6,19 @@
   display: flex;
   align-items: center;
   @include mixin.breakpoint-laptopS {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   @include mixin.breakpoint-tabletteS {
     padding: 0;
   }
-
   p {
     font-size: 1.3rem;
     line-height: 2.5rem;
     @include mixin.breakpoint-tabletteS {
       font-size: 1.2rem;
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 }
@@ -30,5 +32,6 @@
   }
   @include mixin.breakpoint-mobileXL {
     padding: 20px;
+    padding-top: 0;
   }
 }

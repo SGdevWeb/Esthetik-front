@@ -4,12 +4,15 @@ import "./assets/styles/index.scss";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LinksVisibilityProvider } from "./contexts/LinksVisibilityContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <LinksVisibilityProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </LinksVisibilityProvider>
     </AuthProvider>
   </React.StrictMode>
 );

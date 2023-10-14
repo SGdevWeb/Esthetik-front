@@ -6,14 +6,14 @@ function Articles({ articles }) {
   return (
     <div className={styles.container}>
       <div className={styles.paragraph}>
+        <p className={styles.bold}>
+          Bienvenue dans notre univers dédié à votre beauté.
+        </p>
         <p>
           Plongez dans un monde où la beauté prend vie. Découvrez nos articles
           passionnants sur l'épilation, les massages apaisants, les soins
           revitalisants et les secrets du maquillage, pour révéler votre éclat
           naturel sous son meilleur jour.
-        </p>
-        <p className={styles.bold}>
-          Bienvenue dans notre univers dédié à votre beauté.
         </p>
       </div>
       {articles.length > 0 &&
