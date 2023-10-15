@@ -10,6 +10,7 @@ import Article from "./components/Actu/Article";
 import PrivateRoute from "./utils/PrivateRoute";
 import SignIn from "./pages/Admin/pages/SignIn";
 import AdminHome from "./pages/Admin/AdminHome";
+import Appointment from "./pages/Appointment/Appointment";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/actu/articles/:id",
         element: <Article />,
+      },
+      {
+        path: "/rdv",
+        element: <Appointment />,
       },
       {
         path: "/admin",

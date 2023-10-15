@@ -6,7 +6,8 @@
   width: 100%;
   background-color: var(--gray-1);
   ul {
-    width: 80%;
+    width: 100%;
+    margin: 0 30px;
     .link {
       padding-bottom: 5px;
     }
@@ -15,6 +16,25 @@
 
 .menu {
   padding: 20px;
-  text-align: end;
+  text-align: center;
   font-size: 1.5rem;
+}
+
+.btnRdv {
+  background-color: var(--gray-1);
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  font-size: 24px;
+  font-family: var(--font-family);
+  height: 50px;
+  padding: 0 20px;
+  margin-top: 5px;
+}
+
+.btnRdvActive {
+  background-color: rgba(220, 190, 108, 0.7);
+  a {
+    color: rgb(86, 86, 86);
+    text-shadow: 1px 1px 1px lightgray;
+  }
 }

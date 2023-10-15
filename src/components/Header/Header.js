@@ -1,12 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import styles from "./Header.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderMenuMobile from "./HeaderMenuMobile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const [isRdvActive, setIsRdvActive] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsRdvActive(location.pathname === "/rdv");
+  }, [location]);
 
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
@@ -38,6 +44,15 @@ function Header() {
           <li>
             <NavLink to="/actu">Actualité</NavLink>
           </li>
+          <button
+            className={
+              isRdvActive
+                ? `${styles.btnRdv} ${styles.btnRdvActive}`
+                : styles.btnRdv
+            }
+          >
+            <Link to="/rdv">Prendre RDV</Link>
+          </button>
         </ul>
       </nav>
     </header>

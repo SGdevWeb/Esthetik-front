@@ -10,12 +10,15 @@ function Prestations() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentMobile}>
-        <p>
-          Découvrez les différentes prestations esthétiques pour prendre soin de
-          vous et sublimer votre beauté.
-        </p>
-      </div>
+      {url.pathname === "/prestations" && (
+        <div className={styles.contentMobile}>
+          <p>
+            Découvrez les différentes prestations esthétiques pour prendre soin
+            de vous et sublimer votre beauté.
+          </p>
+        </div>
+      )}
+
       <nav className={styles.navigation}>
         <Navigation />
       </nav>

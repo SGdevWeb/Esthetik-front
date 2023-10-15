@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./Dropdown.module.scss";
 import PrestationCard from "../PrestationCard/PrestationCard";
 import { fetchServicesByRateId } from "../../../api/services";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 function Dropdown({ title, rateId }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +17,7 @@ function Dropdown({ title, rateId }) {
     setIsOpen(true);
   };
 
-  const toogleDropdown = async () => {
+  const toggleDropdown = async () => {
     if (!isOpen && !hasFetchedServices) {
       getServices();
     } else {
@@ -23,28 +25,26 @@ function Dropdown({ title, rateId }) {
     }
   };
 
-  return isOpen ? (
+  return (
     <div className={styles.dropdownContainer}>
-      <div className={styles.dropdown} onClick={toogleDropdown}>
+      <div className={styles.dropdown} onClick={toggleDropdown}>
         <span>{title}</span>
-        <i className="fa-solid fa-chevron-up fa-md arrow"></i>
+        <FontAwesomeIcon
+          icon={isOpen ? faChevronUp : faChevronDown}
+          className={`${styles.arrow} fa-md`}
+        />
       </div>
-      <div className={styles.dropdownDescription}>
-        {services.map((service, index) => (
-          <PrestationCard
-            key={index}
-            title={service.title}
-            price={service.price}
-          />
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div className={styles.dropdownContainer}>
-      <div className={styles.dropdown} onClick={toogleDropdown}>
-        <span>{title}</span>
-        <i className="fa-solid fa-chevron-down fa-md arrow"></i>
-      </div>
+      {isOpen && (
+        <div className={styles.dropdownDescription}>
+          {services.map((service, index) => (
+            <PrestationCard
+              key={index}
+              title={service.title}
+              price={service.price}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

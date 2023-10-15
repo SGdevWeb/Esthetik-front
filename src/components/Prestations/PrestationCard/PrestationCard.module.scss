@@ -21,6 +21,9 @@
   font-size: 1.5rem;
   color: var(--gray-1);
   margin-right: 10px;
+  @include mixin.breakpoint-mobileXL {
+    font-size: 1.2rem;
+  }
   @include mixin.breakpoint-mobileL {
     font-size: 1rem;
   }
@@ -33,6 +36,9 @@
   font-size: 1.5rem;
   color: var(--primary-color);
   margin-left: 10px;
+  @include mixin.breakpoint-mobileXL {
+    font-size: 1.2rem;
+  }
   @include mixin.breakpoint-mobileL {
     font-size: 1rem;
   }
@@ -44,6 +50,6 @@
   margin-bottom: 8px;
   min-width: 20px;
   @include mixin.breakpoint-mobileL {
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
 }

@@ -1,12 +1,17 @@
 @use "../../../assets/styles/mixin" as mixin;
 
 .container {
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
-  @include mixin.breakpoint-mobileL {
+  @include mixin.breakpoint-laptopS {
+    width: 80%;
+  }
+  @include mixin.breakpoint-tabletteM {
     width: 100%;
+  }
+  @include mixin.breakpoint-mobileL {
     padding: 10px 0;
   }
   h3 {
