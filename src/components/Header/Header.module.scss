@@ -74,7 +74,8 @@
   @include mixin.breakpoint-mobileXL {
     display: block;
     position: absolute;
-    left: 20px;
+    padding-left: 20px;
+    left: 0;
     top: 18px;
     background-color: var(--gray-1);
     border: none;
