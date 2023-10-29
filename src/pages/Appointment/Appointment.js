@@ -37,8 +37,6 @@ function Appointment() {
         </div>
       </section>
       <section className={styles.rdvForm}>
-        <h3>- Formulaire de prise de rdv -</h3>
-        <p>Formulaire en construction</p>
         <AppointmentForm />
       </section>
       <section className={styles.contact}>

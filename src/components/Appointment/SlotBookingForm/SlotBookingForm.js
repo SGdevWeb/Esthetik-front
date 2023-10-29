@@ -13,24 +13,15 @@ function SlotBookingForm({
   const [slots, setSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
 
-  const isoStringToDate = (isoString) => {
-    console.log("trying to convert", isoString);
-    const newDate = new Date(isoString);
-    console.log("new Date", newDate);
-    return newDate;
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchSlots();
       if (response.data && response.data.length) {
         const formattedSlots = response.data.map((slot) => ({
           ...slot,
-          // date: isoStringToDate(slot.date),
           start_time: formatTime(slot.start_time),
           end_time: formatTime(slot.end_time),
         }));
-        console.log(formattedSlots);
         setSlots(formattedSlots);
       } else {
         console.error(
@@ -42,18 +33,6 @@ function SlotBookingForm({
 
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   if (selectedDate) {
-  //     const slotsForDay = slots.filter(
-  //       (slot) => slot.date.toISOString().split("T")[0] === selectedDate
-  //     );
-  //     console.log(slotsForDay);
-  //     setAvailableSlots(slotsForDay);
-  //   } else {
-  //     setAvailableSlots([]);
-  //   }
-  // }, [selectedDate, slots]);
 
   useEffect(() => {
     if (selectedDate) {

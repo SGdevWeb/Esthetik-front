@@ -17,4 +17,7 @@ export default Yup.object({
   email: Yup.string()
     .required("Votre email est requis")
     .matches(EMAIL, "Veuillez fournir une adresse email valide"),
+  selectedSlot: Yup.string().required(
+    "Veuillez sélectionner un créneau pour votre rdv"
+  ),
 });

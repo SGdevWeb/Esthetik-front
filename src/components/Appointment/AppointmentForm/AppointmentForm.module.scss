@@ -1,0 +1,67 @@
+@use "../../../assets/styles/mixin" as mixin;
+
+.container {
+  width: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px var(--gray-1);
+  @include mixin.breakpoint-mobileXL {
+    width: 100%;
+    box-shadow: none;
+  }
+  h2 {
+    text-align: center;
+  }
+  select {
+    padding: 5px 10px;
+    margin-top: 20px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    color: var(--gray);
+    width: 100%;
+    cursor: pointer;
+  }
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  button {
+    padding: 5px 10px;
+    margin: auto;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.addService,
+.addSlot {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 20px;
+  position: relative;
+  h3 {
+    position: absolute;
+    background-color: white;
+    font-size: 1rem;
+    top: -16px;
+    padding: 0 5px;
+  }
+  .btnContainer {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+}
