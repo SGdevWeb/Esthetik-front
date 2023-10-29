@@ -1,4 +1,5 @@
 import styles from "./Appointment.module.scss";
+import AppointmentForm from "../../components/Appointment/AppointmentForm/AppointmentForm";
 
 function Appointment() {
   return (
@@ -38,6 +39,7 @@ function Appointment() {
       <section className={styles.rdvForm}>
         <h3>- Formulaire de prise de rdv -</h3>
         <p>Formulaire en construction</p>
+        <AppointmentForm />
       </section>
       <section className={styles.contact}>
         <h2 className={styles.title}>

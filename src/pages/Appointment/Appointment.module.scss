@@ -164,3 +164,48 @@
     margin-bottom: 0 !important;
   }
 }
+
+.calendar {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: #ffffff;
+  select,
+  button {
+    padding: 5px 10px;
+    margin: 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  select:focus,
+  button:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  h3 {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin: 10px 0;
+  }
+
+  label {
+    font-weight: bold;
+  }
+}

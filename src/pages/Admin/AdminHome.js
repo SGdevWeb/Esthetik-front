@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { newLocation, axiosConfig } from "../../api/locations";
+import RepetitiveSlots from "../../components/Admin/RepetitiveSlots/RepetitiveSlots";
 
 function AdminHome() {
   const navigate = useNavigate();
@@ -53,6 +54,9 @@ function AdminHome() {
       </form>
       {errorMessage && <p>{errorMessage}</p>}
       <button onClick={handleLogout}>deconnexion</button>
+      <div>
+        <RepetitiveSlots />
+      </div>
     </div>
   );
 }
