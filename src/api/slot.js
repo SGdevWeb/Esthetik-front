@@ -17,17 +17,29 @@ export const addSlots = async (values, axiosConfig) => {
   }
 };
 
-export function axiosConfig(token) {
+export const axiosConfig = () => {
+  const token = localStorage.getItem("token");
   return {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-}
+};
 
 export const fetchSlots = async () => {
   try {
     const response = await axios.get(`${apiUrl}/slots`);
+    return response;
+  } catch (error) {
+    const { message } = error.response.data;
+    console.error("Erreur lors de la récupération des créneaux : ", message);
+    return error.message;
+  }
+};
+
+export const fetchAvailableSlots = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/slots/available`);
     return response;
   } catch (error) {
     const { message } = error.response.data;

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { fetchRates } from "../../../api/rates";
 import { fetchServicesByRateId } from "../../../api/services";
 import Chip from "../../Chip/Chip";
+import { addAppointment } from "../../../api/appointment";
 
 function AppointmentForm() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function AppointmentForm() {
   const [selectedService, setSelectedService] = useState("");
   const [hasAddedService, setHasAddedService] = useState(false);
   const [serviceError, setServiceError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleRateChange = (e) => {
     setSelectedRate(e.target.value);
@@ -48,10 +50,20 @@ function AppointmentForm() {
       setServiceError("Veuillez ajouter au moins une prestation");
       return;
     }
-    setChips([]);
-    setHasAddedService(false);
-    setServiceError("");
-    formik.resetForm();
+    try {
+      const response = await addAppointment(formValues);
+      if (response && response.status === 200) {
+        setSuccessMessage(
+          "Votre demande de rendez-vous a été envoyée avec succès. Nous vous recontacterons sous peu !"
+        );
+      }
+      setChips([]);
+      setHasAddedService(false);
+      setServiceError("");
+      formik.resetForm();
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du formulaire : ", error);
+    }
   };
 
   const formik = useFormik({
@@ -235,6 +247,9 @@ function AppointmentForm() {
             Envoyer
           </button>
         </div>
+        {successMessage && (
+          <div className={styles.successMessage}>{successMessage}</div>
+        )}
       </form>
     </div>
   );

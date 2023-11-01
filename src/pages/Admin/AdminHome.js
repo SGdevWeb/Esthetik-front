@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { newLocation, axiosConfig } from "../../api/locations";
 import RepetitiveSlots from "../../components/Admin/RepetitiveSlots/RepetitiveSlots";
+import AppointmentList from "../../components/Admin/AppointmentList/AppointmentList";
 
 function AdminHome() {
   const navigate = useNavigate();
@@ -56,6 +57,9 @@ function AdminHome() {
       <button onClick={handleLogout}>deconnexion</button>
       <div>
         <RepetitiveSlots />
+      </div>
+      <div>
+        <AppointmentList />
       </div>
     </div>
   );

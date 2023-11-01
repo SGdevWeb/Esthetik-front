@@ -46,6 +46,12 @@
   font-size: 0.9rem;
 }
 
+.successMessage {
+  color: green;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 .addService,
 .addSlot {
   border: 1px solid var(--primary-color);

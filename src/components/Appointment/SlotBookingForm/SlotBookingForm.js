@@ -1,6 +1,6 @@
 import styles from "./SlotBookingForm.module.scss";
 import React, { useState, useEffect } from "react";
-import { fetchSlots } from "../../../api/slot";
+import { fetchAvailableSlots } from "../../../api/slot";
 import { formatTime } from "../../../utils/formatTime";
 import InputCustom from "../../InputCustom/InputCustom";
 
@@ -15,7 +15,16 @@ function SlotBookingForm({
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetchSlots();
+      const response = await fetchAvailableSlots();
+
+      if (response.status !== 200) {
+        console.error(
+          "Erreur lors de la récupération des créneaux : ",
+          response.statusText
+        );
+        return;
+      }
+
       if (response.data && response.data.length) {
         const formattedSlots = response.data.map((slot) => ({
           ...slot,
@@ -24,10 +33,7 @@ function SlotBookingForm({
         }));
         setSlots(formattedSlots);
       } else {
-        console.error(
-          "Erreur lors de la récupération des créneaux : ",
-          response
-        );
+        console.log("Aucun créneau disponible.");
       }
     };
 
@@ -71,7 +77,6 @@ function SlotBookingForm({
           <select
             value={selectedSlot}
             onChange={(e) => {
-              console.log(e.target.value);
               onSlotChange(e.target.value);
             }}
           >
