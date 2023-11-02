@@ -1,0 +1,49 @@
+@use "../../../assets/styles/mixin" as mixin;
+
+.container {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  margin: 10px;
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  @include mixin.breakpoint-tabletteS {
+    margin: 5px;
+  }
+}
+
+.cardLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardImage {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  @include mixin.breakpoint-laptopM {
+    height: 200px;
+  }
+}
+
+.cardContent {
+  padding: 15px;
+  @include mixin.breakpoint-mobileL {
+    padding: 7px;
+  }
+}
+
+.cardTitle {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+  color: var(--primary-color);
+}
+
+.cardDescription {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.6);
+}

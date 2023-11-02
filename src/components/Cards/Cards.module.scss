@@ -1,0 +1,46 @@
+@use "../../assets/styles/mixin" as mixin;
+
+.container {
+  h2 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    border-top: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    width: fit-content;
+    margin: auto;
+    padding: 0 20px;
+    text-transform: uppercase;
+    @include mixin.breakpoint-tabletteS {
+      font-size: 2.2rem;
+    }
+    @include mixin.breakpoint-mobileL {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  justify-content: center;
+  gap: 15px;
+  padding: 30px;
+  @include mixin.breakpoint-laptopM {
+    grid-template-columns: repeat(3, 300px);
+  }
+  @include mixin.breakpoint-laptopS {
+    gap: 5px;
+  }
+  @include mixin.breakpoint-tabletteM {
+    grid-template-columns: repeat(2, 300px);
+  }
+  @include mixin.breakpoint-tabletteS {
+    grid-template-columns: repeat(2, 50%);
+    padding: 10px;
+  }
+  @include mixin.breakpoint-mobileL {
+    grid-template-columns: repeat(1, 100%);
+    padding: 10px;
+    gap: 0;
+  }
+}

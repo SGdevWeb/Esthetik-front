@@ -133,7 +133,7 @@ function AppointmentForm() {
 
   return (
     <div className={styles.container}>
-      <h2>Rendez-vous en ligne</h2>
+      <h2>Formulaire de rendez-vous</h2>
       <form onSubmit={formik.handleSubmit}>
         <div>
           <InputCustom
