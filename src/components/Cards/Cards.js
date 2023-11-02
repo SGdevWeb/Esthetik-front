@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Cards.module.scss";
 import Card from "./Card/Card";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 function Cards({ title, data }) {
   return (
     <div className={styles.container}>
@@ -10,10 +12,8 @@ function Cards({ title, data }) {
         {data.map((rate) => (
           <Card
             key={rate.id}
-            href={`http://localhost:3000/prestations/${rate.name
-              .split(" ")
-              .join("_")}`}
-            imgUrl={`http://localhost:3000/images/prestation/${rate.img_name}.jpg`}
+            href={`${baseUrl}/prestations/${rate.name.split(" ").join("_")}`}
+            imgUrl={`${baseUrl}/images/prestation/${rate.img_name}.jpg`}
             imgTitle={rate.img_title}
             title={rate.name}
             description={rate.description}
