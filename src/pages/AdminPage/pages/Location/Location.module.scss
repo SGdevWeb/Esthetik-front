@@ -1,0 +1,60 @@
+.container {
+  padding: 20px;
+  h1 {
+    text-align: center;
+  }
+  .all {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9em;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    table thead tr {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-align: left;
+    }
+
+    table th,
+    table td {
+      padding: 12px 15px;
+    }
+
+    table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+      border-bottom: 2px solid var(--primary-color);
+    }
+  }
+  .add {
+    h2 {
+      border-bottom: 1px solid var(--primary-color);
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 500px;
+      margin: auto;
+      box-shadow: 1px 1px 2px black;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .btn {
+      margin-top: 20px;
+    }
+  }
+}
