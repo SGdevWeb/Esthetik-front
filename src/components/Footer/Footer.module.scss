@@ -10,6 +10,9 @@
   p {
     font-size: 1.5rem;
   }
+  a {
+    color: var(--secondary-color);
+  }
 }
 
 .contact {
@@ -74,10 +77,6 @@
   .icon {
     padding: 0 10px;
   }
-}
-
-a {
-  color: var(--secondary-color);
 }
 
 .icon {

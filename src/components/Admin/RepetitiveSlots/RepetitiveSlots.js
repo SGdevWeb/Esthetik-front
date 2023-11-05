@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { addSlots, axiosConfig } from "../../../api/slot";
-import { useAuth } from "../../../contexts/AuthContext";
+import { addSlots } from "../../../api/slot";
 
 function RepetitiveSlots() {
-  const { token } = useAuth();
-
   const [selectedDay, setSelectedDay] = useState("");
   const [repeatCount, setRepeatCount] = useState(1);
   const [startTime, setStartTime] = useState("09:00"); // format 24h, début par défaut à 9h
@@ -14,16 +11,15 @@ function RepetitiveSlots() {
 
   const times = [];
   for (let i = 9; i <= 18; i++) {
-    // supposons que les horaires vont de 9h à 18h
+    // Horaires vont de 9h à 18h
     times.push(i < 10 ? `0${i}:00` : `${i}:00`);
   }
 
   const generateSlots = () => {
     let slots = [];
 
-    // Convert selectedDay string to a Date object
-    let currentDay = new Date(selectedDay + "T00:00:00Z"); // assume selectedDay is in UTC
-
+    // Conversion en objet Date
+    let currentDay = new Date(selectedDay + "T00:00:00Z");
     // Parse start and end times
     const [startHour, startMinute] = startTime
       .split(":")
@@ -48,7 +44,7 @@ function RepetitiveSlots() {
         }
 
         slots.push({
-          date: currentDay.toISOString().split("T")[0], // Store the date part in UTC
+          date: currentDay.toISOString().split("T")[0],
           startTime: `${String(currentHour).padStart(2, "0")}:${String(
             currentMinute
           ).padStart(2, "0")}`,
@@ -61,7 +57,6 @@ function RepetitiveSlots() {
         currentMinute = nextMinute;
       }
 
-      // Increment day by 7 for the next week
       currentDay.setUTCDate(currentDay.getUTCDate() + 7);
     }
 
@@ -75,7 +70,7 @@ function RepetitiveSlots() {
       const slots = generateSlots();
       console.log("Slots générés pour la soumission : ", slots);
       try {
-        const response = await addSlots(slots, axiosConfig(token));
+        const response = await addSlots(slots);
         console.log("response", response);
         if (response.status === 201) {
           console.log("Créneaux soumis : ", slots);

@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import axiosInstance from "./axiosInstance";
 
 export const fetchLocations = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/locations`);
+    const response = await axiosInstance.get("/locations");
     const data = response.data;
     return data;
   } catch (error) {
@@ -16,13 +14,9 @@ export const fetchLocations = async () => {
   }
 };
 
-export const newLocation = async (values, axiosConfig) => {
+export const newLocation = async (values) => {
   try {
-    const response = await axios.post(
-      `${apiUrl}/locations/new`,
-      values,
-      axiosConfig
-    );
+    const response = await axiosInstance.post("/locations/new", values);
     return response;
   } catch (error) {
     const { message } = error.response.data;
@@ -31,10 +25,12 @@ export const newLocation = async (values, axiosConfig) => {
   }
 };
 
-export function axiosConfig(token) {
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-}
+export const deleteLocation = async (locationId) => {
+  try {
+    const response = await axiosInstance.delete(
+      "/locations/delete",
+      locationId
+    );
+    return response;
+  } catch (error) {}
+};

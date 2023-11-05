@@ -8,6 +8,7 @@ import { fetchRates } from "../../../api/rates";
 import { fetchServicesByRateId } from "../../../api/services";
 import Chip from "../../Chip/Chip";
 import { addAppointment } from "../../../api/appointment";
+import Button from "../../Button/Button";
 
 function AppointmentForm() {
   useEffect(() => {
@@ -213,9 +214,13 @@ function AppointmentForm() {
           )}
           {selectedRate && selectedService && (
             <div className={styles.btnContainer}>
-              <button type="button" onClick={addChip}>
+              <Button
+                type="button"
+                color="var(--primary-color)"
+                onClick={addChip}
+              >
                 Ajouter
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -243,9 +248,13 @@ function AppointmentForm() {
           <div className={styles.error}>{formik.errors.selectedSlot}</div>
         ) : null}
         <div className={styles.btnContainer}>
-          <button disabled={formik.isSubmitting} type="submit">
+          <Button
+            disabled={formik.isSubmitting}
+            type="submit"
+            color="var(--primary-color)"
+          >
             Envoyer
-          </button>
+          </Button>
         </div>
         {successMessage && (
           <div className={styles.successMessage}>{successMessage}</div>

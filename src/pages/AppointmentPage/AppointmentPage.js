@@ -1,4 +1,4 @@
-import styles from "./Appointment.module.scss";
+import styles from "./AppointmentPage.module.scss";
 import AppointmentForm from "../../components/Appointment/AppointmentForm/AppointmentForm";
 
 function Appointment() {

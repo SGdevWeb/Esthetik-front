@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { authenticate } from "../../../api/admin";
-import { useAuth } from "../../../contexts/AuthContext";
+import { authenticate } from "../../../../api/admin";
+import { useAuth } from "../../../../contexts/AuthContext";
 function SignIn() {
   const navigate = useNavigate();
   const { login } = useAuth();

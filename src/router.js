@@ -1,16 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home/Home";
-import Prestations from "./pages/Prestations/Prestations";
+import HomePage from "./pages/HomePage/HomePage";
+import PrestationsPage from "./pages/PrestationsPage/PrestationsPage";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Prestation from "./components/Prestations/Prestation/Prestation";
 import Forfait from "./components/Prestations/Forfait/Forfait";
-import Actu from "./pages/Actu/Actu";
+import ActuPage from "./pages/ActuPage/ActuPage";
 import Article from "./components/Actu/Article";
 import PrivateRoute from "./utils/PrivateRoute";
-import SignIn from "./pages/Admin/pages/SignIn";
-import AdminHome from "./pages/Admin/AdminHome";
-import Appointment from "./pages/Appointment/Appointment";
+import SignIn from "./pages/AdminPage/pages/SignIn/SignIn";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import AppointmentPage from "./pages/AppointmentPage/AppointmentPage";
+import Location from "./pages/AdminPage/pages/Location/Location";
+import Services from "./pages/AdminPage/pages/Services/Services";
+import Package from "./pages/AdminPage/pages/Package/Package";
+import Promotion from "./pages/AdminPage/pages/Promotion/Promotion";
+import Appointment from "./pages/AdminPage/pages/Appointment/Appointment";
+import Slot from "./pages/AdminPage/pages/Slot/Slot";
+import Articles from "./pages/AdminPage/pages/Articles/Articles";
 
 export const router = createBrowserRouter([
   {
@@ -20,11 +27,11 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "/prestations",
-        element: <Prestations />,
+        element: <PrestationsPage />,
         children: [
           {
             path: ":rate",
@@ -38,7 +45,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/actu",
-        element: <Actu />,
+        element: <ActuPage />,
       },
       {
         path: "/actu/articles/:id",
@@ -46,15 +53,45 @@ export const router = createBrowserRouter([
       },
       {
         path: "/rdv",
-        element: <Appointment />,
+        element: <AppointmentPage />,
       },
       {
         path: "/admin",
-        element: (
-          <PrivateRoute>
-            <AdminHome />
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute />,
+        children: [
+          {
+            index: true,
+            element: <AdminPage />,
+          },
+          {
+            path: "location",
+            element: <Location />,
+          },
+          {
+            path: "prestations",
+            element: <Services />,
+          },
+          {
+            path: "forfaits",
+            element: <Package />,
+          },
+          {
+            path: "promotions",
+            element: <Promotion />,
+          },
+          {
+            path: "rendez-vous",
+            element: <Appointment />,
+          },
+          {
+            path: "planning",
+            element: <Slot />,
+          },
+          {
+            path: "articles",
+            element: <Articles />,
+          },
+        ],
       },
       {
         path: "/admin/signin",

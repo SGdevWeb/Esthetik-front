@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Home.module.scss";
+import styles from "./HomePage.module.scss";
 import Location from "./components/Location";
 import Presentation from "./components/Presentation";
 import Banner from "../../components/Banner/Banner";

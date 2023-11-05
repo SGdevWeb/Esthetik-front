@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Articles from "../../components/Actu/Articles";
-import styles from "./Actu.module.scss";
+import styles from "./ActuPage.module.scss";
 import { fetchArticles } from "../../api/articles";
 
 function Actu() {

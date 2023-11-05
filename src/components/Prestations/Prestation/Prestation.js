@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import { fetchRateById, fetchRateIdByName } from "../../../api/rates";
 import { fetchServicesByRateId } from "../../../api/services";
 import { fetchPackage } from "../../../api/packages";
+import Banner from "../../Banner/Banner";
+import Button from "../../Button/Button";
 
 function Prestation() {
   const { rate } = useParams();
@@ -44,8 +46,14 @@ function Prestation() {
     getRate();
   }, [rateName]);
 
+  const backgroundImageUrl =
+    rateData.length > 0
+      ? require(`../../../assets/images/prestation/${rateData[0].img_name}.jpg`)
+      : undefined;
+
   return (
     <div className={styles.container}>
+      <Banner backgroundImage={backgroundImageUrl} />
       <div className={styles.services}>
         {services.length > 0 &&
           services.map((service, index) => (
@@ -60,13 +68,13 @@ function Prestation() {
       {packageData.length > 0 && (
         <div className={styles.package}>
           <Link to={`/prestations/forfait?ancre=${rateData[0].name}`}>
-            <button>
+            <Button color="var(--secondary-color)">
               Forfait <span>{rateData[0].name}</span>
-            </button>
+            </Button>
           </Link>
         </div>
       )}
-      <div className={styles.imageContainer}>
+      {/* <div className={styles.imageContainer}>
         {rateData.length > 0 && (
           <img
             key={rateData[0].id}
@@ -75,7 +83,7 @@ function Prestation() {
             className={`${styles.image}`}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

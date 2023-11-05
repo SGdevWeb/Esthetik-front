@@ -1,10 +1,15 @@
 .container {
+  width: 100%;
   input {
     border: none;
     border-bottom: 1px solid var(--primary-color);
     margin-top: 20px;
     padding: 5px;
     width: 100%;
+    // Suppression des styles par défaut
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
     &:focus {
       outline: none;
       border: 2px solid var(--primary-color);

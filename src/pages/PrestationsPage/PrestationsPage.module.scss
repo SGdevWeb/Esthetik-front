@@ -1,27 +1,30 @@
 @use "./../../assets/styles/mixin" as mixin;
 
 .container {
-  max-width: 1200px;
+  // max-width: 1200px;
   margin: auto;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  // padding: 20px;
   @include mixin.breakpoint-mobileL {
     padding: 0;
   }
 }
 
 .content {
-  width: 80%;
   margin: auto;
   padding: 20px;
   font-size: 1.2rem;
   text-align: center;
+  // max-width: 1200px;
   @include mixin.breakpoint-laptopS {
     width: 100%;
   }
   @include mixin.breakpoint-mobileL {
     display: none;
+  }
+  a {
+    color: var(--secondary-color);
   }
 }
 

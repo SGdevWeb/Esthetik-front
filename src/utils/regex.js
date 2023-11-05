@@ -1,4 +1,4 @@
-export const FIRSTNAME = /^[a-zA-Zàáâäãåçèéêëìíîïñòóôöõøùúûüýÿ'\-]{2,}$/;
+export const FIRSTNAME = /^[a-zA-Zàáâäãåçèéêëìíîïñòóôöõøùúûüýÿ'-]{2,}$/;
 
 export const LASTNAME = /^[a-zA-Zàáâäãåçèéêëìíîïñòóôöõøùúûüýÿ'\-\s]{2,}$/;
 

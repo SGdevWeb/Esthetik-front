@@ -1,3 +1,14 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--gray-2);
+}
+
 .content {
   flex-grow: 1;
+  overflow-y: auto;
 }

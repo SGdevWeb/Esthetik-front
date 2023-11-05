@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Prestations.module.scss";
+import styles from "./PrestationsPage.module.scss";
 import Navigation from "../../components/Prestations/Navigation/Navigation";
 import Promotion from "../../components/Prestations/Promotion/Promotion";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const PrivateRoute = ({ children }) => {
@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   if (!token || shouldRedirect) {
     return <Navigate to="/admin/signin" />;
   }
-  return children;
+  return <Outlet />;
 };
 
 export default PrivateRoute;

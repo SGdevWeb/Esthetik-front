@@ -2,11 +2,7 @@ import axiosInstance from "./axiosInstance";
 
 export const addAppointment = async (values, axiosConfig) => {
   try {
-    const response = await axiosInstance.post(
-      "/appointment/create",
-      values,
-      axiosConfig
-    );
+    const response = await axiosInstance.post("/appointment/create", values);
     return response;
   } catch (error) {
     const { message } = error.response.data;
