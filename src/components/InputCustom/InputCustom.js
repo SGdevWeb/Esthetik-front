@@ -10,9 +10,10 @@ function InputCustom({
   onBlur,
   min,
   max,
+  style,
 }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={style}>
       <input
         id={id}
         type={type}

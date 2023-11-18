@@ -15,7 +15,19 @@ function Location() {
   useEffect(() => {
     const getLocations = async () => {
       const locations = await fetchLocations();
-      setLocations(locations);
+      const formattedLocations = locations.map((location) => ({
+        name: location.name
+          .split(/(\s|-)/) // Sépare sur les espaces ou les tirets tout en gardant les délimiteurs
+          .map((part) => {
+            if (part === " " || part === "-") {
+              return part;
+            } else {
+              return part.charAt(0).toUpperCase() + part.slice(1);
+            }
+          })
+          .join(""),
+      }));
+      setLocations(formattedLocations);
     };
     getLocations();
   }, []);

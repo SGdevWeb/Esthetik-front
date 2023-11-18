@@ -145,6 +145,7 @@ function AppointmentForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.lastName}
+            style={{ marginTop: "20px" }}
           />
           {formik.touched.lastName && formik.errors.lastName ? (
             <div className={styles.error}>{formik.errors.lastName}</div>
@@ -159,6 +160,7 @@ function AppointmentForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.firstName}
+            style={{ marginTop: "20px" }}
           />
           {formik.touched.firstName && formik.errors.firstName ? (
             <div className={styles.error}>{formik.errors.firstName}</div>
@@ -173,6 +175,7 @@ function AppointmentForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
+            style={{ marginTop: "20px" }}
           />
           {formik.touched.email && formik.errors.email ? (
             <div className={styles.error}>{formik.errors.email}</div>

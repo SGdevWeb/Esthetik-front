@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
+import styles from "./Planning.module.scss";
 import { Calendar } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import { dateFnsLocalizer } from "react-big-calendar";
-import { fetchSlots } from "../../../../../../api/slot";
+import Modal from "../../../../../../components/Modal/Modal";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencil,
+  faUndo,
+  faSave,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from "../../../../../../components/Button/Button";
+import { deleteSlot } from "../../../../../../api/slot";
+import { updateSlot } from "../../../../../../api/slot";
+import { toast } from "react-toastify";
 
 const locales = {
   fr: fr,
@@ -31,6 +44,28 @@ const transformSlotsToEvents = (slots) => {
   });
 };
 
+const groupServicesBySlot = (data) => {
+  const slots = {};
+
+  data.forEach((item) => {
+    if (!slots[item.id]) {
+      slots[item.id] = {
+        ...item,
+        services: [],
+      };
+    }
+    if (item.title) {
+      slots[item.id].services.push({
+        title: item.title,
+        price: item.price,
+        type_de_prestation: item.type_de_prestation,
+      });
+    }
+  });
+
+  return Object.values(slots);
+};
+
 const eventStyleGetter = (event, start, end, isSelected) => {
   let style = {
     backgroundColor: event.is_booked
@@ -48,41 +83,294 @@ const eventStyleGetter = (event, start, end, isSelected) => {
   };
 };
 
-const Planning = () => {
-  const [slots, setSlots] = useState([]);
+const Planning = ({ slots }) => {
+  const [selectedEvent, setSelectedEvent] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formattedSlots, setFormattedSlots] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("10:00");
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  const generateTimeOptions = () => {
+    const times = [];
+    for (let hour = 9; hour < 18; hour++) {
+      // Heures s'arrêtant avant 18h
+      for (let minute = 0; minute < 60; minute += 15) {
+        const time = `${hour.toString().padStart(2, "0")}:${minute
+          .toString()
+          .padStart(2, "0")}`;
+        times.push(time);
+      }
+    }
+    // Ajout de 18:00 séparément
+    times.push("18:00");
+    return times;
+  };
+
+  const timeOptions = generateTimeOptions();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchSlots();
+    const groupedData = groupServicesBySlot(slots);
+    const newFormattedSlots = transformSlotsToEvents(groupedData);
+    setFormattedSlots(newFormattedSlots);
+  }, [slots]);
 
-      if (response.status !== 200) {
-        console.error(
-          "Erreur lors de la récupération des créneaux : ",
-          response.statusText
+  useEffect(() => {
+    if (selectedEvent) {
+      setStartTime(format(new Date(selectedEvent.start), "HH:mm"));
+      setEndTime(format(new Date(selectedEvent.end), "HH:mm"));
+    }
+  }, [selectedEvent]);
+
+  const handleEventClick = (event) => {
+    console.log(event);
+    setSelectedEvent(event);
+    setIsModalOpen(true);
+  };
+
+  const handleEditClick = (e) => {
+    setIsEditing(true);
+    console.log(e);
+  };
+
+  const handleSaveChanges = async () => {
+    if (selectedEvent && selectedEvent.id) {
+      const updatedStartTime = new Date(selectedEvent.date + "T" + startTime);
+      const updatedEndTime = new Date(selectedEvent.date + "T" + endTime);
+
+      const isOverlapping = formattedSlots.some((slot) => {
+        if (slot.id === selectedEvent.id || slot.date !== selectedEvent.date) {
+          return false;
+        }
+        return (
+          (updatedStartTime < slot.end && updatedStartTime > slot.start) ||
+          (updatedEndTime > slot.start && updatedEndTime < slot.end)
         );
+      });
+
+      if (isOverlapping) {
+        console.error(
+          "Le créneau chevauche un autre créneau existant sur la même date."
+        );
+        toast.error(
+          "Le créneau chevauche un autre créneau existant sur la même date."
+        );
+        setIsEditing(false);
         return;
       }
 
-      if (response.data && response.data.length) {
-        console.log(response.data);
-        const formattedSlots = transformSlotsToEvents(response.data);
-        setSlots(formattedSlots);
+      const updatedSlotData = {
+        start_time: startTime,
+        end_time: endTime,
+      };
+
+      const response = await updateSlot(selectedEvent.id, updatedSlotData);
+      if (response && response.status === 200) {
+        console.log("Créneau mis à jour avec succès");
+
+        const updatedFormattedSlots = formattedSlots.map((slot) => {
+          if (slot.id === selectedEvent.id) {
+            return { ...slot, start: updatedStartTime, end: updatedEndTime };
+          }
+          return slot;
+        });
+
+        setFormattedSlots(updatedFormattedSlots);
       }
-    };
-    fetchData();
-  }, []);
+      handleCloseModal();
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedEvent && selectedEvent.id) {
+      const response = await deleteSlot(selectedEvent.id);
+      if (response && response.status === 200) {
+        console.log("Créneau supprimé avec succès");
+        const slotsAfterDelete = formattedSlots.filter(
+          (event) => event.id !== selectedEvent.id
+        );
+        setFormattedSlots(slotsAfterDelete);
+        setIsModalOpen(false);
+      }
+    }
+    handleCloseModal();
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setShowDeleteConfirmation(false);
+    setIsEditing(false);
+  };
 
   return (
     <div style={{ height: 700 }}>
       <Calendar
         localizer={localizer}
-        events={slots}
+        events={formattedSlots}
         startAccessor="start"
         endAccessor="end"
         culture="fr"
         style={{ height: "100%" }}
         eventPropGetter={eventStyleGetter}
+        onSelectEvent={handleEventClick}
       />
+      {selectedEvent && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          {" "}
+          <div className={styles.modalContent}>
+            {selectedEvent.is_booked ? (
+              <>
+                <h3>Détails du rendez-vous</h3>
+                <p>
+                  <span>Client :</span> {selectedEvent.firstname}{" "}
+                  {selectedEvent.lastname}
+                </p>
+                <p>
+                  <span>Email :</span> {selectedEvent.email}
+                </p>
+                <p>
+                  <span>Créneau :</span>{" "}
+                  {selectedEvent.start_time.split(":").slice(0, 2).join("h")} -{" "}
+                  {selectedEvent.end_time.split(":").slice(0, 2).join("h")}
+                </p>
+                <h4>Prestations réservées</h4>
+                <ul>
+                  {selectedEvent.services &&
+                    selectedEvent.services.map((service, index) => (
+                      <li key={index}>
+                        - {service.type_de_prestation} : {service.title}
+                      </li>
+                    ))}
+                </ul>
+              </>
+            ) : (
+              <>
+                <p>Actuellement, ce créneau n'a pas encore été reservé</p>
+                <p>
+                  <span>Créneau :</span>{" "}
+                  {selectedEvent.start_time.split(":").slice(0, 2).join("h")} -{" "}
+                  {selectedEvent.end_time.split(":").slice(0, 2).join("h")}
+                </p>
+              </>
+            )}
+            {showDeleteConfirmation ? (
+              // Section de confirmation de suppression
+              <div className={styles.deleteSection}>
+                <h3>Suppression d'un créneau</h3>
+                <p>
+                  Êtes-vous sûr de vouloir supprimer définitivement ce créneau ?
+                </p>
+                <div className={styles.row}>
+                  <Button
+                    color="var(--secondary-color)"
+                    onClick={handleConfirmDelete}
+                  >
+                    <FontAwesomeIcon icon={faCheck} />
+                    <span>Confirmer</span>
+                  </Button>
+                  <Button
+                    color="var(--secondary-color)"
+                    onClick={handleCancelDelete}
+                  >
+                    <FontAwesomeIcon icon={faUndo} />
+                    <span>Annuler</span>
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {isEditing ? (
+                  // Section de modification
+                  <div className={styles.modifySection}>
+                    <h3>Modification du créneau</h3>
+                    <div className={styles.row}>
+                      <div className={styles.inputContainer}>
+                        <label>Heure de début</label>
+                        <select
+                          value={startTime}
+                          onChange={(e) => setStartTime(e.target.value)}
+                        >
+                          {timeOptions.map(
+                            (time, index) =>
+                              index < timeOptions.length - 1 && (
+                                <option key={time} value={time}>
+                                  {time}
+                                </option>
+                              )
+                          )}
+                        </select>
+                      </div>
+                      <div className={styles.inputContainer}>
+                        <label>Heure de fin</label>
+                        <select
+                          value={endTime}
+                          onChange={(e) => setEndTime(e.target.value)}
+                        >
+                          {timeOptions.map(
+                            (time, index) =>
+                              index > 0 && (
+                                <option key={time} value={time}>
+                                  {time}
+                                </option>
+                              )
+                          )}
+                        </select>
+                      </div>
+                    </div>
+                    <div className={styles.row}>
+                      <Button
+                        color="var(--secondary-color)"
+                        onClick={handleSaveChanges}
+                      >
+                        <FontAwesomeIcon icon={faSave} />
+                        <span>Enregistrer</span>
+                      </Button>
+                      <Button
+                        color="var(--secondary-color)"
+                        onClick={handleCancelEdit}
+                      >
+                        <FontAwesomeIcon icon={faUndo} />
+                        <span>Annuler</span>
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  // Boutons Modifier et Supprimer
+                  <div className={styles.buttons}>
+                    <Button
+                      color="var(--secondary-color)"
+                      onClick={handleEditClick}
+                    >
+                      <FontAwesomeIcon icon={faPencil} />
+                      <span>Modifier</span>
+                    </Button>
+                    <Button
+                      color="var(--secondary-color)"
+                      onClick={handleDeleteClick}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} />
+                      <span>Supprimer</span>
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

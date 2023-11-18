@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { addSlots } from "../../../api/slot";
+import styles from "./RepetitiveSlots.module.scss";
+import { addSlots } from "../../../../../../api/slot";
+import InputCustom from "../../../../../../components/InputCustom/InputCustom";
+import Button from "../../../../../../components/Button/Button";
 
-function RepetitiveSlots() {
+function RepetitiveSlots({ onSlotsAdded }) {
   const [selectedDay, setSelectedDay] = useState("");
   const [repeatCount, setRepeatCount] = useState(1);
   const [startTime, setStartTime] = useState("09:00"); // format 24h, début par défaut à 9h
@@ -67,13 +70,13 @@ function RepetitiveSlots() {
     if (startTime > endTime) {
       alert("L'heure de fin doit être après l'heure de début");
     } else {
-      const slots = generateSlots();
-      console.log("Slots générés pour la soumission : ", slots);
+      const newSlots = generateSlots();
+      console.log("Slots générés pour la soumission : ", newSlots);
       try {
-        const response = await addSlots(slots);
+        const response = await addSlots(newSlots);
         console.log("response", response);
         if (response.status === 201) {
-          console.log("Créneaux soumis : ", slots);
+          console.log("Créneaux soumis : ", newSlots);
           setSelectedDay("");
           setRepeatCount(1);
           setStartTime("09:00");
@@ -81,6 +84,7 @@ function RepetitiveSlots() {
           setErrorMessage("");
           const { message } = response.data;
           setSuccessMessage(message);
+          onSlotsAdded(newSlots);
         } else {
           console.log("response", response);
           const { message } = response.data;
@@ -95,20 +99,21 @@ function RepetitiveSlots() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>
-        <label>
-          Sélectionnez le jour:
-          <input
+        <div className={styles.inputContainer}>
+          <label>Sélectionnez le jour</label>
+          <InputCustom
             type="date"
             value={selectedDay}
             onChange={(e) => setSelectedDay(e.target.value)}
+            style={{ marginTop: "5px" }}
           />
-        </label>
+        </div>
       </div>
-      <div>
-        <label>
-          Heure de début:
+      <div className={styles.row}>
+        <div className={styles.inputContainer}>
+          <label>Heure de début</label>
           <select
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
@@ -122,9 +127,9 @@ function RepetitiveSlots() {
                 )
             )}
           </select>
-        </label>
-        <label>
-          Heure de fin:
+        </div>
+        <div className={styles.inputContainer}>
+          <label>Heure de fin</label>
           <select value={endTime} onChange={(e) => setEndTime(e.target.value)}>
             {times.map(
               (time, index) =>
@@ -135,21 +140,27 @@ function RepetitiveSlots() {
                 )
             )}
           </select>
-        </label>
+        </div>
       </div>
-      <div>
-        <label>
-          Répéter pendant combien de semaines?
-          <input
-            type="number"
-            value={repeatCount}
-            onChange={(e) => setRepeatCount(e.target.value)}
-          />
-        </label>
+
+      <div className={styles.inputContainer}>
+        <label>Récurrence : durant combien de semaines ?</label>
+        <InputCustom
+          type="number"
+          value={repeatCount}
+          onChange={(e) => setRepeatCount(e.target.value)}
+          style={{ marginTop: "5px" }}
+        />
       </div>
-      <button onClick={handleSubmit}>Appliquer</button>
-      {errorMessage && <p>{errorMessage}</p>}
-      {successMessage && <p>{successMessage}</p>}
+      <div className={styles.btnContainer}>
+        <Button onClick={handleSubmit} color="var(--primary-color)">
+          Appliquer
+        </Button>
+      </div>
+      <div className={styles.message}>
+        {errorMessage && <p>{errorMessage}</p>}
+        {successMessage && <p>{successMessage}</p>}
+      </div>
     </div>
   );
 }
