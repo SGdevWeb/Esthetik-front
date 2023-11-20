@@ -3,14 +3,37 @@ import { useFormik } from "formik";
 import validationSchema from "../../../models/AppointmentSchema";
 import InputCustom from "../../InputCustom/InputCustom";
 import SlotBookingForm from "../SlotBookingForm/SlotBookingForm";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchRates } from "../../../api/rates";
 import { fetchServicesByRateId } from "../../../api/services";
 import Chip from "../../Chip/Chip";
 import { addAppointment } from "../../../api/appointment";
 import Button from "../../Button/Button";
 
+import { fetchAddressSuggestions } from "../../../api/address";
+
+function debounce(func, delay) {
+  let timer;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(context, args), delay);
+  };
+}
+
 function AppointmentForm() {
+  const [rates, setRates] = useState("");
+  const [services, setServices] = useState([]);
+  const [chips, setChips] = useState([]);
+  const [selectedRate, setSelectedRate] = useState("");
+  const [selectedService, setSelectedService] = useState("");
+  const [hasAddedService, setHasAddedService] = useState(false);
+  const [serviceError, setServiceError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressSuggestions, setAddressSuggestions] = useState([]);
+  const addressRef = useRef();
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchRates();
@@ -20,14 +43,45 @@ function AppointmentForm() {
     fetchData();
   }, []);
 
-  const [rates, setRates] = useState("");
-  const [services, setServices] = useState([]);
-  const [chips, setChips] = useState([]);
-  const [selectedRate, setSelectedRate] = useState("");
-  const [selectedService, setSelectedService] = useState("");
-  const [hasAddedService, setHasAddedService] = useState(false);
-  const [serviceError, setServiceError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      if (selectedRate) {
+        const data = await fetchServicesByRateId(selectedRate);
+
+        setServices(data);
+      } else {
+        setServices([]);
+      }
+    };
+
+    fetchData();
+  }, [selectedRate]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (addressRef.current && !addressRef.current.contains(event.target)) {
+        setAddressSuggestions([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+  const fetchAddressSuggestionsDebounced = debounce(async (inputText) => {
+    const suggestions = await fetchAddressSuggestions(inputText);
+    console.log("suggestions", suggestions);
+
+    setAddressSuggestions(suggestions);
+  }, 300);
+
+  const selectAddress = (address) => {
+    setAddress(address);
+    setAddressSuggestions([]);
+  };
 
   const handleRateChange = (e) => {
     setSelectedRate(e.target.value);
@@ -79,20 +133,6 @@ function AppointmentForm() {
     validationSchema,
     onSubmit,
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (selectedRate) {
-        const data = await fetchServicesByRateId(selectedRate);
-
-        setServices(data);
-      } else {
-        setServices([]);
-      }
-    };
-
-    fetchData();
-  }, [selectedRate]);
 
   const addChip = () => {
     if (selectedRate && selectedService) {
@@ -165,6 +205,34 @@ function AppointmentForm() {
           {formik.touched.firstName && formik.errors.firstName ? (
             <div className={styles.error}>{formik.errors.firstName}</div>
           ) : null}
+        </div>
+        <div className={styles.autocompleteContainer} ref={addressRef}>
+          <InputCustom
+            id="address"
+            type="text"
+            name="address"
+            placeholder="3 rue de l'exemple, 59300 Valenciennes"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setAddress(e.target.value);
+              fetchAddressSuggestionsDebounced(e.target.value);
+            }}
+            value={address}
+            style={{ marginTop: "20px" }}
+          />
+          {addressSuggestions.length > 0 && (
+            <div className={styles.dropdownMenu}>
+              {addressSuggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className={styles.dropdownItem}
+                  onClick={() => selectAddress(suggestion.address)}
+                >
+                  {suggestion.address}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div>
           <InputCustom
