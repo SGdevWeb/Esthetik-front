@@ -171,7 +171,13 @@ const Planning = ({ slots }) => {
 
         const updatedFormattedSlots = formattedSlots.map((slot) => {
           if (slot.id === selectedEvent.id) {
-            return { ...slot, start: updatedStartTime, end: updatedEndTime };
+            return {
+              ...slot,
+              start: updatedStartTime,
+              end: updatedEndTime,
+              start_time: startTime,
+              end_time: endTime,
+            };
           }
           return slot;
         });

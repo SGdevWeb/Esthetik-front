@@ -5,6 +5,8 @@ import Button from "../../../../components/Button/Button";
 import Modal from "../../../../components/Modal/Modal";
 import RepetitiveSlots from "./components/RepetitiveSlots/RepetitiveSlots";
 import { fetchSlotsDetails } from "../../../../api/slot";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function Slot() {
   const [slots, setSlots] = useState([]);
@@ -43,6 +45,7 @@ function Slot() {
       <Planning slots={slots} />
       <div className={styles.btnContainer}>
         <Button color="var(--primary-color)" onClick={addSlot}>
+          <FontAwesomeIcon icon={faPlus} className="mr-10" />
           Ajouter un créneau
         </Button>
       </div>

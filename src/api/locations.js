@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
 export const fetchLocations = async () => {
@@ -27,10 +28,25 @@ export const newLocation = async (values) => {
 
 export const deleteLocation = async (locationId) => {
   try {
-    const response = await axiosInstance.delete(
-      "/locations/delete",
-      locationId
+    const response = await axiosInstance.delete(`/locations/${locationId}`);
+    return response;
+  } catch (error) {
+    const { message } = error.response.data;
+    console.error("Erreur lors de la suppression de la ville : ", message);
+    return error.response;
+  }
+};
+
+export const updateLocation = async (locationId, updatedLocationData) => {
+  try {
+    const response = await axiosInstance.patch(
+      `/locations/${locationId}`,
+      updatedLocationData
     );
     return response;
-  } catch (error) {}
+  } catch (error) {
+    const { message } = error.response.data;
+    console.error("Erreur lors de la mise à jour de la ville : ", message);
+    return error.response;
+  }
 };

@@ -3,7 +3,7 @@
   h1 {
     text-align: center;
   }
-  .all {
+  .tableSection {
     table {
       width: 100%;
       border-collapse: collapse;
@@ -55,6 +55,32 @@
     }
     .btn {
       margin-top: 20px;
+    }
+  }
+}
+
+.locationName {
+  font-size: 1rem;
+}
+
+.modalContent {
+  h3 {
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    > button {
+      margin: 0 15px;
     }
   }
 }
