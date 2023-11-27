@@ -15,7 +15,6 @@ import Location from "./pages/AdminPage/pages/Location/Location";
 import Services from "./pages/AdminPage/pages/Services/Services";
 import Package from "./pages/AdminPage/pages/Package/Package";
 import Promotion from "./pages/AdminPage/pages/Promotion/Promotion";
-import Appointment from "./pages/AdminPage/pages/Appointment/Appointment";
 import Slot from "./pages/AdminPage/pages/Slot/Slot";
 import Articles from "./pages/AdminPage/pages/Articles/Articles";
 
@@ -78,10 +77,6 @@ export const router = createBrowserRouter([
           {
             path: "promotions",
             element: <Promotion />,
-          },
-          {
-            path: "rendez-vous",
-            element: <Appointment />,
           },
           {
             path: "planning",

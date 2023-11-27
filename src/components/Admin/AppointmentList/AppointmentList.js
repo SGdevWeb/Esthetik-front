@@ -1,55 +1,97 @@
-import {
-  confirmAppointment,
-  fetchAppointmentsDetails,
-} from "../../../api/appointment";
+import { confirmAppointment } from "../../../api/appointment";
+import Button from "../../Button/Button";
 import styles from "./AppointmentList.module.scss";
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-function AppointmentList() {
-  const [appointments, setAppointments] = useState([]);
+function AppointmentList({ appointments }) {
   const [groupedAppointments, setGroupedAppointments] = useState({});
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchAppointmentsDetails();
+    const groupAppointments = () => {
+      const grouped = {};
 
-      if (response.status !== 200) {
-        console.error(
-          "Erreur lors de la récupération des rendez-vous : ",
-          response.statusText
+      console.log("appointments in AppointmentList", appointments);
+
+      appointments.forEach((appointment) => {
+        const { appointment_id, prestation, type_de_prestation, ...rest } =
+          appointment;
+
+        if (!grouped[appointment_id]) {
+          grouped[appointment_id] = {
+            appointment_id,
+            ...rest,
+            prestations: [
+              {
+                type: type_de_prestation,
+                prestation: prestation,
+              },
+            ],
+          };
+        } else {
+          grouped[appointment_id].prestations.push({
+            type: type_de_prestation,
+            prestation: prestation,
+          });
+        }
+      });
+
+      return grouped;
+    };
+
+    const applyFilter = (grouped) => {
+      return Object.values(grouped).filter((appointment) => {
+        switch (filter) {
+          case "confirmed":
+            return appointment.is_confirmed;
+          case "notConfirmed":
+            return !appointment.is_confirmed;
+          case "all":
+          default:
+            return true;
+        }
+      });
+    };
+
+    const grouped = groupAppointments();
+    const filtered = applyFilter(grouped);
+
+    setGroupedAppointments(grouped);
+    setFilteredAppointments(filtered);
+  }, [appointments, filter]);
+
+  const handleConfirm = async (appointmentId) => {
+    console.log(groupedAppointments);
+    const appointmentToConfirm = filteredAppointments.find(
+      (appointment) => appointment.appointment_id === appointmentId
+    );
+    console.log(appointmentToConfirm);
+
+    if (!appointmentToConfirm) {
+      console.error("Rendez-vous non trouvé");
+      return;
+    }
+
+    try {
+      const response = await confirmAppointment(
+        appointmentId,
+        appointmentToConfirm
+      );
+      console.log(response);
+      if (response.status === 200) {
+        console.log(groupedAppointments);
+        const updatedGroupedAppointments = filteredAppointments.map(
+          (appointment) =>
+            appointment.appointment_id === appointmentId
+              ? { ...appointment, is_confirmed: true }
+              : appointment
         );
-        return;
-      }
 
-      if (response.data && response.data.length) {
-        const groupedAppointments = {};
+        setGroupedAppointments(updatedGroupedAppointments);
 
-        response.data.forEach((appointment) => {
-          const { appointment_id, prestation, type_de_prestation, ...rest } =
-            appointment;
-
-          if (!groupedAppointments[appointment_id]) {
-            groupedAppointments[appointment_id] = {
-              appointment_id,
-              ...rest,
-              prestations: [
-                {
-                  type: type_de_prestation,
-                  prestation: prestation,
-                },
-              ],
-            };
-          } else {
-            groupedAppointments[appointment_id].prestations.push({
-              type: type_de_prestation,
-              prestation: prestation,
-            });
-          }
-        });
-        const localGroupedAppointments = Object.values(groupedAppointments);
-        setGroupedAppointments(localGroupedAppointments);
-        const filteredAppointments = localGroupedAppointments.filter(
+        const updatedAppointments = updatedGroupedAppointments.filter(
           (appointment) => {
             switch (filter) {
               case "confirmed":
@@ -62,39 +104,16 @@ function AppointmentList() {
             }
           }
         );
-        setAppointments(filteredAppointments);
-      } else {
-        console.log("Aucun rendez-vous programmé");
+
+        setFilteredAppointments(updatedAppointments);
+
+        toast.success(
+          "Rendez-vous confirmé : un mail de confirmation a été envoyé à la cliente"
+        );
       }
-    };
-    fetchData();
-  }, [filter]);
-
-  const handleConfirm = async (appointmentId) => {
-    const appointment = groupedAppointments.find(
-      (appointment) => appointment.appointment_id === appointmentId
-    );
-    console.log(appointment);
-
-    if (!appointment) {
-      console.error("Rendez-vous non trouvé");
-      return;
-    }
-
-    try {
-      const response = await confirmAppointment(appointmentId, appointment);
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleCancel = (appointmentId) => {
-    // Traiter l'annulation
-  };
-
-  const handleModify = (appointmentId) => {
-    // Traiter la modification
   };
 
   return (
@@ -105,55 +124,54 @@ function AppointmentList() {
         <option value="confirmed">Rendez-vous confirmés</option>
         <option value="notConfirmed">Rendez-vous non confirmés</option>
       </select>
-      {appointments.length > 0 ? (
+      {filteredAppointments.length > 0 ? (
         <table>
           <thead>
             <tr>
               <th>Nom</th>
               <th>Prénom</th>
-              <th>Prestation</th>
+              <th>Prestation(s)</th>
               <th>Date</th>
-              <th>Heure</th>
+              <th>Créneau</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {appointments.map((appointment) => (
-              <tr key={appointment.appointment_id}>
-                <td>{appointment.lastname}</td>
-                <td>{appointment.firstname}</td>
-                <td>
-                  <ul>
-                    {appointment.prestations.map((item, index) => (
-                      <li key={index}>
-                        {item.type} : {item.prestation}
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-                <td>{new Date(appointment.date).toLocaleDateString()}</td>
-                <td>
-                  {appointment.start_time.split(":").splice(0, 2).join(":")}
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleConfirm(appointment.appointment_id)}
-                  >
-                    Confirmer
-                  </button>
-                  <button
-                    onClick={() => handleCancel(appointment.appointment_id)}
-                  >
-                    Annuler
-                  </button>
-                  <button
-                    onClick={() => handleModify(appointment.appointment_id)}
-                  >
-                    Modifier
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {filteredAppointments &&
+              filteredAppointments.map((appointment) => (
+                <tr key={appointment.appointment_id}>
+                  <td>{appointment.lastname}</td>
+                  <td>{appointment.firstname}</td>
+                  <td>
+                    <ul>
+                      {appointment.prestations.map((item, index) => (
+                        <li key={index}>
+                          {item.type} : {item.prestation}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td>{new Date(appointment.date).toLocaleDateString()}</td>
+                  <td>
+                    {appointment.start_time.split(":").splice(0, 2).join(":")} -{" "}
+                    {appointment.end_time.split(":").splice(0, 2).join(":")}
+                  </td>
+                  <td>
+                    {!appointment.is_confirmed ? (
+                      <Button
+                        color="var(--primary-color)"
+                        onClick={() =>
+                          handleConfirm(appointment.appointment_id)
+                        }
+                      >
+                        Confirmer
+                      </Button>
+                    ) : (
+                      <p>Rendez-vous confimé</p>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       ) : (

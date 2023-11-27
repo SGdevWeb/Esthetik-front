@@ -7,10 +7,21 @@ import RepetitiveSlots from "./components/RepetitiveSlots/RepetitiveSlots";
 import { fetchSlotsDetails } from "../../../../api/slot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { usePageTitle } from "../../../../contexts/PageTitleContext";
+import AppointmentList from "../../../../components/Admin/AppointmentList/AppointmentList";
+import { fetchServicesWithRates } from "../../../../api/services";
+import { fetchAppointmentsDetails } from "../../../../api/appointment";
 
 function Slot() {
   const [slots, setSlots] = useState([]);
+  const [services, setServices] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setPageTitle } = usePageTitle();
+
+  useEffect(() => {
+    setPageTitle("Planning");
+  }, [setPageTitle]);
 
   const loadSlots = async () => {
     const response = await fetchSlotsDetails();
@@ -27,8 +38,41 @@ function Slot() {
     }
   };
 
+  const loadAppointments = async () => {
+    const response = await fetchAppointmentsDetails();
+    if (response.status !== 200) {
+      console.error(
+        "Erreur lors de la récupération des rendez-vous : ",
+        response.statusText
+      );
+      return;
+    }
+
+    if (response.data && response.data.length) {
+      console.log("Appointments", response.data);
+      setAppointments(response.data);
+    }
+  };
+
+  const getServices = async () => {
+    const response = await fetchServicesWithRates();
+    if (response.status !== 200) {
+      console.error(
+        "Erreur lors de la récupération des prestations : ",
+        response.statusText
+      );
+      return;
+    }
+
+    if (response.data && response.data.length) {
+      setServices(response.data);
+    }
+  };
+
   useEffect(() => {
     loadSlots();
+    getServices();
+    loadAppointments();
   }, []);
 
   function addSlot() {
@@ -41,8 +85,14 @@ function Slot() {
 
   return (
     <div className={styles.container}>
-      <h1>Planning</h1>
-      <Planning slots={slots} />
+      <Planning
+        slots={slots}
+        allServices={services}
+        onSlotsUpdated={() => {
+          loadSlots();
+          loadAppointments();
+        }}
+      />
       <div className={styles.btnContainer}>
         <Button color="var(--primary-color)" onClick={addSlot}>
           <FontAwesomeIcon icon={faPlus} className="mr-10" />
@@ -56,6 +106,7 @@ function Slot() {
           <RepetitiveSlots onSlotsAdded={handleSlotsAdded} />
         </div>
       </Modal>
+      <AppointmentList appointments={appointments} />
     </div>
   );
 }

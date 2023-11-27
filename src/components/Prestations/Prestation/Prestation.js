@@ -34,8 +34,8 @@ function Prestation() {
     };
 
     const getServicesByRateId = async (rateId) => {
-      const servicesData = await fetchServicesByRateId(rateId);
-      setServices(servicesData);
+      const response = await fetchServicesByRateId(rateId);
+      setServices(response.data);
     };
 
     const getPackage = async (rateId) => {

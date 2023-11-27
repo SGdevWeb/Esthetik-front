@@ -3,3 +3,5 @@ export const FIRSTNAME = /^[a-zA-Zàáâäãåçèéêëìíîïñòóôöõøù
 export const LASTNAME = /^[a-zA-Zàáâäãåçèéêëìíîïñòóôöõøùúûüýÿ'\-\s]{2,}$/;
 
 export const EMAIL = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+export const PHONE = /^(\+33|0)[67]\d{8}$/;

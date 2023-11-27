@@ -26,6 +26,17 @@
       margin-left: 10px;
     }
   }
+  select {
+    padding: 5px 10px;
+    margin-top: 5px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    color: var(--gray);
+    width: 100%;
+    cursor: pointer;
+  }
 }
 
 .modifySection,
@@ -34,6 +45,8 @@
   flex-direction: column;
   margin-top: 30px;
   padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px gray;
   .row {
     display: flex;
     justify-content: space-between;
@@ -44,7 +57,7 @@
   }
   h3 {
     font-size: 1.2rem;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid var(--secondary-color);
     margin-bottom: 20px;
   }
@@ -57,10 +70,8 @@
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   padding: 15px;
-  margin-top: 15px;
   margin-bottom: 10px;
   position: relative;
-  color: var(--gray-1);
   width: 49%;
   label {
     position: absolute;
@@ -69,19 +80,33 @@
     top: -16px;
     padding: 0 5px;
     display: flex;
-  }
-  select {
-    padding: 5px 10px;
-    margin-top: 5px;
-    border: 1px solid var(--primary-color);
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-size: 1rem;
-    color: var(--gray);
-    width: 100%;
-    cursor: pointer;
+    color: var(--primary-color);
   }
   input {
     margin-top: 0;
+  }
+}
+
+.inputSection {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  h4 {
+    text-decoration: none;
+    position: absolute;
+    background-color: white;
+    font-size: 1rem;
+    top: -16px;
+    padding: 0 5px;
+  }
+  .btnContainer {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+  p {
+    margin: 0;
   }
 }

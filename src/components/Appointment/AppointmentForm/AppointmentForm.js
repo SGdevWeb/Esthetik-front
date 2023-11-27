@@ -46,9 +46,8 @@ function AppointmentForm() {
   useEffect(() => {
     const fetchData = async () => {
       if (selectedRate) {
-        const data = await fetchServicesByRateId(selectedRate);
-
-        setServices(data);
+        const response = await fetchServicesByRateId(selectedRate);
+        setServices(response.data);
       } else {
         setServices([]);
       }
@@ -79,6 +78,7 @@ function AppointmentForm() {
   }, 300);
 
   const selectAddress = (address) => {
+    formik.setFieldValue("address", address);
     setAddress(address);
     setAddressSuggestions([]);
   };
@@ -116,6 +116,7 @@ function AppointmentForm() {
       setHasAddedService(false);
       setServiceError("");
       formik.resetForm();
+      setAddress("");
     } catch (error) {
       console.error("Erreur lors de l'envoi du formulaire : ", error);
     }
@@ -125,7 +126,9 @@ function AppointmentForm() {
     initialValues: {
       firstName: "",
       lastName: "",
+      address: "",
       email: "",
+      phoneNumber: "",
       selectedDate: "",
       selectedSlot: "",
       services: [],
@@ -176,79 +179,103 @@ function AppointmentForm() {
     <div className={styles.container}>
       <h2>Formulaire de rendez-vous</h2>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <InputCustom
-            id="lastName"
-            type="text"
-            name="lastName"
-            placeholder="Nom"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.lastName}
-            style={{ marginTop: "20px" }}
-          />
-          {formik.touched.lastName && formik.errors.lastName ? (
-            <div className={styles.error}>{formik.errors.lastName}</div>
-          ) : null}
-        </div>
-        <div>
-          <InputCustom
-            id="firstName"
-            type="text"
-            name="firstName"
-            placeholder="Prénom"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.firstName}
-            style={{ marginTop: "20px" }}
-          />
-          {formik.touched.firstName && formik.errors.firstName ? (
-            <div className={styles.error}>{formik.errors.firstName}</div>
-          ) : null}
-        </div>
-        <div className={styles.autocompleteContainer} ref={addressRef}>
-          <InputCustom
-            id="address"
-            type="text"
-            name="address"
-            placeholder="3 rue de l'exemple, 59300 Valenciennes"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setAddress(e.target.value);
-              fetchAddressSuggestionsDebounced(e.target.value);
-            }}
-            value={address}
-            style={{ marginTop: "20px" }}
-          />
-          {addressSuggestions.length > 0 && (
-            <div className={styles.dropdownMenu}>
-              {addressSuggestions.map((suggestion, index) => (
-                <div
-                  key={index}
-                  className={styles.dropdownItem}
-                  onClick={() => selectAddress(suggestion.address)}
-                >
-                  {suggestion.address}
-                </div>
-              ))}
+        <div className={styles.coordinate}>
+          <h3>Coordonnées</h3>
+          <div className={styles.row}>
+            <div>
+              <InputCustom
+                id="lastName"
+                type="text"
+                name="lastName"
+                placeholder="Nom"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.lastName}
+                style={{ marginTop: "10px" }}
+              />
+              {formik.touched.lastName && formik.errors.lastName ? (
+                <div className={styles.error}>{formik.errors.lastName}</div>
+              ) : null}
             </div>
-          )}
+            <div>
+              <InputCustom
+                id="firstName"
+                type="text"
+                name="firstName"
+                placeholder="Prénom"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.firstName}
+                style={{ marginTop: "10px" }}
+              />
+              {formik.touched.firstName && formik.errors.firstName ? (
+                <div className={styles.error}>{formik.errors.firstName}</div>
+              ) : null}
+            </div>
+          </div>
+          <div className={styles.autocompleteContainer} ref={addressRef}>
+            <InputCustom
+              id="address"
+              type="text"
+              name="address"
+              placeholder="3 rue de l'exemple, 59300 Valenciennes"
+              onChange={(e) => {
+                console.log(e.target.value);
+                setAddress(e.target.value);
+                fetchAddressSuggestionsDebounced(e.target.value);
+              }}
+              value={address}
+              style={{ marginTop: "20px" }}
+            />
+            {formik.touched.address && formik.errors.address ? (
+              <div className={styles.error}>{formik.errors.address}</div>
+            ) : null}
+            {addressSuggestions.length > 0 && (
+              <div className={styles.dropdownMenu}>
+                {addressSuggestions.map((suggestion) => (
+                  <div
+                    key={suggestion.osm_id}
+                    className={styles.dropdownItem}
+                    onClick={() => selectAddress(suggestion.address)}
+                  >
+                    {suggestion.address}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div>
+            <InputCustom
+              id="email"
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              style={{ marginTop: "20px" }}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className={styles.error}>{formik.errors.email}</div>
+            ) : null}
+          </div>
+          <div>
+            <InputCustom
+              id="phoneNumber"
+              type="tel"
+              name="phoneNumber"
+              placeholder="Numéro de téléphone"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phoneNumber}
+              style={{ marginTop: "20px", marginBottom: "15px" }}
+            />
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <div className={styles.error}>{formik.errors.phoneNumber}</div>
+            ) : null}
+          </div>
         </div>
-        <div>
-          <InputCustom
-            id="email"
-            type="text"
-            name="email"
-            placeholder="Email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            style={{ marginTop: "20px" }}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className={styles.error}>{formik.errors.email}</div>
-          ) : null}
-        </div>
+
         <div className={styles.addService}>
           <h3>Ajouter une prestation</h3>
           <div>

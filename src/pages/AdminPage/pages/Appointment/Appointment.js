@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AppointmentList from "../../../../components/Admin/AppointmentList/AppointmentList";
+import { usePageTitle } from "../../../../contexts/PageTitleContext";
 
 function Appointment() {
-  return <div>Appointment</div>;
+  const { setPageTitle } = usePageTitle();
+
+  useEffect(() => {
+    setPageTitle("Rendez-vous");
+  }, [setPageTitle]);
+
+  return (
+    <div>
+      <AppointmentList />
+    </div>
+  );
 }
 
 export default Appointment;

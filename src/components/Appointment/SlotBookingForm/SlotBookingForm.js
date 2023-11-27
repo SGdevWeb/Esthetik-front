@@ -83,7 +83,7 @@ function SlotBookingForm({
             <option value="">Sélectionner un créneau</option>
             {availableSlots.map((slot) => (
               <option key={slot.id} value={slot.id}>
-                {slot.start_time} - {slot.end_time}
+                {slot.start_time}
               </option>
             ))}
           </select>

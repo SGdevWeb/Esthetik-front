@@ -48,3 +48,28 @@ export const confirmAppointment = async (appointmentId, appointment) => {
     return error;
   }
 };
+
+export const deleteAppointmentServices = async (appointmentId) => {
+  try {
+    const response = await axiosInstance.delete(
+      `/appointments/${appointmentId}/services`
+    );
+    return response;
+  } catch (error) {
+    console.error("Erreur : ", error);
+    return error;
+  }
+};
+
+export const addAppointmentServices = async (appointmentId, services) => {
+  try {
+    const response = await axiosInstance.post(
+      `/appointments/${appointmentId}/services`,
+      { services }
+    );
+    return response;
+  } catch (error) {
+    console.error("Erreur : ", error);
+    return error;
+  }
+};

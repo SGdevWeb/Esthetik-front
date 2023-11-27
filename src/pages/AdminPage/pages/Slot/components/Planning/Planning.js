@@ -11,12 +11,17 @@ import {
   faUndo,
   faSave,
   faCheck,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../../../../../../components/Button/Button";
 import { deleteSlot } from "../../../../../../api/slot";
 import { updateSlot } from "../../../../../../api/slot";
 import { toast } from "react-toastify";
+import {
+  addAppointmentServices,
+  deleteAppointmentServices,
+} from "../../../../../../api/appointment";
 
 const locales = {
   fr: fr,
@@ -39,7 +44,11 @@ const transformSlotsToEvents = (slots) => {
       ...slot,
       start: startDate,
       end: endDate,
-      title: slot.is_booked ? "Réservé" : "Dispo",
+      title: slot.is_booked
+        ? slot.is_confirmed
+          ? "Réservé"
+          : "A confirmer"
+        : "Disponible",
     };
   });
 };
@@ -56,6 +65,7 @@ const groupServicesBySlot = (data) => {
     }
     if (item.title) {
       slots[item.id].services.push({
+        id: item.service_id,
         title: item.title,
         price: item.price,
         type_de_prestation: item.type_de_prestation,
@@ -69,7 +79,9 @@ const groupServicesBySlot = (data) => {
 const eventStyleGetter = (event, start, end, isSelected) => {
   let style = {
     backgroundColor: event.is_booked
-      ? "var(--secondary-color)"
+      ? event.is_confirmed
+        ? "var(--secondary-color)"
+        : "var(--gray-2)"
       : "var(--primary-color)",
     borderRadius: "5px",
     opacity: 0.8,
@@ -83,7 +95,17 @@ const eventStyleGetter = (event, start, end, isSelected) => {
   };
 };
 
-const Planning = ({ slots }) => {
+const groupServicesByRate = (services) => {
+  return services.reduce((groups, service) => {
+    if (!groups[service.rate_name]) {
+      groups[service.rate_name] = [];
+    }
+    groups[service.rate_name].push(service);
+    return groups;
+  }, {});
+};
+
+const Planning = ({ slots, allServices, onSlotsUpdated }) => {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formattedSlots, setFormattedSlots] = useState([]);
@@ -91,6 +113,10 @@ const Planning = ({ slots }) => {
   const [startTime, setStartTime] = useState("09:00");
   const [endTime, setEndTime] = useState("10:00");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedServiceToAdd, setSelectedServiceToAdd] = useState("");
+
+  const groupedServices = groupServicesByRate(allServices);
 
   const generateTimeOptions = () => {
     const times = [];
@@ -121,17 +147,18 @@ const Planning = ({ slots }) => {
       setStartTime(format(new Date(selectedEvent.start), "HH:mm"));
       setEndTime(format(new Date(selectedEvent.end), "HH:mm"));
     }
+    if (selectedEvent && selectedEvent.services) {
+      setSelectedServices(selectedEvent.services);
+    }
   }, [selectedEvent]);
 
   const handleEventClick = (event) => {
-    console.log(event);
     setSelectedEvent(event);
     setIsModalOpen(true);
   };
 
-  const handleEditClick = (e) => {
+  const handleEditClick = () => {
     setIsEditing(true);
-    console.log(e);
   };
 
   const handleSaveChanges = async () => {
@@ -160,32 +187,58 @@ const Planning = ({ slots }) => {
         return;
       }
 
-      const updatedSlotData = {
-        start_time: startTime,
-        end_time: endTime,
-      };
+      try {
+        const updatedSlotData = {
+          start_time: startTime,
+          end_time: endTime,
+        };
 
-      const response = await updateSlot(selectedEvent.id, updatedSlotData);
-      if (response && response.status === 200) {
-        console.log("Créneau mis à jour avec succès");
+        const slotResponse = await updateSlot(
+          selectedEvent.id,
+          updatedSlotData
+        );
 
-        const updatedFormattedSlots = formattedSlots.map((slot) => {
-          if (slot.id === selectedEvent.id) {
-            return {
-              ...slot,
-              start: updatedStartTime,
-              end: updatedEndTime,
-              start_time: startTime,
-              end_time: endTime,
-            };
-          }
-          return slot;
-        });
+        if (slotResponse && slotResponse.status === 200) {
+          console.log("Créneau mis à jour avec succès");
 
-        setFormattedSlots(updatedFormattedSlots);
+          await deleteAppointmentServices(selectedEvent.appointment_id);
+
+          const newServiceIds = selectedServices.map((service) => service.id);
+
+          await addAppointmentServices(
+            selectedEvent.appointment_id,
+            newServiceIds
+          );
+
+          console.log("prestations mises à jour avec succès");
+
+          const slotIndex = formattedSlots.findIndex(
+            (slot) => slot.id === selectedEvent.id
+          );
+
+          const updatedEvent = {
+            ...selectedEvent,
+            start: updatedStartTime,
+            end: updatedEndTime,
+            start_time: startTime,
+            end_time: endTime,
+            services: [...selectedServices],
+          };
+
+          const newFormattedSlots = [...formattedSlots];
+          newFormattedSlots[slotIndex] = updatedEvent;
+
+          setFormattedSlots(newFormattedSlots);
+          setSelectedEvent(updatedEvent);
+          onSlotsUpdated();
+        } else {
+          toast.error("Erreur lors de la mise à jour du rendez-vous");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour : ", error);
       }
-      handleCloseModal();
     }
+    handleCloseModal();
   };
 
   const handleCancelEdit = () => {
@@ -200,7 +253,7 @@ const Planning = ({ slots }) => {
     if (selectedEvent && selectedEvent.id) {
       const response = await deleteSlot(selectedEvent.id);
       if (response && response.status === 200) {
-        console.log("Créneau supprimé avec succès");
+        console.log("Créneau et rdv supprimés avec succès");
         const slotsAfterDelete = formattedSlots.filter(
           (event) => event.id !== selectedEvent.id
         );
@@ -219,6 +272,36 @@ const Planning = ({ slots }) => {
     setIsModalOpen(false);
     setShowDeleteConfirmation(false);
     setIsEditing(false);
+  };
+
+  const handleAddService = () => {
+    const serviceToAdd = allServices.find(
+      (service) => service.service_id.toString() === selectedServiceToAdd
+    );
+
+    if (
+      serviceToAdd &&
+      !selectedServices.find(
+        (service) => service.service_id === serviceToAdd.service_id
+      )
+    ) {
+      setSelectedServices([
+        ...selectedServices,
+        {
+          id: serviceToAdd.service_id,
+          title: serviceToAdd.service_title,
+          price: serviceToAdd.service_price,
+          type_de_prestation: serviceToAdd.rate_name,
+        },
+      ]);
+      setSelectedServiceToAdd("");
+    }
+  };
+
+  const handleRemoveService = (serviceId) => {
+    setSelectedServices(
+      selectedServices.filter((service) => service.id !== serviceId)
+    );
   };
 
   return (
@@ -301,39 +384,107 @@ const Planning = ({ slots }) => {
                 {isEditing ? (
                   // Section de modification
                   <div className={styles.modifySection}>
-                    <h3>Modification du créneau</h3>
-                    <div className={styles.row}>
-                      <div className={styles.inputContainer}>
-                        <label>Heure de début</label>
-                        <select
-                          value={startTime}
-                          onChange={(e) => setStartTime(e.target.value)}
-                        >
-                          {timeOptions.map(
-                            (time, index) =>
-                              index < timeOptions.length - 1 && (
-                                <option key={time} value={time}>
-                                  {time}
-                                </option>
-                              )
-                          )}
-                        </select>
+                    <div className={styles.slotSection}>
+                      <h3>Modification du créneau</h3>
+                      <div className={styles.row}>
+                        <div className={styles.inputContainer}>
+                          <label>Heure de début</label>
+                          <select
+                            value={startTime}
+                            onChange={(e) => setStartTime(e.target.value)}
+                          >
+                            {timeOptions.map(
+                              (time, index) =>
+                                index < timeOptions.length - 1 && (
+                                  <option key={time} value={time}>
+                                    {time}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        </div>
+                        <div className={styles.inputContainer}>
+                          <label>Heure de fin</label>
+                          <select
+                            value={endTime}
+                            onChange={(e) => setEndTime(e.target.value)}
+                          >
+                            {timeOptions.map(
+                              (time, index) =>
+                                index > 0 && (
+                                  <option key={time} value={time}>
+                                    {time}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        </div>
                       </div>
-                      <div className={styles.inputContainer}>
-                        <label>Heure de fin</label>
-                        <select
-                          value={endTime}
-                          onChange={(e) => setEndTime(e.target.value)}
-                        >
-                          {timeOptions.map(
-                            (time, index) =>
-                              index > 0 && (
-                                <option key={time} value={time}>
-                                  {time}
-                                </option>
-                              )
+                    </div>
+                    <div className={styles.serviceSection}>
+                      <h3>Modification des prestations</h3>
+                      <div className={styles.inputSection}>
+                        <h4>Prestation(s) actuelle(s)</h4>
+                        <ul>
+                          {selectedServices.length > 0 ? (
+                            selectedServices.map((service, index) => (
+                              <li
+                                key={index}
+                                className="d-flex align-items-center"
+                                style={{ justifyContent: "space-between" }}
+                              >
+                                - {service.type_de_prestation} : {service.title}
+                                <FontAwesomeIcon
+                                  icon={faTrashCan}
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "var(--primary-color)",
+                                  }}
+                                  onClick={() =>
+                                    handleRemoveService(service.id)
+                                  }
+                                />
+                              </li>
+                            ))
+                          ) : (
+                            <p>Aucune prestation</p>
                           )}
-                        </select>
+                        </ul>
+                      </div>
+                      <div className={styles.inputSection}>
+                        <h4>Ajouter des prestations</h4>
+                        <div className={styles.row}>
+                          <select
+                            value={selectedServiceToAdd}
+                            onChange={(e) =>
+                              setSelectedServiceToAdd(e.target.value)
+                            }
+                          >
+                            <option value="">Ajouter une prestation</option>
+                            {Object.keys(groupedServices).map((rateName) => (
+                              <optgroup label={rateName} key={rateName}>
+                                {groupedServices[rateName].map((service) => (
+                                  <option
+                                    key={service.service_id}
+                                    value={service.service_id}
+                                  >
+                                    {service.service_title}
+                                  </option>
+                                ))}
+                              </optgroup>
+                            ))}
+                          </select>
+                          <div className="d-flex align-items-center justify-content-center ml-15">
+                            <FontAwesomeIcon
+                              icon={faPlus}
+                              style={{
+                                cursor: "pointer",
+                                color: "var(--primary-color)",
+                              }}
+                              onClick={handleAddService}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className={styles.row}>

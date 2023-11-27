@@ -11,11 +11,19 @@ import Modal from "../../../../components/Modal/Modal";
 import { deleteLocation } from "../../../../api/locations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheck,
   faPencil,
   faPlus,
+  faSave,
   faTrashCan,
+  faUndo,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
+import { usePageTitle } from "../../../../contexts/PageTitleContext";
+
+function sortLocations(locations) {
+  return locations.sort((a, b) => a.name.localeCompare(b.name));
+}
 
 function Location() {
   // Data
@@ -35,6 +43,12 @@ function Location() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { setPageTitle } = usePageTitle();
+
+  useEffect(() => {
+    setPageTitle("Secteur d'activité");
+  }, [setPageTitle]);
 
   useEffect(() => {
     const getLocations = async () => {
@@ -62,7 +76,9 @@ function Location() {
     try {
       const response = await newLocation({ name: location });
       if (response.status === 201) {
-        setLocations((prevLocations) => [...prevLocations, response.data]);
+        const newLocation = response.data;
+        const sortedLocation = sortLocations([...locations, newLocation]);
+        setLocations(sortedLocation);
         setLocation("");
         setErrorMessage("");
         setIsAddModalOpen(false);
@@ -148,7 +164,6 @@ function Location() {
 
   return (
     <div className={styles.container}>
-      <h1>Secteur d'activité</h1>
       <section className={styles.tableSection}>
         <table>
           <thead>
@@ -230,13 +245,21 @@ function Location() {
               placeholder="Modifier le nom de la ville"
             />
           </div>
-          <div className={styles.btn}>
+          <div className={styles.buttons}>
             <Button
               type="submit"
               color="var(--secondary-color)"
               onClick={handleEditSubmit}
             >
-              Mettre à jour
+              <FontAwesomeIcon icon={faSave} className="mr-10" />
+              Enregistrer
+            </Button>
+            <Button
+              color="var(--secondary-color)"
+              onClick={() => setIsEditModalOpen(false)}
+            >
+              <FontAwesomeIcon icon={faUndo} className="mr-10" />
+              Annuler
             </Button>
           </div>
         </div>
@@ -253,12 +276,14 @@ function Location() {
               color="var(--secondary-color)"
               onClick={handleDeleteConfirm}
             >
-              Supprimer
+              <FontAwesomeIcon icon={faCheck} className="mr-10" />
+              Confirmer
             </Button>
             <Button
               color="var(--secondary-color)"
               onClick={() => setIsDeleteModalOpen(false)}
             >
+              <FontAwesomeIcon icon={faUndo} className="mr-10" />
               Annuler
             </Button>
           </div>

@@ -39,9 +39,6 @@ function Sidebar() {
               <Link to="/admin/promotions">Promotions</Link>
             </li>
             <li>
-              <Link to="/admin/rendez-vous">Rendez-vous</Link>
-            </li>
-            <li>
               <Link to="/admin/planning">Planning</Link>
             </li>
             <li>

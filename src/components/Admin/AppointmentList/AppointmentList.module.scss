@@ -1,54 +1,53 @@
 .container {
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  margin: 20px;
+  margin-top: 50px;
+  h2 {
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+  select {
+    padding: 5px 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1rem;
+    color: var(--gray);
+    cursor: pointer;
+    display: block;
+    margin: auto;
+  }
   table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  th,
-  td {
-    padding: 10px 15px;
-    border-bottom: 1px solid #e6e6e6;
-    text-align: left;
-  }
-
-  th {
-    background-color: #333;
-    color: #fff;
-  }
-
-  button {
-    padding: 5px 15px;
-    margin: 0 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:first-child {
-      background-color: #4caf50;
-      color: #fff;
+    margin: 20px 0;
+    font-size: 1em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    thead tr {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      text-align: left;
     }
 
-    &:nth-child(2) {
-      background-color: #ff5252;
-      color: #fff;
+    th,
+    td {
+      padding: 12px 15px;
     }
 
-    &:last-child {
-      background-color: #ffb74d;
-      color: #fff;
+    tbody tr {
+      border-bottom: 1px solid #dddddd;
     }
 
-    &:hover {
-      opacity: 0.9;
+    tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    tbody tr:last-of-type {
+      border-bottom: 2px solid var(--primary-color);
+    }
+    p {
+      margin: 0;
     }
   }
 }
