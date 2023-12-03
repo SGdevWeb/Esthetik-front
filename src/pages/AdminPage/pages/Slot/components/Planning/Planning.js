@@ -279,12 +279,7 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
       (service) => service.service_id.toString() === selectedServiceToAdd
     );
 
-    if (
-      serviceToAdd &&
-      !selectedServices.find(
-        (service) => service.service_id === serviceToAdd.service_id
-      )
-    ) {
+    if (serviceToAdd) {
       setSelectedServices([
         ...selectedServices,
         {

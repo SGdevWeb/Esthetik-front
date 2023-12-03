@@ -49,7 +49,6 @@ function Slot() {
     }
 
     if (response.data && response.data.length) {
-      console.log("Appointments", response.data);
       setAppointments(response.data);
     }
   };

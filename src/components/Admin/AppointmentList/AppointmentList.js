@@ -13,8 +13,6 @@ function AppointmentList({ appointments }) {
     const groupAppointments = () => {
       const grouped = {};
 
-      console.log("appointments in AppointmentList", appointments);
-
       appointments.forEach((appointment) => {
         const { appointment_id, prestation, type_de_prestation, ...rest } =
           appointment;
