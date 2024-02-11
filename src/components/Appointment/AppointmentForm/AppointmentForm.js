@@ -75,7 +75,7 @@ function AppointmentForm() {
     console.log("suggestions", suggestions);
 
     setAddressSuggestions(suggestions);
-  }, 500);
+  }, 300);
 
   const selectAddress = (address) => {
     formik.setFieldValue("address", address);
