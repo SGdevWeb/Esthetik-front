@@ -70,12 +70,12 @@ function AppointmentForm() {
     };
   });
 
-  const fetchAddressSuggestionsDebounced = debounce(async (inputText) => {
-    const suggestions = await fetchAddressSuggestions(inputText);
-    console.log("suggestions", suggestions);
-
-    setAddressSuggestions(suggestions);
-  }, 300);
+  const fetchAddressSuggestionsDebouncedRef = useRef(
+    debounce(async (inputText) => {
+      const suggestions = await fetchAddressSuggestions(inputText);
+      setAddressSuggestions(suggestions);
+    }, 500)
+  );
 
   const selectAddress = (address) => {
     formik.setFieldValue("address", address);
@@ -223,7 +223,7 @@ function AppointmentForm() {
                 const inputValue = e.target.value;
                 setAddress(inputValue);
                 if (inputValue.length >= 6) {
-                  fetchAddressSuggestionsDebounced(inputValue);
+                  fetchAddressSuggestionsDebouncedRef.current(inputValue);
                 } else {
                   setAddressSuggestions([]);
                 }
