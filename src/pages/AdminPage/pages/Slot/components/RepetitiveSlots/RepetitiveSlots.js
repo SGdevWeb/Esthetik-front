@@ -13,7 +13,7 @@ function RepetitiveSlots({ onSlotsAdded }) {
   const [successMessage, setSuccessMessage] = useState("");
 
   const times = [];
-  for (let i = 9; i <= 18; i++) {
+  for (let i = 9; i <= 21; i++) {
     // Horaires vont de 9h à 18h
     times.push(i < 10 ? `0${i}:00` : `${i}:00`);
   }
@@ -71,12 +71,9 @@ function RepetitiveSlots({ onSlotsAdded }) {
       alert("L'heure de fin doit être après l'heure de début");
     } else {
       const newSlots = generateSlots();
-      console.log("Slots générés pour la soumission : ", newSlots);
       try {
         const response = await addSlots(newSlots);
-        console.log("response", response);
         if (response.status === 201) {
-          console.log("Créneaux soumis : ", newSlots);
           setSelectedDay("");
           setRepeatCount(1);
           setStartTime("09:00");

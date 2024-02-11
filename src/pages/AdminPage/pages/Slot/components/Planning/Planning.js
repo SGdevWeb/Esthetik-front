@@ -115,12 +115,13 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [selectedServiceToAdd, setSelectedServiceToAdd] = useState("");
+  const [confirmDeleteMessage, setConfirmDeleteMessage] = useState("");
 
   const groupedServices = groupServicesByRate(allServices);
 
   const generateTimeOptions = () => {
     const times = [];
-    for (let hour = 9; hour < 18; hour++) {
+    for (let hour = 9; hour < 21; hour++) {
       // Heures s'arrêtant avant 18h
       for (let minute = 0; minute < 60; minute += 15) {
         const time = `${hour.toString().padStart(2, "0")}:${minute
@@ -130,7 +131,7 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
       }
     }
     // Ajout de 18:00 séparément
-    times.push("18:00");
+    times.push("21:00");
     return times;
   };
 
@@ -246,6 +247,13 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
   };
 
   const handleDeleteClick = () => {
+    let message =
+      "Êtes-vous sûr de vouloir supprimer définitivement ce créneau ?";
+    if (selectedEvent.is_booked || selectedEvent.is_confirmed) {
+      message =
+        "Êtes-vous sûr de vouloir supprimer définitivement ce créneau et le rdv associé ?";
+    }
+    setConfirmDeleteMessage(message);
     setShowDeleteConfirmation(true);
   };
 
@@ -354,9 +362,7 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
               // Section de confirmation de suppression
               <div className={styles.deleteSection}>
                 <h3>Suppression d'un créneau</h3>
-                <p>
-                  Êtes-vous sûr de vouloir supprimer définitivement ce créneau ?
-                </p>
+                <p>{confirmDeleteMessage}</p>
                 <div className={styles.row}>
                   <Button
                     color="var(--secondary-color)"

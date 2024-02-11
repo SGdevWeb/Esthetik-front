@@ -75,7 +75,7 @@ function AppointmentForm() {
     console.log("suggestions", suggestions);
 
     setAddressSuggestions(suggestions);
-  }, 300);
+  }, 500);
 
   const selectAddress = (address) => {
     formik.setFieldValue("address", address);
@@ -220,9 +220,13 @@ function AppointmentForm() {
               name="address"
               placeholder="3 rue de l'exemple, 59300 Valenciennes"
               onChange={(e) => {
-                console.log(e.target.value);
-                setAddress(e.target.value);
-                fetchAddressSuggestionsDebounced(e.target.value);
+                const inputValue = e.target.value;
+                setAddress(inputValue);
+                if (inputValue.length >= 6) {
+                  fetchAddressSuggestionsDebounced(inputValue);
+                } else {
+                  setAddressSuggestions([]);
+                }
               }}
               value={address}
               style={{ marginTop: "20px" }}
