@@ -4,7 +4,6 @@
   padding: 40px 100px;
   max-width: 1200px;
   margin: auto;
-  font-family: var(--text-font-family);
   @include mixin.breakpoint-mobileL {
     padding: 10px;
   }

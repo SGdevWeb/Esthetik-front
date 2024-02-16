@@ -11,8 +11,8 @@ function Dropdown({ title, rateId }) {
   const [hasFetchedServices, setHasFetchedServices] = useState(false);
 
   const getServices = async () => {
-    const services = await fetchServicesByRateId(rateId);
-    setServices(services);
+    const response = await fetchServicesByRateId(rateId);
+    setServices(response.data);
     setHasFetchedServices(true);
     setIsOpen(true);
   };

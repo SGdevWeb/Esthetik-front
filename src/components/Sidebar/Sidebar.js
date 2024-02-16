@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Sidebar.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/Eclat de beauté.png";
+import logo from "../../assets/images/logo.png";
 import Button from "../Button/Button";
 import { useAuth } from "../../contexts/AuthContext";
 

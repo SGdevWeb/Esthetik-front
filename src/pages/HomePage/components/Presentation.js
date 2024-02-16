@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Presentation.module.scss";
-import logo from "../../../assets/images/Eclat de beauté.png";
+import logo from "../../../assets/images/logo.png";
 
 function Presentation() {
   return (

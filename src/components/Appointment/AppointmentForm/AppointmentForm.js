@@ -132,6 +132,7 @@ function AppointmentForm() {
       selectedDate: "",
       selectedSlot: "",
       services: [],
+      prestations: [],
     },
     validationSchema,
     onSubmit,
@@ -152,6 +153,10 @@ function AppointmentForm() {
         formik.setFieldValue("services", [
           ...formik.values.services,
           { rateId: rate.id, serviceId: service.id },
+        ]);
+        formik.setFieldValue("prestations", [
+          ...formik.values.prestations,
+          `${rate.name} : ${service.title}`,
         ]);
         setSelectedRate("");
         setSelectedService("");
