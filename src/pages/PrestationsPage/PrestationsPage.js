@@ -2,15 +2,17 @@ import React from "react";
 import styles from "./PrestationsPage.module.scss";
 import Navigation from "../../components/Prestations/Navigation/Navigation";
 import Promotion from "../../components/Prestations/Promotion/Promotion";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 function Prestations() {
-  const params = useParams();
   const url = useLocation();
+
+  const isPrestationsPage = url.pathname === "/prestations";
+  const isForfaitPage = url.pathname === "/prestations/forfait";
 
   return (
     <div className={styles.container}>
-      {url.pathname === "/prestations" && (
+      {isPrestationsPage && (
         <div className={styles.contentMobile}>
           <p>
             Découvrez les différentes prestations esthétiques pour prendre soin
@@ -25,7 +27,7 @@ function Prestations() {
       <div>
         <Outlet />
       </div>
-      {params.rate === undefined && url.pathname !== "/prestations/forfait" && (
+      {isPrestationsPage && !isForfaitPage && (
         <div>
           <div className={styles.content}>
             <p>
