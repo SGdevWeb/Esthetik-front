@@ -5,7 +5,6 @@ export const fetchAddressSuggestions = async (inputText) => {
     const response = await axiosInstance.get(
       `/autocomplete?q=${encodeURIComponent(inputText)}`
     );
-    console.log("data in call api", response.data);
     return response.data;
   } catch (error) {
     const { message } = error.response.data;
@@ -13,6 +12,6 @@ export const fetchAddressSuggestions = async (inputText) => {
       "Erreur lors de la récupération des suggestions d'adresse : ",
       message
     );
-    return error.message;
+    return error.response.data;
   }
 };

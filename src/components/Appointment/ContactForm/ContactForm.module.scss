@@ -1,0 +1,57 @@
+@use "../../../assets/styles/mixin" as mixin;
+
+.container {
+  width: 550px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px var(--gray-1);
+  background-color: white;
+  @include mixin.breakpoint-mobileXL {
+    width: 100%;
+    box-shadow: none;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  > div {
+    width: 47%;
+  }
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  border: 1px solid var(--primary-color);
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+    border: 2px solid var(--primary-color);
+  }
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.successMessage {
+  color: green;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 10px;
+}

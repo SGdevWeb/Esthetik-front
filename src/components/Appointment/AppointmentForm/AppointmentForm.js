@@ -100,7 +100,6 @@ function AppointmentForm() {
   };
 
   const onSubmit = async (formValues) => {
-    console.log(formValues);
     if (chips.length === 0) {
       setServiceError("Veuillez ajouter au moins une prestation");
       return;
