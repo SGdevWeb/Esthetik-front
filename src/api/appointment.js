@@ -1,14 +1,13 @@
 import axiosInstance from "./axiosInstance";
 
-export const addAppointment = async (values, axiosConfig) => {
+export const addAppointment = async (values) => {
   try {
     const response = await axiosInstance.post("/appointment/create", values);
     return response;
   } catch (error) {
     const { message } = error.response.data;
-    console.log(error.response);
     console.error("Erreur lors de la création du rendez-vous : ", message);
-    return error.response;
+    throw error;
   }
 };
 
@@ -17,11 +16,12 @@ export const fetchAppointments = async () => {
     const response = await axiosInstance.get("/appointments");
     return response;
   } catch (error) {
+    const { message } = error.response.data;
     console.error(
       "Erreur lors de la récupération du secteur des rendez-vous : ",
-      error
+      message
     );
-    return error;
+    throw error;
   }
 };
 
@@ -30,11 +30,12 @@ export const fetchAppointmentsDetails = async () => {
     const response = await axiosInstance.get("/appointments/details");
     return response;
   } catch (error) {
+    const { message } = error.response.data;
     console.error(
       "Erreur lors de la récupération du secteur des rendez-vous : ",
-      error
+      message
     );
-    return error;
+    throw error;
   }
 };
 
@@ -44,8 +45,9 @@ export const confirmAppointment = async (appointmentId, appointment) => {
     const response = await axiosInstance.post("/appointments/confirm", values);
     return response;
   } catch (error) {
-    console.error("Erreur lors de la confirmation du rendez-vous : ", error);
-    return error;
+    const { message } = error.response.data;
+    console.error("Erreur lors de la confirmation du rendez-vous : ", message);
+    throw error;
   }
 };
 
@@ -56,8 +58,12 @@ export const deleteAppointmentServices = async (appointmentId) => {
     );
     return response;
   } catch (error) {
-    console.error("Erreur : ", error);
-    return error;
+    const { message } = error.response.data;
+    console.error(
+      "Erreur lors de la suppression des prestations du rendez-vous : ",
+      message
+    );
+    throw error;
   }
 };
 
@@ -69,7 +75,11 @@ export const addAppointmentServices = async (appointmentId, services) => {
     );
     return response;
   } catch (error) {
-    console.error("Erreur : ", error);
-    return error;
+    const { message } = error.response.data;
+    console.error(
+      "Erreur lors de l'ajout des prestations du rendez-vous : ",
+      message
+    );
+    throw error;
   }
 };

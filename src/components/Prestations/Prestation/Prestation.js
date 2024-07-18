@@ -74,16 +74,6 @@ function Prestation() {
           </Link>
         </div>
       )}
-      {/* <div className={styles.imageContainer}>
-        {rateData.length > 0 && (
-          <img
-            key={rateData[0].id}
-            src={require(`../../../assets/images/prestation/${rateData[0].img_name}.jpg`)}
-            alt={rateData[0].img_name}
-            className={`${styles.image}`}
-          />
-        )}
-      </div> */}
     </div>
   );
 }

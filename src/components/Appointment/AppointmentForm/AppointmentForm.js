@@ -30,6 +30,7 @@ function AppointmentForm() {
   const [hasAddedService, setHasAddedService] = useState(false);
   const [serviceError, setServiceError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [address, setAddress] = useState("");
   const [addressSuggestions, setAddressSuggestions] = useState([]);
   const addressRef = useRef();
@@ -72,8 +73,18 @@ function AppointmentForm() {
 
   const fetchAddressSuggestionsDebouncedRef = useRef(
     debounce(async (inputText) => {
-      const suggestions = await fetchAddressSuggestions(inputText);
-      setAddressSuggestions(suggestions);
+      try {
+        const suggestions = await fetchAddressSuggestions(inputText);
+        setAddressSuggestions(suggestions);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des suggestions d'adresse : ",
+          error
+        );
+        setErrorMessage(
+          "Erreur lors de la récupération des suggestions d'adresse."
+        );
+      }
     }, 500)
   );
 
@@ -107,6 +118,7 @@ function AppointmentForm() {
     try {
       const response = await addAppointment(formValues);
       if (response && response.status === 200) {
+        setErrorMessage("");
         setSuccessMessage(
           "Votre demande de rendez-vous a été envoyée avec succès. Nous vous recontacterons sous peu !"
         );
@@ -118,6 +130,9 @@ function AppointmentForm() {
       setAddress("");
     } catch (error) {
       console.error("Erreur lors de l'envoi du formulaire : ", error);
+      setErrorMessage(
+        error.response?.data?.message || "Une erreur est survenue."
+      );
     }
   };
 
@@ -364,6 +379,9 @@ function AppointmentForm() {
         </div>
         {successMessage && (
           <div className={styles.successMessage}>{successMessage}</div>
+        )}
+        {errorMessage && (
+          <div className={styles.errorMessage}>{errorMessage}</div>
         )}
       </form>
     </div>

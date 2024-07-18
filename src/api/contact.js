@@ -7,6 +7,6 @@ export const sendContactEmail = async (values) => {
   } catch (error) {
     const { message } = error.response.data;
     console.error("Erreur lors de l'envoie de l'email : ", message);
-    return error.response;
+    throw error;
   }
 };

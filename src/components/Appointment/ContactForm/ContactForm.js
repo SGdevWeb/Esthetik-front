@@ -8,11 +8,13 @@ import { sendContactEmail } from "../../../api/contact";
 
 function ContactForm() {
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (formValues) => {
     try {
       const response = await sendContactEmail(formValues);
       if (response && response.status === 200) {
+        setErrorMessage("");
         setSuccessMessage("Votre message a été envoyé avec succès.");
         formik.resetForm();
       }
@@ -20,6 +22,11 @@ function ContactForm() {
       console.error(
         "Erreur lors de l'envoi du formulaire de contact : ",
         error
+      );
+      setErrorMessage(
+        error.response
+          ? error.response.data.message
+          : "Une erreur est survenue."
       );
     }
   };
@@ -109,6 +116,9 @@ function ContactForm() {
         </div>
         {successMessage && (
           <div className={styles.successMessage}>{successMessage}</div>
+        )}
+        {errorMessage && (
+          <div className={styles.errorMessage}>{errorMessage}</div>
         )}
       </form>
     </div>

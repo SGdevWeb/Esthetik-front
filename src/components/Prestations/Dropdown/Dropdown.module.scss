@@ -29,13 +29,27 @@
 .dropdownDescription {
   width: 100%;
   font-size: 18px;
-  padding: 20px;
-  padding-top: 30px;
+  padding: 30px;
+  padding-left: 0;
+  padding-top: 15px;
   border: 1px solid var(--secondary-color);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   position: relative;
   bottom: 10px;
+  &.doubleColumn {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 80px;
+  }
+}
+
+.adminButton {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 70px;
+  height: 0;
 }
 
 .dropdownDescription p {
@@ -46,6 +60,51 @@
 
 .arrow {
   color: #fff;
+}
+
+.content {
+  width: 100%;
+}
+
+.modalContent {
+  h3 {
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    > button {
+      margin: 0 15px;
+    }
+  }
+}
+
+.inputStyle {
+  position: relative;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  textarea {
+    border: none;
+    margin: 0;
+  }
+  label {
+    position: relative;
+    bottom: 28px;
+    left: 10px;
+    background-color: white;
+    padding: 5px;
+  }
 }
 
 /* media queries */

@@ -42,12 +42,6 @@ function Navigation() {
           <ul>
             {rates.map((rate, index) => (
               <li key={index}>
-                <NavLink
-                  className={styles.navlink}
-                  to={`/prestations/${rate.name.split(" ").join("_")}`}
-                >
-                  {rate.name}
-                </NavLink>
                 <div className={styles.dropdown}>
                   <Dropdown key={index} title={rate.name} rateId={rate.id} />
                 </div>

@@ -287,6 +287,7 @@ function Location() {
               Annuler
             </Button>
           </div>
+          {errorMessage && <p>{errorMessage}</p>}
         </div>
       </Modal>
     </div>

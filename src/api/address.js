@@ -12,6 +12,6 @@ export const fetchAddressSuggestions = async (inputText) => {
       "Erreur lors de la récupération des suggestions d'adresse : ",
       message
     );
-    return error.response.data;
+    throw error;
   }
 };

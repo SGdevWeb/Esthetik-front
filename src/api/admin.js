@@ -6,12 +6,13 @@ export const authenticate = async (values) => {
   try {
     const response = await axios.post(`${apiUrl}/signin`, values);
     const data = response.data;
-    localStorage.setItem("token", "un token manuel");
     if (data.adminId && data.token) {
       localStorage.setItem("token", data.token);
     }
     return data;
   } catch (error) {
-    console.error("Erreur lors de l'authentification : ", error);
+    const { message } = error.response.data;
+    console.error("Erreur lors de l'authentification : ", message);
+    throw error;
   }
 };

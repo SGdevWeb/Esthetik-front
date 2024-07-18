@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import axiosInstance from "./axiosInstance";
 
 export const fetchRates = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/rates`);
+    const response = await axiosInstance.get(`/rates`);
     const data = await response.data;
     return data;
   } catch (error) {
@@ -14,7 +12,7 @@ export const fetchRates = async () => {
 
 export const fetchRateById = async (rateId) => {
   try {
-    const response = await axios.get(`${apiUrl}/rates/id/${rateId}`);
+    const response = await axiosInstance.get(`/rates/id/${rateId}`);
     const data = await response.data;
     return data;
   } catch (error) {
@@ -24,10 +22,43 @@ export const fetchRateById = async (rateId) => {
 
 export const fetchRateIdByName = async (rateName) => {
   try {
-    const response = await axios.get(`${apiUrl}/rates/name/${rateName}`);
+    const response = await axiosInstance.get(`/rates/name/${rateName}`);
     const data = await response.data;
     return data;
   } catch (error) {
     console.error("Erreur lors de la récupération des données de tarifs");
+  }
+};
+
+export const updateRate = async (rateId, updatedRateData) => {
+  try {
+    const response = await axiosInstance.patch(
+      `/rates/${rateId}`,
+      updatedRateData
+    );
+    return response;
+  } catch (error) {
+    console.error(`Erreur lors de la modification du tarif : ${error.message}`);
+    throw error;
+  }
+};
+
+export const deleteRate = async (rateId) => {
+  try {
+    const response = await axiosInstance.delete(`/rates/${rateId}`);
+    return response;
+  } catch (error) {
+    console.error(`Erreur lors de la suppression du tarif : ${error.message}`);
+    throw error;
+  }
+};
+
+export const addRate = async (newRate) => {
+  try {
+    const response = await axiosInstance.post(`/rates`, newRate);
+    return response;
+  } catch (error) {
+    console.error(`Erreur lors de l'ajout du tarif : ${error.message}`);
+    throw error;
   }
 };
