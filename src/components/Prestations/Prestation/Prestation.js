@@ -7,20 +7,33 @@ import { fetchServicesByRateId } from "../../../api/services";
 import { fetchPackage } from "../../../api/packages";
 import Banner from "../../Banner/Banner";
 import Button from "../../Button/Button";
+import prestationImages from "../../../utils/prestationImages";
 
 function Prestation() {
   const { rate } = useParams();
   const rateName = rate.split("_").join(" ");
-  const [rateData, setRateData] = useState([]);
+  const [rateData, setRateData] = useState({});
   const [services, setServices] = useState([]);
   const [packageData, setPackageData] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState(null);
 
   useEffect(() => {
     const getRate = async () => {
-      const rateId = await getRateIdByName(rateName);
-      getRateById(rateId);
-      getServicesByRateId(rateId);
-      getPackage(rateId);
+      try {
+        const rateId = await getRateIdByName(rateName);
+        if (rateId) {
+          getRateById(rateId);
+          getServicesByRateId(rateId);
+          getPackage(rateId);
+          if (rateData.img_name && prestationImages[rateData.img_name]) {
+            setBackgroundImage(prestationImages[rateData.img_name]);
+          }
+        } else {
+          console.error("Aucun tarif trouvé pour ce nom");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+      }
     };
 
     const getRateIdByName = async (rateName) => {
@@ -44,16 +57,11 @@ function Prestation() {
     };
 
     getRate();
-  }, [rateName]);
-
-  const backgroundImageUrl =
-    rateData.length > 0
-      ? require(`../../../assets/images/prestation/${rateData[0].img_name}.jpg`)
-      : undefined;
+  }, [rateName, rateData.img_name]);
 
   return (
     <div className={styles.container}>
-      <Banner backgroundImage={backgroundImageUrl} />
+      <Banner backgroundImage={backgroundImage} />
       <div className={styles.services}>
         {services.length > 0 &&
           services.map((service, index) => (
@@ -67,9 +75,9 @@ function Prestation() {
       </div>
       {packageData.length > 0 && (
         <div className={styles.package}>
-          <Link to={`/prestations/forfait?ancre=${rateData[0].name}`}>
+          <Link to={`/prestations/forfait?ancre=${rateData.name}`}>
             <Button color="var(--secondary-color)">
-              Forfait <span>{rateData[0].name}</span>
+              Forfait <span>{rateData.name}</span>
             </Button>
           </Link>
         </div>
