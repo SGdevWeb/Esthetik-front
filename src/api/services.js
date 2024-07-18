@@ -5,7 +5,7 @@ export const fetchServicesByRateId = async (rateId) => {
     const response = await axiosInstance.get(`/services/${rateId}`);
     return response;
   } catch (error) {
-    console.error("Erreur lors de la récupération prestations", error);
+    console.error("Erreur lors de la récupération des prestations", error);
     throw error;
   }
 };

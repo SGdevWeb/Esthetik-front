@@ -3,17 +3,20 @@ import axiosInstance from "./axiosInstance";
 export const fetchRates = async () => {
   try {
     const response = await axiosInstance.get(`/rates`);
-    const data = await response.data;
-    return data;
+    return response.data;
   } catch (error) {
-    console.error("Erreur lors de la récupération des données de tarifs");
+    console.error(
+      "Erreur lors de la récupération des données de tarifs : ",
+      error
+    );
+    throw error;
   }
 };
 
 export const fetchRateById = async (rateId) => {
   try {
     const response = await axiosInstance.get(`/rates/id/${rateId}`);
-    const data = await response.data;
+    const data = response.data;
     return data;
   } catch (error) {
     console.error("Erreur lors de la récupération des données de tarifs");
@@ -23,7 +26,7 @@ export const fetchRateById = async (rateId) => {
 export const fetchRateIdByName = async (rateName) => {
   try {
     const response = await axiosInstance.get(`/rates/name/${rateName}`);
-    const data = await response.data;
+    const data = response.data;
     return data;
   } catch (error) {
     console.error("Erreur lors de la récupération des données de tarifs");

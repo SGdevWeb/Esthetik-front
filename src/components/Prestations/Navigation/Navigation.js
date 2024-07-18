@@ -10,38 +10,45 @@ function Navigation() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const location = useLocation();
 
-  const showForSmallScreenAndPath =
-    (window.innerWidth < 425 && location.pathname === "/prestations") ||
-    window.innerWidth > 425;
-
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [windowWidth]);
+  }, []);
 
   useEffect(() => {
     const getRates = async () => {
-      const rates = await fetchRates();
-      setRates(rates);
+      try {
+        const rates = await fetchRates();
+        setRates(rates);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des tarifs : ", error);
+        throw error;
+      }
     };
-
     getRates();
   }, []);
 
+  const isMobile = windowWidth < 425;
+  const showNavigation = !isMobile || location.pathname === "/prestations";
+
   return (
     <>
-      {showForSmallScreenAndPath && (
+      {showNavigation && (
         <div className={styles.container}>
           <ul>
             {rates.map((rate, index) => (
               <li key={index}>
+                <NavLink
+                  className={styles.navlink}
+                  to={`/prestations/${rate.name.split(" ").join("_")}`}
+                >
+                  {rate.name}
+                </NavLink>
                 <div className={styles.dropdown}>
                   <Dropdown key={index} title={rate.name} rateId={rate.id} />
                 </div>

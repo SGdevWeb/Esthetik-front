@@ -68,7 +68,7 @@ function Dropdown({
 
   useEffect(() => {
     const getServices = async () => {
-      if (isOpen && services.length === 0 && !isLoading) {
+      if (services.length === 0 && !isLoading) {
         setIsLoading(true);
         try {
           const response = await fetchServicesByRateId(rateId);
@@ -82,7 +82,7 @@ function Dropdown({
     };
 
     getServices();
-  }, [isOpen, rateId, services.length, isLoading]);
+  }, [rateId]);
 
   const toggleDropdown = async () => {
     setIsOpen(!isOpen);

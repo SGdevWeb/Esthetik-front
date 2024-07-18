@@ -4,7 +4,7 @@ import Navigation from "../../components/Prestations/Navigation/Navigation";
 import Promotion from "../../components/Prestations/Promotion/Promotion";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-function Prestations() {
+function PrestationsPage() {
   const url = useLocation();
 
   const isPrestationsPage = url.pathname === "/prestations";
@@ -58,4 +58,4 @@ function Prestations() {
   );
 }
 
-export default Prestations;
+export default PrestationsPage;

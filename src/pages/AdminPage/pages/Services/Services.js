@@ -57,6 +57,9 @@ function Services() {
         setRates(rates);
       } catch (error) {
         console.error("Erreur lors de la récupération des tarifs : ", error);
+        setErrorMessage(
+          "Impossible de charger les tarifs. Veuillez réessayer plus tard"
+        );
       }
     };
 
@@ -66,7 +69,6 @@ function Services() {
   const handleDelete = (rateId) => {
     setdeleteRateId(rateId);
     setIsDeleteModalOpen(true);
-    console.log("delete du rate avec l'id : " + rateId);
   };
 
   const handleDeleteConfirm = async () => {
