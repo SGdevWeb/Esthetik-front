@@ -8,6 +8,7 @@ import { LinksVisibilityProvider } from "./contexts/LinksVisibilityContext";
 import { PageTitleProvider } from "./contexts/PageTitleContext";
 import { initMatomo } from "./utils/matomoConfig";
 import { MatomoProvider } from "react-matomo";
+import PageTracker from "./components/Matomo/PageTracker";
 
 const matomoInstance = initMatomo();
 
@@ -18,7 +19,9 @@ root.render(
       <AuthProvider>
         <LinksVisibilityProvider>
           <PageTitleProvider>
-            <RouterProvider router={router}></RouterProvider>
+            <RouterProvider router={router}>
+              <PageTracker />
+            </RouterProvider>
           </PageTitleProvider>
         </LinksVisibilityProvider>
       </AuthProvider>
