@@ -7,7 +7,7 @@ import { fetchRateById } from "../../api/rates";
 function Article() {
   const articleId = useParams().id;
   const [article, setArticle] = useState();
-  const [rate, setRate] = useState();
+  const [rate, setRate] = useState({});
 
   useEffect(() => {
     const getArticle = async () => {
@@ -42,7 +42,7 @@ function Article() {
                 .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
           </div>
           <Link
-            to={`/prestations/${rate && rate[0].name}`}
+            to={`/prestations/${rate && rate.name}`}
             className={styles.link}
           >
             > Voir les prestations
