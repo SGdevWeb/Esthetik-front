@@ -6,16 +6,22 @@ import { router } from "./router";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LinksVisibilityProvider } from "./contexts/LinksVisibilityContext";
 import { PageTitleProvider } from "./contexts/PageTitleContext";
+import { initMatomo } from "./utils/matomoConfig";
+import { MatomoProvider } from "react-matomo";
+
+const matomoInstance = initMatomo();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <LinksVisibilityProvider>
-        <PageTitleProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </PageTitleProvider>
-      </LinksVisibilityProvider>
-    </AuthProvider>
+    <MatomoProvider value={matomoInstance}>
+      <AuthProvider>
+        <LinksVisibilityProvider>
+          <PageTitleProvider>
+            <RouterProvider router={router}></RouterProvider>
+          </PageTitleProvider>
+        </LinksVisibilityProvider>
+      </AuthProvider>
+    </MatomoProvider>
   </React.StrictMode>
 );
