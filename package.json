@@ -27,10 +27,10 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "yarn react-scripts start",
+    "build": "yarn react-scripts build",
+    "test": "yarn react-scripts test",
+    "eject": "yarn react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
