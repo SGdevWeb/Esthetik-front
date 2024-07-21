@@ -11,3 +11,9 @@ export const initMatomo = () => {
 
   return instance;
 };
+
+export const trackClick = (category, action, name = null, value = null) => {
+  if (window._paq) {
+    window._paq.push(["trackEvent", category, action, name, value]);
+  }
+};

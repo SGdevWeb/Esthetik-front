@@ -7,6 +7,7 @@ import img from "../../assets/images/prestation/regard.jpg";
 import Links from "../../components/Links/Links";
 import { fetchRates } from "../../api/rates";
 import Cards from "../../components/Cards/Cards";
+import { trackClick } from "../../utils/matomoConfig";
 
 function Home() {
   const [rates, setRates] = useState([]);
@@ -19,6 +20,11 @@ function Home() {
     getRates();
   }, []);
 
+  const handleClick = () => {
+    console.log("bouton cliqué");
+    trackClick("Button", "Click", "My special Button");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.banner}>
@@ -28,6 +34,7 @@ function Home() {
       <Cards title="prestations" data={rates} />
       <Location />
       <Links />
+      <button onClick={handleClick}>Matomo</button>
     </div>
   );
 }
