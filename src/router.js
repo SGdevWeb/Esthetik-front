@@ -17,11 +17,17 @@ import Package from "./pages/AdminPage/pages/Package/Package";
 import Promotion from "./pages/AdminPage/pages/Promotion/Promotion";
 import Slot from "./pages/AdminPage/pages/Slot/Slot";
 import Articles from "./pages/AdminPage/pages/Articles/Articles";
+import PageTracker from "./components/Matomo/PageTracker";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <>
+        <App />
+        <PageTracker />
+      </>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {

@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import Dropdown from "../Dropdown/Dropdown";
 import Forfait from "../Forfait/Forfait";
 import { fetchRates } from "../../../api/rates";
+import { trackClick } from "../../../utils/matomoConfig";
 
 function Navigation() {
   const [rates, setRates] = useState([]);
@@ -36,6 +37,10 @@ function Navigation() {
   const isMobile = windowWidth < 425;
   const showNavigation = !isMobile || location.pathname === "/prestations";
 
+  const handleNavClick = (prestationName) => {
+    trackClick("Prestation", "PageChange", prestationName);
+  };
+
   return (
     <>
       {showNavigation && (
@@ -46,6 +51,7 @@ function Navigation() {
                 <NavLink
                   className={styles.navlink}
                   to={`/prestations/${rate.name.split(" ").join("_")}`}
+                  onClick={() => handleNavClick(`${rate.name}`)}
                 >
                   {rate.name}
                 </NavLink>

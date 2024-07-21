@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Articles from "../../components/Actu/Articles";
 import styles from "./ActuPage.module.scss";
 import { fetchArticles } from "../../api/articles";
+import { useLocation } from "react-router-dom";
+import { trackPageView } from "../../utils/matomoConfig";
 
 function Actu() {
   const [articles, setArticles] = useState([]);
