@@ -129,6 +129,7 @@ function AppointmentList({ appointments }) {
               <th>Nom</th>
               <th>Prénom</th>
               <th>Prestation(s)</th>
+              <th>Addresse</th>
               <th>Date</th>
               <th>Créneau</th>
               <th>Actions</th>
@@ -147,6 +148,12 @@ function AppointmentList({ appointments }) {
                           {item.type} : {item.prestation}
                         </li>
                       ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li> {appointment.address.split(",")[0]}</li>
+                      <li>{appointment.address.split(",")[1]}</li>
                     </ul>
                   </td>
                   <td>{new Date(appointment.date).toLocaleDateString()}</td>

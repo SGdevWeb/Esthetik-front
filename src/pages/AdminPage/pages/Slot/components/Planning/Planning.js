@@ -119,6 +119,8 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
 
   const groupedServices = groupServicesByRate(allServices);
 
+  console.log(slots);
+
   const generateTimeOptions = () => {
     const times = [];
     for (let hour = 9; hour < 21; hour++) {
@@ -162,7 +164,9 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
 
   useEffect(() => {
     const groupedData = groupServicesBySlot(slots);
+    console.log(groupedData);
     const newFormattedSlots = transformSlotsToEvents(groupedData);
+    console.log(newFormattedSlots);
     setFormattedSlots(newFormattedSlots);
   }, [slots]);
 
@@ -177,6 +181,7 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
   }, [selectedEvent]);
 
   const handleEventClick = (event) => {
+    console.log(event);
     setSelectedEvent(event);
     setIsModalOpen(true);
   };
@@ -329,6 +334,8 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
     );
   };
 
+  console.log(selectedEvent);
+
   return (
     <div style={{ height: 700 }}>
       <Calendar
@@ -358,6 +365,12 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
                 </p>
                 <p>
                   <span>Email :</span> {selectedEvent.email}
+                </p>
+                <p>
+                  <span>Téléphone :</span> {selectedEvent.phone_number}
+                </p>
+                <p>
+                  <span>Addresse : </span> {selectedEvent.address}
                 </p>
                 <p>
                   <span>Créneau :</span>{" "}
