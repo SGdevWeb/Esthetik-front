@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { fetchDailyVisits } from "../../../api/stat";
+import { fetchBounceRate } from "../../../api/stat";
 
 ChartJS.register(
   CategoryScale,
@@ -22,35 +22,33 @@ ChartJS.register(
   Legend
 );
 
-const VisitsChart = () => {
+const BounceRateChart = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     try {
-      const getVisitors = async () => {
-        const response = await fetchDailyVisits();
+      const getBounceRate = async () => {
+        const response = await fetchBounceRate();
         const sortedData = response.data.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
         setData(sortedData);
       };
 
-      getVisitors();
+      getBounceRate();
     } catch (error) {
       console.error(error);
     }
   }, []);
 
-  const totalVisits = data.reduce((sum, item) => sum + item.visits, 0);
-  const avgVisits = totalVisits / data.length;
-
   const chartData = {
-    labels: data.map((item) => new Date(item.date).toLocaleDateString()),
+    labels: data.map((item) => item.date),
     datasets: [
       {
-        label: "Visites",
-        data: data.map((item) => item.visits),
-        borderColor: "rgb(75, 192, 192)",
+        label: "Taux de rebond (%)",
+        data: data.map((item) => item.bounce_rate),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
         tension: 0.1,
       },
     ],
@@ -64,24 +62,28 @@ const VisitsChart = () => {
       },
       title: {
         display: true,
-        text: "Visites quotidiennes",
+        text: "Évolution du taux de rebond",
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 100,
+        title: {
+          display: true,
+          text: "Taux de rebond (%)",
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Date",
+        },
       },
     },
   };
 
-  return (
-    <>
-      <div style={{ textAlign: "center", marginBottom: "30px" }}>
-        <p>Total des visites : {totalVisits}</p>
-        <p>Moyenne des visites par jour : {avgVisits}</p>
-      </div>
-      <Line
-        data={chartData}
-        options={options}
-        style={{ marginBottom: "30px" }}
-      />
-    </>
-  );
+  return <Line data={chartData} options={options} />;
 };
 
-export default VisitsChart;
+export default BounceRateChart;

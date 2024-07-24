@@ -137,6 +137,29 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
 
   const timeOptions = generateTimeOptions();
 
+  const messages = {
+    week: "Semaine",
+    day: "Jour",
+    month: "Mois",
+    previous: "Précédent",
+    next: "Suivant",
+    today: "Aujourd'hui",
+    agenda: "Agenda",
+  };
+
+  const formats = {
+    dayHeaderFormat: (date, culture, localizer) => {
+      return format(date, "EEEE d MMMM", { locale: fr }).toLowerCase();
+    },
+    dayRangeHeaderFormat: ({ start, end }, culture, localizer) => {
+      const startStr = format(start, "d MMMM", { locale: fr });
+      const endStr = format(end, "d MMMM", { locale: fr });
+      return `${startStr} - ${endStr}`;
+    },
+    timeGutterFormat: (date, culture, localizer) =>
+      localizer.format(date, "HH:mm", culture),
+  };
+
   useEffect(() => {
     const groupedData = groupServicesBySlot(slots);
     const newFormattedSlots = transformSlotsToEvents(groupedData);
@@ -261,7 +284,6 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
     if (selectedEvent && selectedEvent.id) {
       const response = await deleteSlot(selectedEvent.id);
       if (response && response.status === 200) {
-        console.log("Créneau et rdv supprimés avec succès");
         const slotsAfterDelete = formattedSlots.filter(
           (event) => event.id !== selectedEvent.id
         );
@@ -318,6 +340,10 @@ const Planning = ({ slots, allServices, onSlotsUpdated }) => {
         style={{ height: "100%" }}
         eventPropGetter={eventStyleGetter}
         onSelectEvent={handleEventClick}
+        min={new Date(0, 0, 0, 8, 0, 0)}
+        max={new Date(0, 0, 0, 21, 0, 0)}
+        messages={messages}
+        formats={formats}
       />
       {selectedEvent && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

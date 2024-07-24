@@ -37,12 +37,12 @@
     }
   }
   .add {
-    h2 {
-      border-bottom: 1px solid var(--primary-color);
-    }
     display: flex;
     flex-direction: column;
     justify-content: center;
+    h2 {
+      border-bottom: 1px solid var(--primary-color);
+    }
     form {
       display: flex;
       flex-direction: column;

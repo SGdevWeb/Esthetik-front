@@ -1,7 +1,8 @@
 import * as Yup from "yup";
 import { LASTNAME, FIRSTNAME, EMAIL, PHONE } from "../utils/regex";
+import { applyTrimToAllStrings } from "../utils/applyTrimToAll";
 
-export default Yup.object({
+const schema = Yup.object({
   lastName: Yup.string()
     .required("Votre nom est requis")
     .matches(
@@ -27,3 +28,5 @@ export default Yup.object({
     "Veuillez sélectionner un créneau pour votre rdv"
   ),
 });
+
+export default applyTrimToAllStrings(schema);

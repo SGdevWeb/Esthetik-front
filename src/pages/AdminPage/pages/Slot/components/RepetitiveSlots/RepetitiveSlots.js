@@ -21,9 +21,8 @@ function RepetitiveSlots({ onSlotsAdded }) {
   const generateSlots = () => {
     let slots = [];
 
-    // Conversion en objet Date
-    let currentDay = new Date(selectedDay + "T00:00:00Z");
-    // Parse start and end times
+    let currentDay = new Date(selectedDay);
+
     const [startHour, startMinute] = startTime
       .split(":")
       .map((part) => parseInt(part, 10));
@@ -46,21 +45,24 @@ function RepetitiveSlots({ onSlotsAdded }) {
           nextHour += 1;
         }
 
-        slots.push({
-          date: currentDay.toISOString().split("T")[0],
+        const localDate = currentDay.toLocaleDateString("fr-CA");
+
+        const slot = {
+          date: localDate,
           startTime: `${String(currentHour).padStart(2, "0")}:${String(
             currentMinute
           ).padStart(2, "0")}`,
           endTime: `${String(nextHour).padStart(2, "0")}:${String(
             nextMinute
           ).padStart(2, "0")}`,
-        });
+        };
+        slots.push(slot);
 
         currentHour = nextHour;
         currentMinute = nextMinute;
       }
 
-      currentDay.setUTCDate(currentDay.getUTCDate() + 7);
+      currentDay.setDate(currentDay.getDate() + 7);
     }
 
     return slots;
@@ -83,7 +85,6 @@ function RepetitiveSlots({ onSlotsAdded }) {
           setSuccessMessage(message);
           onSlotsAdded(newSlots);
         } else {
-          console.log("response", response);
           const { message } = response.data;
           setErrorMessage("Erreur lors de l'ajout des créneaux : " + message);
         }
