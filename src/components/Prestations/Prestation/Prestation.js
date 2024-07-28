@@ -37,8 +37,8 @@ function Prestation() {
     };
 
     const getRateIdByName = async (rateName) => {
-      const rateId = await fetchRateIdByName(rateName);
-      return rateId;
+      const response = await fetchRateIdByName(rateName);
+      return response.data;
     };
 
     const getRateById = async (rateId) => {

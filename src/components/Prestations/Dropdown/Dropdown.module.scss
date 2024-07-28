@@ -49,7 +49,6 @@
   justify-content: center;
   position: relative;
   bottom: 70px;
-  height: 0;
 }
 
 .dropdownDescription p {
@@ -105,6 +104,13 @@
     background-color: white;
     padding: 5px;
   }
+}
+
+.btnContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  padding: 20px 0;
 }
 
 /* media queries */

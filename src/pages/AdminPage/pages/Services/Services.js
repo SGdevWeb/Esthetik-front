@@ -53,8 +53,8 @@ function Services() {
   useEffect(() => {
     const fetchRatesData = async () => {
       try {
-        const rates = await fetchRates();
-        setRates(rates);
+        const response = await fetchRates();
+        setRates(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des tarifs : ", error);
         setErrorMessage(

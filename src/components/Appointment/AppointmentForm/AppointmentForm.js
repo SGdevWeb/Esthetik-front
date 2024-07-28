@@ -37,8 +37,8 @@ function AppointmentForm() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchRates();
-      setRates(data);
+      const response = await fetchRates();
+      setRates(response.data);
     };
 
     fetchData();

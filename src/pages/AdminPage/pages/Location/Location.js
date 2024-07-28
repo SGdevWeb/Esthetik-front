@@ -52,7 +52,8 @@ function Location() {
 
   useEffect(() => {
     const getLocations = async () => {
-      const locations = await fetchLocations();
+      const response = await fetchLocations();
+      const locations = response.data;
       const formattedLocations = locations.map((location) => ({
         ...location,
         name: location.name
@@ -68,6 +69,7 @@ function Location() {
       }));
       setLocations(formattedLocations);
     };
+
     getLocations();
   }, []);
 

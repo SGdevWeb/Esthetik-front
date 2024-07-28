@@ -1,0 +1,61 @@
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.title {
+  text-align: center;
+  text-decoration: underline;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.packageNameContainer,
+.rateContainer,
+.discountContainer {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  h3 {
+    position: absolute;
+    top: -15px;
+    background-color: white;
+    padding: 0 10px;
+    color: var(--primary-color);
+    font-size: 1rem;
+  }
+}
+
+.discountToEdit {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  .iconBtn {
+    display: flex;
+    align-items: center;
+    .icon {
+      margin-right: 15px;
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+  }
+}
+
+.modalContainer {
+  h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+  }
+}

@@ -82,7 +82,7 @@ function Dropdown({
     };
 
     getServices();
-  }, [rateId]);
+  }, [rateId, isLoading, services.length]);
 
   const toggleDropdown = async () => {
     setIsOpen(!isOpen);
@@ -169,22 +169,41 @@ function Dropdown({
               />
             ))}
             {isAdminPath && (
-              <Button
-                onClick={onAdd}
-                color="var(--primary-color)"
-                style={{ marginLeft: "30px", marginTop: "20px" }}
-              >
-                <FontAwesomeIcon icon={faPlus} className="mr-10" />
-                Ajouter une prestation
-              </Button>
+              <div className={styles.btnContainer}>
+                <Button
+                  onClick={onAdd}
+                  color="var(--primary-color)"
+                  style={{
+                    padding: "7px 15px",
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPlus} className="mr-10" />
+                  Ajouter une prestation
+                </Button>
+              </div>
             )}
           </div>
           {isAdminPath && (
             <div className={styles.adminButton}>
-              <Button onClick={onEdit} color="var(--secondary-color)">
+              <Button
+                onClick={onEdit}
+                color="var(--secondary-color)"
+                style={{
+                  padding: "7px 15px",
+                  fontSize: "0.8rem",
+                }}
+              >
                 Modifier
               </Button>
-              <Button onClick={onDelete} color="var(--secondary-color)">
+              <Button
+                onClick={onDelete}
+                color="var(--secondary-color)"
+                style={{
+                  padding: "7px 15px",
+                  fontSize: "0.8rem",
+                }}
+              >
                 Supprimer
               </Button>
             </div>

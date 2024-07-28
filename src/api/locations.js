@@ -3,25 +3,25 @@ import axiosInstance from "./axiosInstance";
 export const fetchLocations = async () => {
   try {
     const response = await axiosInstance.get("/locations");
-    const data = response.data;
-    return data;
+    return response;
   } catch (error) {
+    const { message } = error.response.data;
     console.error(
       "Erreur lors de la récupération du secteur d'activité : ",
-      error
+      message
     );
-    return error;
+    throw error;
   }
 };
 
-export const newLocation = async (values) => {
+export const newLocation = async (newLocation) => {
   try {
-    const response = await axiosInstance.post("/locations/new", values);
+    const response = await axiosInstance.post("/locations", newLocation);
     return response;
   } catch (error) {
     const { message } = error.response.data;
     console.error("Erreur lors de la création de la ville : ", message);
-    return error.response;
+    throw error;
   }
 };
 
@@ -32,7 +32,7 @@ export const deleteLocation = async (locationId) => {
   } catch (error) {
     const { message } = error.response.data;
     console.error("Erreur lors de la suppression de la ville : ", message);
-    return error.response;
+    throw error;
   }
 };
 
@@ -46,6 +46,6 @@ export const updateLocation = async (locationId, updatedLocationData) => {
   } catch (error) {
     const { message } = error.response.data;
     console.error("Erreur lors de la mise à jour de la ville : ", message);
-    return error.response;
+    throw error;
   }
 };

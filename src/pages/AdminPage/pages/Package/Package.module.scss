@@ -1,0 +1,59 @@
+.container {
+  width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.creationPackageContainer {
+  display: flex;
+  flex-direction: column;
+  .btnContainer {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.discountContainer,
+.rateContainer {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  h3 {
+    position: absolute;
+    top: -15px;
+    background-color: white;
+    padding: 0 10px;
+    color: var(--primary-color);
+    font-size: 1rem;
+  }
+}
+
+.modalContainer {
+  h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .btnContainer {
+    margin-top: 40px;
+  }
+}
+
+.packageDisplay {
+  .title {
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+  }
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 10px;
+}

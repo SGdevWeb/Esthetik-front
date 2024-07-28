@@ -15,7 +15,8 @@ function Forfait() {
 
   useEffect(() => {
     const getDiscount = async () => {
-      const discounts = await fetchDiscounts();
+      const response = await fetchDiscounts();
+      const discounts = response.data;
 
       // Remises(discounts) groupées par tarif(rate)
       const groupedDiscounts = discounts.reduce((acc, discount) => {

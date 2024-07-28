@@ -11,8 +11,8 @@ function Location() {
 
   useEffect(() => {
     const getLocations = async () => {
-      const locations = await fetchLocations();
-      setLocations(locations);
+      const response = await fetchLocations();
+      setLocations(response.data);
     };
 
     getLocations();

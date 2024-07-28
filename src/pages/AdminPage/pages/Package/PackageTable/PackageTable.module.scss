@@ -1,0 +1,84 @@
+.tableContainer {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+  min-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  thead {
+    background-color: var(--primary-color);
+    color: #ffffff;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+  }
+
+  .description {
+    > :first-child {
+      margin-top: 0;
+    }
+    h2 {
+      margin: 0;
+      margin-top: 20px;
+    }
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      margin-top: 15px;
+    }
+    p {
+      margin: 0;
+      margin-top: 8px;
+    }
+  }
+
+  .photoType {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .photos {
+    display: flex;
+    flex-direction: column;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  tbody tr:last-of-type {
+    border-bottom: 2px solid var(--primary-color);
+  }
+
+  .icon {
+    cursor: pointer;
+    margin-right: 10px;
+    color: var(--primary-color);
+  }
+
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-bottom: 5px;
+  }
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #ffeeee;
+  border: 1px solid red;
+  border-radius: 4px;
+}
