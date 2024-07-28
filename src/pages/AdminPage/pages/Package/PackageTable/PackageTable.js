@@ -12,7 +12,7 @@ function PackageTable({ packagesData, setPackagesData, rates }) {
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
   const [packageIdToDelete, setPackageIdToDelete] = useState(null);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleEdit = (packageId) => {
     setEditingPackageId(packageId);
@@ -50,10 +50,10 @@ function PackageTable({ packagesData, setPackagesData, rates }) {
 
       setShowDeleteConfirmationModal(false);
       setEditingPackageId(null);
-      setError("");
+      setErrorMessage("");
     } catch (error) {
       console.error("Erreur lors de la suppression du forfait : ", error);
-      setError(
+      setErrorMessage(
         error.response?.data?.message ||
           "Une erreur est survenue lors de la suppression du forfait."
       );
@@ -62,12 +62,14 @@ function PackageTable({ packagesData, setPackagesData, rates }) {
 
   const handleCloseModal = () => {
     setShowDeleteConfirmationModal(false);
-    setError("");
+    setErrorMessage("");
   };
 
   return (
     <>
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
       <table className={styles.tableContainer}>
         <thead>
           <tr>

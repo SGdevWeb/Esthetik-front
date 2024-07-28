@@ -17,7 +17,7 @@ function EditPackage({
   updateLocalPackage,
 }) {
   const [editedPackage, setEditedPackage] = useState({ ...packageToEdit });
-  const [error, setError] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
@@ -29,7 +29,7 @@ function EditPackage({
   const handleSaveModification = async () => {
     try {
       if (!editedPackage.name.trim()) {
-        setError("Le nom du forfait ne peut pas être vide.");
+        setErrorMessage("Le nom du forfait ne peut pas être vide.");
         return;
       }
 
@@ -37,7 +37,7 @@ function EditPackage({
       const rateId = rateResponse.data;
 
       if (!rateId) {
-        setError(
+        setErrorMessage(
           "Catégorie invalide. Veuillez sélectionner une catégorie valide."
         );
         return;
@@ -50,11 +50,13 @@ function EditPackage({
         updateLocalPackage(editedPackage);
         onCancelEdit();
       } else {
-        setError("Une erreur est survenue lors de la mise à jour du forfait.");
+        setErrorMessage(
+          "Une erreur est survenue lors de la mise à jour du forfait."
+        );
       }
     } catch (error) {
       console.error("Erreur lors de la modification du forfait : ", error);
-      setError(
+      setErrorMessage(
         error.response?.data?.message ||
           "Une erreur est survenue lors de la modification du forfait."
       );
@@ -119,7 +121,9 @@ function EditPackage({
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Modification du forfait</h2>
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
       <div className={styles.flex}>
         <div className={styles.packageNameContainer}>
           <h3>Nom du forfait</h3>
