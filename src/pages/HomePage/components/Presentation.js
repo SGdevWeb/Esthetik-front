@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Presentation.module.scss";
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.webp";
 
 function Presentation() {
   return (

@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./ArticleCard.module.scss";
 import { Link } from "react-router-dom";
+import { generateSlug } from "../../utils/generateSlug";
 
 function ArticleCard({ id, title, content, image, author, date }) {
+  const slug = generateSlug(title);
+
   return (
     <div to={`/actu/articles/${id}`} className={styles.container}>
       <div className={styles.picture}>
@@ -18,7 +21,7 @@ function ArticleCard({ id, title, content, image, author, date }) {
             <p key={index}>{paragraph}</p>
           ))}
         </div>
-        <Link to={`/actu/articles/${id}`} className={styles.link}>
+        <Link to={`/actu/articles/${id}-${slug}`} className={styles.link}>
           Lire la suite
         </Link>
       </div>

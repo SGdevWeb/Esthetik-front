@@ -50,7 +50,10 @@ function Navigation() {
               <li key={index}>
                 <NavLink
                   className={styles.navlink}
-                  to={`/prestations/${rate.name.split(" ").join("_")}`}
+                  to={`/prestations/${rate.name
+                    .split(" ")
+                    .join("_")
+                    .toLowerCase()}`}
                   onClick={() => handleNavClick(`${rate.name}`)}
                 >
                   {rate.name}

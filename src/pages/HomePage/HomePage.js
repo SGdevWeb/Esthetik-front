@@ -3,7 +3,7 @@ import styles from "./HomePage.module.scss";
 import Location from "./components/Location";
 import Presentation from "./components/Presentation";
 import Banner from "../../components/Banner/Banner";
-import img from "../../assets/images/prestation/regard.jpg";
+import img from "../../assets/images/prestation/regard.webp";
 import Links from "../../components/Links/Links";
 import { fetchRates } from "../../api/rates";
 import Cards from "../../components/Cards/Cards";

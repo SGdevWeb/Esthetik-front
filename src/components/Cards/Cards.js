@@ -12,7 +12,10 @@ function Cards({ title, data }) {
         {data.map((rate) => (
           <Card
             key={rate.id}
-            href={`${baseUrl}/prestations/${rate.name.split(" ").join("_")}`}
+            href={`${baseUrl}/prestations/${rate.name
+              .split(" ")
+              .join("_")
+              .toLowerCase()}`}
             imgUrl={`${baseUrl}/images/prestation/${rate.img_name}.jpg`}
             imgTitle={rate.img_title}
             title={rate.name}
