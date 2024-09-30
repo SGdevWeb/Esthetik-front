@@ -5,8 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export const fetchArticles = async () => {
   try {
     const response = await axios.get(`${apiUrl}/articles`);
-    const data = response.data;
-    return data;
+    return response;
   } catch (error) {
     console.error("Erreur lors de la récupération des articles : ", error);
   }
