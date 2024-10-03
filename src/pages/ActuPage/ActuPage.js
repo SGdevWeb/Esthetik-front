@@ -8,8 +8,8 @@ function Actu() {
 
   useEffect(() => {
     const getArticles = async () => {
-      const articles = await fetchArticles();
-      setArticles(articles);
+      const response = await fetchArticles();
+      setArticles(response.data);
     };
 
     getArticles();

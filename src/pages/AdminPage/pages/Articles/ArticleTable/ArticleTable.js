@@ -7,7 +7,7 @@ import { fr } from "date-fns/locale";
 import EditArticle from "../EditArticle/EditArticle";
 import ModalConfirmation from "../../../../../components/Modal/ModalConfirmation";
 
-function ArticleTable({ articlesData, setArticlesData }) {
+function ArticleTable({ articles, setArticles }) {
   const [editingArticleId, setEditingArticleId] = useState(null);
   const [articleIdToDelete, setArticleIdToDelete] = useState(null);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
@@ -45,8 +45,8 @@ function ArticleTable({ articlesData, setArticlesData }) {
           </tr>
         </thead>
         <tbody>
-          {articlesData &&
-            articlesData.map((article) => (
+          {articles &&
+            articles.map((article) => (
               <Fragment key={article.id}>
                 <tr>
                   <td>{article.title}</td>
