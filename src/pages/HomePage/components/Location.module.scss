@@ -1,9 +1,15 @@
 @use "../../../assets/styles/mixin" as mixin;
 
+.background {
+  background-color: var(--gray-2);
+}
+
 .container {
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  background-color: var(--gray-2);
+
   padding: 40px;
   box-shadow: 0px 5px 5px var(--gray-2);
   @include mixin.breakpoint-mobileXL {
@@ -20,9 +26,8 @@
 
 .title {
   color: var(--primary-color);
-  // -webkit-text-stroke: 1px white;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   font-size: 2.5rem;
   @include mixin.breakpoint-mobileXL {
     font-size: 1.8rem;
@@ -30,41 +35,42 @@
 }
 
 .content {
+  width: 700px;
+  margin: auto;
+  @include mixin.breakpoint-tabletteS {
+    width: 100%;
+  }
   article:first-child {
-    width: 50%;
     margin: auto;
-    padding: 0px 15px;
+    padding: 20px;
     border: 1px solid var(--primary-color);
     border-radius: 10px;
-    @include mixin.breakpoint-laptopS {
-      width: 70%;
-    }
     @include mixin.breakpoint-tabletteS {
       width: 100%;
     }
+    @include mixin.breakpoint-mobileXL {
+      padding: 0;
+    }
     section {
-      padding: 20px 0;
+      padding: 20px;
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: flex-start;
       p {
         margin: 0;
-        text-align: center;
+        text-align: justify;
       }
     }
   }
   article:last-child {
-    width: 70%;
     margin: auto;
     @include mixin.breakpoint-tabletteS {
       width: 100%;
     }
   }
   p {
-    @include mixin.breakpoint-mobileXL {
-      text-align: justify;
-    }
+    text-align: justify;
   }
 }
 

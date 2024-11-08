@@ -1,10 +1,12 @@
 @use "../../../assets/styles/mixin" as mixin;
 
 .container {
+  max-width: 1200px;
   background-color: white;
   padding: 20px;
   display: flex;
   align-items: center;
+  margin: auto;
   @include mixin.breakpoint-laptopS {
     flex-direction: column;
   }

@@ -17,13 +17,17 @@
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "date-fns": "^2.30.0",
+    "dompurify": "^3.1.7",
     "formik": "^2.4.4",
     "jwt-decode": "^4.0.0",
+    "quill": "^2.0.2",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.5",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-matomo": "^0.0.6",
+    "react-quill": "^2.0.0",
+    "react-quill-new": "^3.3.3",
     "react-router-dom": "^6.10.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
@@ -32,7 +36,7 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "yarn react-scripts start",
+    "start": "BROWSER=none yarn react-scripts start",
     "build": "yarn react-scripts build",
     "test": "yarn react-scripts test",
     "eject": "yarn react-scripts eject"

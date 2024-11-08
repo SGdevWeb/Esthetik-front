@@ -41,18 +41,7 @@ const Footer = React.forwardRef((props, ref) => (
         <i className="fa-regular fa-copyright"></i>
         {new Date().getFullYear()} - Tous droits réservés.
       </span>
-      <span>
-        {" "}
-        Site réalisé par
-        <a
-          href="http://samuelgustin.fr"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.link}
-        >
-          Samuel Gustin
-        </a>
-      </span>
+      <span> Site réalisé par Samuel Gustin</span>
     </div>
   </footer>
 ));

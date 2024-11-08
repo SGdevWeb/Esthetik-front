@@ -24,7 +24,7 @@
   grid-template-columns: repeat(3, 350px);
   justify-content: center;
   gap: 15px;
-  padding: 30px;
+  padding: 50px;
   @include mixin.breakpoint-laptopM {
     grid-template-columns: repeat(3, 300px);
   }

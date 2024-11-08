@@ -9,6 +9,7 @@ import { PageTitleProvider } from "./contexts/PageTitleContext";
 import { initMatomo } from "./utils/matomoConfig";
 import { MatomoProvider } from "react-matomo";
 import PageTracker from "./components/Matomo/PageTracker";
+import { ErrorProvider } from "./contexts/ErrorContext";
 
 const matomoInstance = initMatomo();
 
@@ -19,9 +20,11 @@ root.render(
       <AuthProvider>
         <LinksVisibilityProvider>
           <PageTitleProvider>
-            <RouterProvider router={router}>
-              <PageTracker />
-            </RouterProvider>
+            <ErrorProvider>
+              <RouterProvider router={router}>
+                <PageTracker />
+              </RouterProvider>
+            </ErrorProvider>
           </PageTitleProvider>
         </LinksVisibilityProvider>
       </AuthProvider>

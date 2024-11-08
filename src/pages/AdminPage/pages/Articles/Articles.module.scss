@@ -20,7 +20,8 @@
 
 .titleContainer,
 .rateContainer,
-.contentContainer {
+.contentContainer,
+.imageContainer {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   margin-bottom: 20px;
@@ -62,6 +63,7 @@
 }
 
 .errorMessage {
+  display: flex;
   color: red;
   margin-bottom: 10px;
 }

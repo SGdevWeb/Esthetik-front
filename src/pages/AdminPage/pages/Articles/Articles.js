@@ -8,22 +8,26 @@ import InputCustom from "../../../../components/InputCustom/InputCustom";
 import SelectCustom from "../../../../components/SelectCustom/SelectCustom";
 import { fetchRates } from "../../../../api/rates";
 import { format } from "date-fns";
+import getErrorMessage from "../../../../utils/errorMessages";
+import { useError } from "../../../../contexts/ErrorContext";
+import TextEditor from "../../../../components/TextEditor/TextEditor";
 
 function Articles() {
   const { setPageTitle } = usePageTitle();
   const [articles, setArticles] = useState([]);
   const [creatingArticle, setCreatingArticle] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { errorMessage, setErrorMessage } = useError();
   const [newArticle, setNewArticle] = useState({
     title: "",
     content: "",
     rateId: "",
     publicationDate: "",
     author: "Virginie",
-    image: "epilation",
+    imageCategory: "article",
   });
   const [rates, setRates] = useState([]);
   const [selectedRateId, setSelectedRateId] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     setPageTitle("Articles");
@@ -35,12 +39,16 @@ function Articles() {
         const response = await fetchArticles();
         setArticles(response.data);
       } catch (error) {
-        handleError(error, "Erreur lors de la récupération des articles");
+        const errorMessage = getErrorMessage(
+          error.response?.status,
+          "Articles"
+        );
+        setErrorMessage(errorMessage);
       }
     };
 
     getArticles();
-  }, []);
+  }, [setErrorMessage]);
 
   useEffect(() => {
     const getRates = async () => {
@@ -48,12 +56,13 @@ function Articles() {
         const response = await fetchRates();
         setRates(response.data);
       } catch (error) {
-        handleError(error, "Erreur lors de la récupération des tarifs");
+        const errorMessage = getErrorMessage(error.response?.status, "Tarifs");
+        setErrorMessage(errorMessage);
       }
     };
 
     getRates();
-  }, []);
+  }, [setErrorMessage]);
 
   const handleCreateNewArticle = () => {
     setCreatingArticle(true);
@@ -75,15 +84,25 @@ function Articles() {
         return;
       }
 
-      const response = await createArticle(updatedArticle);
+      if (!image) {
+        setErrorMessage("Veuillez sélectionner une image pour l'article");
+      }
+
+      const formData = new FormData();
+
+      formData.append("title", updatedArticle.title);
+      formData.append("content", updatedArticle.content);
+      formData.append("rateId", updatedArticle.rateId);
+      formData.append("publicationDate", updatedArticle.publicationDate);
+      formData.append("author", updatedArticle.author);
+      formData.append("image", image);
+      formData.append("imageCategory", updatedArticle.imageCategory);
+
+      const response = await createArticle(formData);
 
       if (response.status === 201) {
-        console.log("Article crée avec succès");
         const createdArticle = response.data;
-        setArticles((prevArticles) => ({
-          ...prevArticles,
-          createdArticle,
-        }));
+        setArticles((prevArticles) => [...prevArticles, createdArticle]);
 
         setCreatingArticle(false);
         setNewArticle({
@@ -91,20 +110,24 @@ function Articles() {
           content: "",
           rateId: "",
           publicationDate: "",
-          author: "Virginie",
-          image: "epilation",
         });
+        setImage(null);
         setSelectedRateId("");
         setErrorMessage("");
       } else {
+        const errorMessage = getErrorMessage(response.status);
         setErrorMessage(
-          `Erreur lors de la création de l'article : ${response.statusText}`
+          `Erreur lors de la création de l'article : ${errorMessage}`
         );
       }
     } catch (error) {
-      console.error("Erreur lors de la création de l'article : ", error);
+      console.error(
+        "Erreur lors de la création de l'article : ",
+        error.response?.data?.message || error.message
+      );
       setErrorMessage(
-        "Une erreur est survenue lors de la création de l'article."
+        "Une erreur est survenue lors de la création de l'article : " +
+          (error.response?.data?.message || error.message)
       );
     }
   };
@@ -117,16 +140,21 @@ function Articles() {
       rateId: "",
       publicationDate: "",
       author: "Virginie",
-      image: "epilation",
     };
-    console.log(initialValue);
     setNewArticle(initialValue);
     setErrorMessage("");
   };
 
-  const handleError = (error, defaultMessage) => {
-    console.error(defaultMessage, error);
-    setErrorMessage(error.response?.data?.message || defaultMessage);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
+  const handleEditorChange = (content) => {
+    setNewArticle((prevArticle) => ({
+      ...prevArticle,
+      content,
+    }));
   };
 
   return (
@@ -148,8 +176,13 @@ function Articles() {
             </div>
           </div>
 
+          <div className={styles.imageContainer}>
+            <h3>Image de présentation</h3>
+            <input type="file" onChange={handleImageChange} />
+          </div>
+
           <div className={styles.rateContainer}>
-            <h3>Catégorie</h3>
+            <h3>Catégorie liée à l'article</h3>
             <SelectCustom
               label="Sélectionnez la catégorie"
               options={rates}
@@ -157,7 +190,6 @@ function Articles() {
               labelProp="name"
               minWidth={250}
               onChange={(e) => {
-                console.log(e.target.value);
                 setSelectedRateId(e.target.value);
               }}
             />
@@ -165,14 +197,16 @@ function Articles() {
 
           <div className={styles.contentContainer}>
             <h3>Contenu de l'article</h3>
-            <InputCustom
-              type="text"
+            <TextEditor
               value={newArticle.content}
-              placeholder="Rédiger votre article ici"
-              onChange={(e) =>
-                setNewArticle({ ...newArticle, content: e.target.value })
-              }
+              onChange={handleEditorChange}
             />
+          </div>
+
+          <div className="d-flex justify-content-center">
+            {errorMessage && (
+              <div className={styles.errorMessage}>{errorMessage}</div>
+            )}
           </div>
 
           <div className={styles.btnContainer}>
@@ -199,17 +233,17 @@ function Articles() {
               Annuler
             </Button>
           </div>
-
-          {errorMessage && (
-            <div className={styles.errorMessage}>{errorMessage}</div>
-          )}
         </div>
       ) : (
         <div className={styles.articleDisplay}>
           {articles ? (
             <div>
               <h2 className={styles.title}>Articles</h2>
-              <ArticleTable articles={articles} setArticles={setArticles} />
+              <ArticleTable
+                articles={articles}
+                setArticles={setArticles}
+                rates={rates}
+              />
             </div>
           ) : (
             <div>

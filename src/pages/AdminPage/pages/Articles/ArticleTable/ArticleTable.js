@@ -6,15 +6,22 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import EditArticle from "../EditArticle/EditArticle";
 import ModalConfirmation from "../../../../../components/Modal/ModalConfirmation";
+import { deleteArticle } from "../../../../../api/articles";
+import DOMPurify from "dompurify";
 
-function ArticleTable({ articles, setArticles }) {
+function ArticleTable({ articles, setArticles, rates }) {
   const [editingArticleId, setEditingArticleId] = useState(null);
   const [articleIdToDelete, setArticleIdToDelete] = useState(null);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleEdit = (articleId) => {
     setEditingArticleId(articleId);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingArticleId(null);
   };
 
   const handleCloseModal = () => {
@@ -22,8 +29,27 @@ function ArticleTable({ articles, setArticles }) {
   };
 
   const handleDelete = async (articleIdToDelete) => {
-    console.log("id de l'article à supprimer", articleIdToDelete);
-    setShowDeleteConfirmationModal(false);
+    try {
+      const response = await deleteArticle(articleIdToDelete);
+
+      if (response.status === 200) {
+        const updatedArticles = articles.filter(
+          (article) => article.id !== articleIdToDelete
+        );
+
+        setArticles(updatedArticles);
+
+        setShowDeleteConfirmationModal(false);
+        setEditingArticleId(null);
+        setErrorMessage("");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'article : ", error);
+      setErrorMessage(
+        error.response?.data?.message ||
+          "Une erreur est survenue lors de la suppression de l'article"
+      );
+    }
   };
 
   const truncateText = (text, maxLength) => {
@@ -33,8 +59,18 @@ function ArticleTable({ articles, setArticles }) {
     return text;
   };
 
+  const getSanitizedContent = (content) => {
+    const truncateTxt = truncateText(content, 300);
+    return DOMPurify.sanitize(truncateTxt);
+  };
+
+  console.log(articles);
+
   return (
     <>
+      {errorMessage && (
+        <div className={styles.errorMessage}>{errorMessage}</div>
+      )}
       <table className={styles.tableContainer}>
         <thead>
           <tr>
@@ -50,7 +86,13 @@ function ArticleTable({ articles, setArticles }) {
               <Fragment key={article.id}>
                 <tr>
                   <td>{article.title}</td>
-                  <td>{truncateText(article.content, 300)}</td>
+                  <td>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: getSanitizedContent(article.content),
+                      }}
+                    />
+                  </td>
                   <td>
                     {format(
                       new Date(article.publication_date),
@@ -77,7 +119,14 @@ function ArticleTable({ articles, setArticles }) {
                 {editingArticleId && editingArticleId === article.id && (
                   <tr>
                     <td colSpan="6">
-                      <EditArticle />
+                      <EditArticle
+                        articleToEdit={articles.find(
+                          (article) => article.id === editingArticleId
+                        )}
+                        onCancelEdit={handleCancelEdit}
+                        setArticles={setArticles}
+                        rates={rates}
+                      />
                     </td>
                   </tr>
                 )}
@@ -89,7 +138,7 @@ function ArticleTable({ articles, setArticles }) {
       <ModalConfirmation
         isOpen={showDeleteConfirmationModal}
         onClose={handleCloseModal}
-        message="Êtes-vous sûr de vouloir supprimer cet article"
+        message="Êtes-vous sûr de vouloir supprimer cet article ?"
         onConfirm={() => handleDelete(articleIdToDelete)}
       />
     </>

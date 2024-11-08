@@ -3,6 +3,9 @@ import styles from "./Article.module.scss";
 import { Link, useParams } from "react-router-dom";
 import { fetchArticleById } from "../../api/articles";
 import { fetchRateById } from "../../api/rates";
+import DOMPurify from "dompurify";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function Article() {
   const articleId = useParams().id;
@@ -22,25 +25,27 @@ function Article() {
     getArticle();
   }, [articleId]);
 
+  const getSanitizedContent = (content) => {
+    return DOMPurify.sanitize(content);
+  };
+
   return (
     <div className={styles.container}>
       {article && (
         <>
           <h1 className={styles.title}>{article.title}</h1>
           <img
-            src={
-              article.image &&
-              require(`../../assets/images/prestation/${article.image}.jpg`)
-            }
+            src={`${apiUrl}/uploads/${article.image}`}
             className={styles.image}
             alt={article.image}
           />
-          <div className={styles.content}>
-            {article.content &&
-              article.content
-                .split("<br/>")
-                .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-          </div>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: getSanitizedContent(article.content),
+            }}
+          />
+
           <Link
             to={`/prestations/${rate && rate.name}`}
             className={styles.link}
