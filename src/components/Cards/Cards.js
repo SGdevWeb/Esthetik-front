@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Cards.module.scss";
 import Card from "./Card/Card";
+import prestationImages from "../../utils/prestationImages";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -16,7 +17,7 @@ function Cards({ title, data }) {
               .split(" ")
               .join("_")
               .toLowerCase()}`}
-            imgUrl={`${baseUrl}/images/prestation/${rate.img_name}.jpg`}
+            imgUrl={prestationImages[rate.img_name]}
             imgTitle={rate.img_title}
             title={rate.name}
             description={rate.description}
