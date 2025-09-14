@@ -34,7 +34,7 @@ function Navigation() {
     getRates();
   }, []);
 
-  const isMobile = windowWidth < 425;
+  const isMobile = windowWidth <= 425;
   const showNavigation = !isMobile || location.pathname === "/prestations";
 
   const handleNavClick = (prestationName) => {

@@ -22,9 +22,6 @@
       border-bottom: 1px solid transparent;
       &:hover {
         border-bottom: 1px solid var(--secondary-color);
-        @include mixin.breakpoint-mobileL {
-          border-bottom: 1px solid transparent;
-        }
       }
       a {
         color: var(--secondary-color);
@@ -51,8 +48,6 @@
       display: flex;
     }
   }
-
-  /* mobil version */
 
   .forfaitCard {
     background-color: var(--gray-3);

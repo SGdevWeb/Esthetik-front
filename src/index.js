@@ -10,24 +10,28 @@ import { initMatomo } from "./utils/matomoConfig";
 import { MatomoProvider } from "react-matomo";
 import PageTracker from "./components/Matomo/PageTracker";
 import { ErrorProvider } from "./contexts/ErrorContext";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 const matomoInstance = initMatomo();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <MatomoProvider value={matomoInstance}>
-      <AuthProvider>
-        <LinksVisibilityProvider>
-          <PageTitleProvider>
-            <ErrorProvider>
-              <RouterProvider router={router}>
-                <PageTracker />
-              </RouterProvider>
-            </ErrorProvider>
-          </PageTitleProvider>
-        </LinksVisibilityProvider>
-      </AuthProvider>
-    </MatomoProvider>
+    <Provider store={store}>
+      <MatomoProvider value={matomoInstance}>
+        <AuthProvider>
+          <LinksVisibilityProvider>
+            <PageTitleProvider>
+              <ErrorProvider>
+                <RouterProvider router={router}>
+                  <PageTracker />
+                </RouterProvider>
+              </ErrorProvider>
+            </PageTitleProvider>
+          </LinksVisibilityProvider>
+        </AuthProvider>
+      </MatomoProvider>
+    </Provider>
   </React.StrictMode>
 );

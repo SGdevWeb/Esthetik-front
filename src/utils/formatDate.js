@@ -1,4 +1,13 @@
 export function formatDate(dateString) {
-  const options = { day: "numeric", month: "long", year: "numeric" };
-  return new Intl.DateTimeFormat("fr-FR", options).format(new Date(dateString));
+  if (!dateString) return "-";
+
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) return "-"; // si c'est pas une date valide
+
+  return new Intl.DateTimeFormat("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
 }

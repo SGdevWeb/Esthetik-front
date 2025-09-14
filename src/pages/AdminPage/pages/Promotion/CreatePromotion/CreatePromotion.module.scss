@@ -1,26 +1,18 @@
-.container {
+.creationPromotionContainer {
   width: 1000px;
   margin: auto;
-  padding: 20px;
-}
-
-.creationArticleContainer {
   display: flex;
   flex-direction: column;
-  .btnContainer {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-  }
   h2 {
     margin-bottom: 20px;
   }
 }
 
 .titleContainer,
-.rateContainer,
+.untitledContainer,
+.dateContainer,
 .contentContainer,
+.rateContainer,
 .imageContainer {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
@@ -37,31 +29,9 @@
   }
 }
 
-.modalContainer {
-  h2 {
-    color: var(--primary-color);
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .btnContainer {
-    margin-top: 40px;
-  }
-}
-
-.articleDisplay {
-  .title {
-    color: var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
-  }
-}
-
 .btnContainer {
   margin-top: 20px;
   margin-bottom: 10px;
-}
-
-.errorMessage {
   display: flex;
-  color: red;
-  margin-bottom: 10px;
+  justify-content: center;
 }

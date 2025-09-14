@@ -1,0 +1,116 @@
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.title {
+  text-align: center;
+  text-decoration: underline;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+}
+
+.promoTitleContainer,
+.rateContainer,
+.entitledContainer,
+.promoContentContainer,
+.dateContainer,
+.imageContainer {
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 15px;
+  position: relative;
+  h3 {
+    position: absolute;
+    top: -15px;
+    background-color: white;
+    padding: 0 10px;
+    color: var(--primary-color);
+    font-size: 1rem;
+  }
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 2;
+}
+
+.imageContainer {
+  position: relative;
+  border: none;
+  padding: 0;
+  height: 168px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  span {
+    font-size: 1.2rem;
+  }
+}
+
+.imageContainer:hover .overlay {
+  opacity: 1;
+}
+
+.btnContainer,
+.btnContainerModal {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.modalPresentationContainer {
+  display: flex;
+  flex-direction: column;
+  .heading2 {
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  .inputContainer {
+    margin-bottom: 20px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 15px;
+    position: relative;
+    label {
+      position: absolute;
+      top: -13px;
+      left: 10px;
+      background-color: white;
+      padding: 0 5px;
+      color: var(--primary-color);
+    }
+  }
+}
